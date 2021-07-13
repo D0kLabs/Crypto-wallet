@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.ParcelUuid;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class BtTransceiver {
     private Handler handler;
     UUID[] uuids = new UUID[120];
     public static int n =0;
+
 
     public static void BtFinder(IntentFilter mBTFilter) {
         if (mBluetoothAdapter == null) {
