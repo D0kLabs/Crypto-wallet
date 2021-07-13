@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
+    public static final String LOG_TAG = DBHelper.class.getSimpleName();
+    public static final String DATABASE_NAME = "cpwal.db";
     public DBHelper (Context context){
         super (context, "cpwal", null,  1);
     }
