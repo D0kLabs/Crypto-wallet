@@ -1,9 +1,7 @@
 package com.d0klabs.cryptowalt.data;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import java.util.ArrayList;
-import android.util.Log;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -29,8 +27,19 @@ public class DBHelperQBE {
         }
     }
 // THX sohaliaziz05
-    public void setBluetoothAdapterData (BluetoothDevice device, String name){
-        db.store(device);
+    public Object setObjectName (Object obj, String name){
+        obj.
+        return obj;
+    }
+    public void setBluetoothAdapterData (BluetoothDevice device){
+        String name = device.getAddress();
+        Object obj = setObjectName(device, name);
+        db.store(obj);
         db.commit();
+    }
+    public BluetoothDevice getBluetoothAdapterData (String name){
+        BluetoothDevice device;
+        db.query(); //....
+        return device;
     }
 }
