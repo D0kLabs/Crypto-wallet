@@ -1,29 +1,26 @@
 package com.d0klabs.cryptowalt;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-
-import com.d0klabs.cryptowalt.data.DBHelper;
-import com.d0klabs.cryptowalt.data.WalletContract;
+import com.d0klabs.cryptowalt.data.DBHelperQBE;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    DBHelper CpWalDBHelper;
+    DBHelperQBE CpWalDBHelper;
 
 
     @Override
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        CpWalDBHelper = new DBHelper(this);
+        //CpWalDBHelper = new SQLiteOpenHelper(this);
 
     }
 
