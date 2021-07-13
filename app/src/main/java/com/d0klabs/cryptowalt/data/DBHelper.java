@@ -1,17 +1,17 @@
 package com.d0klabs.cryptowalt.data;
+
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
+public class DBHelper extends SQLiteOpenHelper {
+    public DBHelper (Context context){
+        super (context, "cpwal", null,  1);
+    }
 
-public class CpWalDBHelper extends SQLiteOpenHelper{
-    public static final String LOG_TAG = CpWalDBHelper.class.getSimpleName();
-    public static final String DATABASE_NAME = "cpwal.db";
-    //public static final Date DATABASE_LAST_WRITABLE_TIME =
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL();
-
     }
 
     @Override

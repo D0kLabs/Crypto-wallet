@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 
+import com.d0klabs.cryptowalt.data.DBHelper;
 import com.d0klabs.cryptowalt.data.WalletContract;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    DBHelper CpWalDBHelper;
 
 
     @Override
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        CpWalDBHelper = new DBHelper(this);
 
     }
 
