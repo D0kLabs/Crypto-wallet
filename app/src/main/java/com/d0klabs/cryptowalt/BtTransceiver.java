@@ -2,16 +2,16 @@ package com.d0klabs.cryptowalt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.ParcelUuid;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class BtTransceiver {
     public static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -21,7 +21,10 @@ public class BtTransceiver {
     public static int n =0;
 
     public static void BtFinder(IntentFilter mBTFilter) {
-        // Check if it was BT enable already
+        if (mBluetoothAdapter == null) {
+            //SEND over handler: Toast.makeText(this, "Bluetooth is not available!", Toast.LENGTH_SHORT).show();
+        }
+        // Check if it was BT enabled already
         mBluetoothAdapter.enable();
         mBluetoothAdapter.startDiscovery(); //Check time to searching anything
         Set<BluetoothDevice> foundedDevices = mBluetoothAdapter.getBondedDevices();
