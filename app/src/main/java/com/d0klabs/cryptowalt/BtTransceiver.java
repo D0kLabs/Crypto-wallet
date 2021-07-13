@@ -4,29 +4,37 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.ParcelUuid;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Queue;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class BtTransceiver {
     public static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public static BluetoothDevice[] sDevices = new BluetoothDevice[40];
+    public static BluetoothDevice[] foundBTDev = new BluetoothDevice[40];
     private Handler handler;
-    public static String[] trusted = new String[1024];
-    public static String[][] found = new String[1024][3];
-    public static Queue<String> current = new LinkedBlockingQueue<>();
+    UUID[] uuids = new UUID[120];
     public static int n =0;
 
     public static void BtFinder(IntentFilter mBTFilter) {
-        //Switch On and find paired
+        // Check if it was BT enable already
         mBluetoothAdapter.enable();
-        mBluetoothAdapter.startDiscovery();
-        Set<BluetoothDevice> pairedCards = mBluetoothAdapter.getBondedDevices();
-        if (pairedCards.size() > 0) {
-            for (BluetoothDevice device : pairedCards) {
-                trusted[n] = device.getName();
-                sDevices[n] = device;
+        mBluetoothAdapter.startDiscovery(); //Check time to searching anything
+        Set<BluetoothDevice> foundedDevices = mBluetoothAdapter.getBondedDevices();
+        if (foundedDevices.size() > 0) {
+            for (BluetoothDevice device : foundedDevices) {
+                foundBTDev[n] = device;
+                try {
+                    Method getUuidsMethod = foundBTDev[n].getClass().getDeclaredMethod("getUuids", null);
+                    ParcelUuid[] uuids = (ParcelUuid[]) getUuidsMethod.invoke(foundBTDev[n], null);
+                    // Compare uuid of card by trusted
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
                 n++;
             }
 
