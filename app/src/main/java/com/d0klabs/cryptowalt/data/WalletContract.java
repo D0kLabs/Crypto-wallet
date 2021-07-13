@@ -10,6 +10,6 @@ public class WalletContract {
         public final static String TABLE_NAME = "trusted";
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_NAME = "name";
-        public final static BluetoothDevice TRUST_DEVICE = new BluetoothDevice();
+        //public final static BluetoothDevice TRUST_DEVICE = new BluetoothDevice();
     }
 }
