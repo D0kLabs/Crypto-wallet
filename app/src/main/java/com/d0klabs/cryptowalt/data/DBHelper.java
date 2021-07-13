@@ -1,5 +1,6 @@
 package com.d0klabs.cryptowalt.data;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import java.util.ArrayList;
 import android.util.Log;
@@ -28,18 +29,8 @@ public class DBHelperQBE {
         }
     }
 // THX sohaliaziz05
-
-    public DBHelperQBE (Context context){
-        super (context, "cpwal", null,  1);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL();
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    public void setBluetoothAdapterData (BluetoothDevice device, String name){
+        db.store(device);
+        db.commit();
     }
 }

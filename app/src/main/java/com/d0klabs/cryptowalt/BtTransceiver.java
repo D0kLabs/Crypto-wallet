@@ -2,12 +2,9 @@ package com.d0klabs.cryptowalt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.IntentFilter;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.ParcelUuid;
-import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -37,6 +34,7 @@ public class BtTransceiver {
                     Method getUuidsMethod = foundBTDev[n].getClass().getDeclaredMethod("getUuids", null);
                     ParcelUuid[] uuids = (ParcelUuid[]) getUuidsMethod.invoke(foundBTDev[n], null);
                     // Compare uuid of card by trusted
+
                 } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
