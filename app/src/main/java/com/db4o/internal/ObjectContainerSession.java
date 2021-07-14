@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
+import android.bluetooth.BluetoothDevice;
+
 import java.util.*;
 
 import com.db4o.*;
@@ -323,7 +325,7 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         return (ExtObjectContainer)this;
     }
 
-	public ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
+	public BluetoothDevice queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
         synchronized(lock()){
             checkClosed();
             return _server.queryByExample(_transaction, template);

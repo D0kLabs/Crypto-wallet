@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
+import android.bluetooth.BluetoothDevice;
+
 import com.db4o.*;
 import com.db4o.config.*;
 import com.db4o.ext.*;
@@ -68,7 +70,7 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
         return this;
     }
     
-	public final ObjectSet queryByExample(Object template) throws DatabaseClosedException {
+	public final BluetoothDevice queryByExample(Object template) throws DatabaseClosedException {
         return queryByExample(null, template);
     }
 

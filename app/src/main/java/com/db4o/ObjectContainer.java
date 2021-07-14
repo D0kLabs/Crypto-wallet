@@ -15,10 +15,11 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package  com.db4o;
 
+import android.bluetooth.BluetoothDevice;
+
 import java.util.*;
 
 import com.db4o.ext.*;
-import com.db4o.qlin.*;
 import com.db4o.query.*;
 
 
@@ -192,7 +193,7 @@ public interface ObjectContainer {
 	 * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 */
-    public <T> ObjectSet<T> queryByExample (Object template) throws Db4oIOException, DatabaseClosedException;
+    public <T> BluetoothDevice queryByExample (Object template) throws Db4oIOException, DatabaseClosedException;
     
     /**
      * creates a new S.O.D.A. {@link Query Query}.
