@@ -26,14 +26,10 @@ public class DBHelperQBE {
             db.delete(result.next());
         }
     }
-// THX sohaliaziz05
-    public Object setObjectName (Object obj, String name){
-        obj.
-        return obj;
-    }
+    // THX sohaliaziz05
     public void setBluetoothAdapterData (BluetoothDevice device){
         String name = device.getAddress();
-        Object obj = setObjectName(device, name);
+        Object obj = device;
         db.store(obj);
         db.commit();
     }
