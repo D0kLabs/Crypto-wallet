@@ -28,14 +28,13 @@ public class DBHelperQBE {
     }
     // THX sohaliaziz05
     public void setBluetoothAdapterData (BluetoothDevice device){
-        String name = device.getAddress();
         Object obj = device;
         db.store(obj);
         db.commit();
     }
-    public BluetoothDevice getBluetoothAdapterData (String name){
+    public BluetoothDevice getBluetoothAdapterData (String address){
         BluetoothDevice device;
-        db.query(); //....
+        db.query(); //equal Bluetooth address
         return device;
     }
 }
