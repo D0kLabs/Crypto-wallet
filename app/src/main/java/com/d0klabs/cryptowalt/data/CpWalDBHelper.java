@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 public class CpWalDBHelper extends SQLiteOpenHelper{
+
     public static final String DATABASE_NAME = "cpwal.db";
 
     public CpWalDBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {

@@ -17,6 +17,8 @@ import com.d0klabs.cryptowalt.data.DBHelperQBE;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    // прийом 128 біт і перетворити в Base64
+    // кодувати все в Ліс цим Base64
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
