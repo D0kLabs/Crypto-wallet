@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> chatMessages;
     private EditText inputLayout;
     private ArrayAdapter<String> discoveredDevicesAdapter;
-    public String passwd=null;
+    public String passwd = null;
     public String readMessage = null;
 
 
@@ -122,37 +122,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-        Handler handler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message msg) {
-                switch (msg.what) {
-                    case MESSAGE_STATE_CHANGE:
-                        switch (msg.arg1) {
-                            case BtTransceiver.ChatController.STATE_CONNECTED:
-                                setStatus("Connected to: " + connectingDevice.getName());
-                                btnConnect.setEnabled(false);
-                                break;
-                            case BtTransceiver.ChatController.STATE_CONNECTING:
-                                setStatus("Connecting...");
-                                btnConnect.setEnabled(false);
-                                break;
-                            case BtTransceiver.ChatController.STATE_LISTEN:
-                            case BtTransceiver.ChatController.STATE_NONE:
-                                setStatus("Not connected");
-                                break;
-                        }
-                        break;
-                    case MESSAGE_WRITE:
-                        byte[] writeBuf = (byte[]) msg.obj;
-                        String writeMessage = new String(writeBuf);
-                        break;
-                    case MESSAGE_READ:
-                        byte[] readBuf = (byte[]) msg.obj;
-                        readMessage = new String(readBuf, 0, msg.arg1);
-                        Toast.makeText(getApplicationContext(),"You have new message, please enter pass and tap on it", Toast.LENGTH_LONG).show();
-                        chatMessages.add(connectingDevice.getName()+":  " + readMessage);
-                        chatAdapter.notifyDataSetChanged();
-                        break;
+
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BtTransceiver.ChatController.STATE_CONNECTED:
+                            setStatus("Connected to: " + connectingDevice.getName());
+                            btnConnect.setEnabled(false);
+                            break;
+                        case BtTransceiver.ChatController.STATE_CONNECTING:
+                            setStatus("Connecting...");
+                            btnConnect.setEnabled(false);
+                            break;
+                        case BtTransceiver.ChatController.STATE_LISTEN:
+                        case BtTransceiver.ChatController.STATE_NONE:
+                            setStatus("Not connected");
+                            break;
+                    }
+                    break;
+                case MESSAGE_WRITE:
+                    byte[] writeBuf = (byte[]) msg.obj;
+                    String writeMessage = new String(writeBuf);
+                    break;
+                case MESSAGE_READ:
+                    byte[] readBuf = (byte[]) msg.obj;
+                    readMessage = new String(readBuf, 0, msg.arg1);
+                    Toast.makeText(getApplicationContext(), "You have new message, please enter pass and tap on it", Toast.LENGTH_LONG).show();
+                    chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
+                    chatAdapter.notifyDataSetChanged();
+                    break;
                     /*
                 case MESSAGE_READ_SET:
                     String pass = new String ((String) msg.obj);
@@ -163,19 +164,19 @@ public class MainActivity extends AppCompatActivity {
                     break;
                      */
 
-                    case MESSAGE_DEVICE_OBJECT:
-                        connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
-                        Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(),
-                                Toast.LENGTH_SHORT).show();
-                        break;
-                    case MESSAGE_TOAST:
-                        Toast.makeText(getApplicationContext(), msg.getData().getString("toast"),
-                                Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
+                case MESSAGE_DEVICE_OBJECT:
+                    connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
+                    Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(),
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case MESSAGE_TOAST:
+                    Toast.makeText(getApplicationContext(), msg.getData().getString("toast"),
+                            Toast.LENGTH_SHORT).show();
+                    break;
             }
-        });
+            return false;
+        }
+    });
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -227,23 +229,6 @@ public class MainActivity extends AppCompatActivity {
             chatController.stop();
     }
 
-    private final BroadcastReceiver discoveryFinishReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    discoveredDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
-                }
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                if (discoveredDevicesAdapter.getCount() == 0) {
-                    discoveredDevicesAdapter.add(getString(R.string.none_found));
-                }
-            }
-        }
-    };
     public void setStatus(String s) {
         status.setText(s);
     }
