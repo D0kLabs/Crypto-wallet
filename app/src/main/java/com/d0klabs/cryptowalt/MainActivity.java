@@ -2,6 +2,7 @@ package com.d0klabs.cryptowalt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -24,6 +28,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.d0klabs.cryptowalt.data.DBHelperQBE;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     // прийом 128 біт і перетворити в Base64
@@ -44,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
     private BtTransceiver.ChatController chatController;
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothDevice connectingDevice;
+    private TextView status;
+    private Button btnConnect;
+    private ListView listView;
+    private ArrayAdapter<String> chatAdapter;
+    private ArrayList<String> chatMessages;
+    private EditText inputLayout;
     private ArrayAdapter<String> discoveredDevicesAdapter;
-    private EditText mEditText;
-    private EditText mPass;
     public String passwd=null;
     public String readMessage = null;
 
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        private void connectToDevice(String deviceAddress) {
+        private void connectToDevice (String deviceAddress){
             bluetoothAdapter.cancelDiscovery();
             BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
             chatController.connect(device);
@@ -104,17 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 if (inputLayout.getText().toString().equals("")) {
                     Toast.makeText(MainActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
                 } else {
-                    try {
-                        sendMessage(inputLayout.getText().toString());
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    sendMessage(inputLayout.getText().toString());
                     inputLayout.setText("");
                     //String sCompressedSP = Box.compressor(fullSP);
                     //mPass.setText(sCompressedSP);
                 }
             }
         });
+    }
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -169,8 +176,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
