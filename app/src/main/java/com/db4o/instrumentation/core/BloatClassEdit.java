@@ -15,10 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.instrumentation.core;
 
-import com.db4o.instrumentation.ant.*;
-import com.db4o.instrumentation.main.*;
-
-import EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.db4o.instrumentation.ant.Db4oFileEnhancerAntTask;
+import com.db4o.instrumentation.main.Db4oInstrumentationLauncher;
 
 /**
  * Abstract instrumentation step for use with {@link Db4oInstrumentationLauncher} or {@link Db4oFileEnhancerAntTask}.

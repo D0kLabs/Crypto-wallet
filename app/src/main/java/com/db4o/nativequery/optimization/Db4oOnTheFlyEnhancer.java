@@ -17,10 +17,10 @@ package com.db4o.nativequery.optimization;
 
 import java.util.ArrayList;
 
-import EDU.purdue.cs.bloat.context.CachingBloatContext;
-import EDU.purdue.cs.bloat.editor.ClassEditor;
-import EDU.purdue.cs.bloat.editor.EditorContext;
-import EDU.purdue.cs.bloat.file.ClassFileLoader;
+import com.EDU.purdue.cs.bloat.context.CachingBloatContext;
+import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.EDU.purdue.cs.bloat.editor.EditorContext;
+import com.EDU.purdue.cs.bloat.file.ClassFileLoader;
 
 import com.db4o.instrumentation.bloat.*;
 import com.db4o.instrumentation.core.*;

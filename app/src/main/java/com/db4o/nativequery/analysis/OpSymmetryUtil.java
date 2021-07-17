@@ -15,9 +15,10 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.nativequery.analysis;
 
-import java.util.*;
+import com.EDU.purdue.cs.bloat.tree.IfStmt;
 
-import EDU.purdue.cs.bloat.tree.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OpSymmetryUtil {
 

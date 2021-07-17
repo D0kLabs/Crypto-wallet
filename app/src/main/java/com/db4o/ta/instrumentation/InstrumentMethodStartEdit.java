@@ -15,16 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation;
 
-import EDU.purdue.cs.bloat.editor.ClassEditor;
-import EDU.purdue.cs.bloat.editor.EditorVisitor;
-import EDU.purdue.cs.bloat.editor.FieldEditor;
-import EDU.purdue.cs.bloat.editor.Instruction;
-import EDU.purdue.cs.bloat.editor.LocalVariable;
-import EDU.purdue.cs.bloat.editor.MemberRef;
-import EDU.purdue.cs.bloat.editor.MethodEditor;
-import EDU.purdue.cs.bloat.editor.NameAndType;
-import EDU.purdue.cs.bloat.editor.Opcode;
-import EDU.purdue.cs.bloat.editor.Type;
+import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.EDU.purdue.cs.bloat.editor.EditorVisitor;
+import com.EDU.purdue.cs.bloat.editor.FieldEditor;
+import com.EDU.purdue.cs.bloat.editor.Instruction;
+import com.EDU.purdue.cs.bloat.editor.LocalVariable;
+import com.EDU.purdue.cs.bloat.editor.MemberRef;
+import com.EDU.purdue.cs.bloat.editor.MethodEditor;
+import com.EDU.purdue.cs.bloat.editor.NameAndType;
+import com.EDU.purdue.cs.bloat.editor.Opcode;
+import com.EDU.purdue.cs.bloat.editor.Type;
 
 import com.db4o.activation.*;
 import com.db4o.foundation.*;

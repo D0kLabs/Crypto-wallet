@@ -15,23 +15,50 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.nativequery.analysis;
 
-import java.util.*;
+import com.EDU.purdue.cs.bloat.cfg.FlowGraph;
+import com.db4o.activation.ActivationPurpose;
+import com.db4o.instrumentation.api.CallingConvention;
+import com.db4o.instrumentation.api.FieldRef;
+import com.db4o.instrumentation.api.MethodRef;
+import com.db4o.instrumentation.api.TypeRef;
+import com.db4o.instrumentation.bloat.BloatReferenceProvider;
+import com.db4o.instrumentation.core.BloatLoaderContext;
+import com.db4o.instrumentation.util.BloatUtil;
+import com.db4o.nativequery.NQDebug;
+import com.db4o.nativequery.expr.BoolConstExpression;
+import com.db4o.nativequery.expr.ComparisonExpression;
+import com.db4o.nativequery.expr.Expression;
+import com.db4o.nativequery.expr.ExpressionPart;
+import com.db4o.nativequery.expr.IgnoredExpression;
+import com.db4o.nativequery.expr.TraversingExpressionVisitor;
+import com.db4o.nativequery.expr.build.ExpressionBuilder;
+import com.db4o.nativequery.expr.cmp.ArithmeticOperator;
+import com.db4o.nativequery.expr.cmp.ComparisonOperator;
+import com.db4o.nativequery.expr.cmp.operand.ArithmeticExpression;
+import com.db4o.nativequery.expr.cmp.operand.ArrayAccessValue;
+import com.db4o.nativequery.expr.cmp.operand.CandidateFieldRoot;
+import com.db4o.nativequery.expr.cmp.operand.ComparisonOperand;
+import com.db4o.nativequery.expr.cmp.operand.ComparisonOperandAnchor;
+import com.db4o.nativequery.expr.cmp.operand.ComparisonOperandDescendant;
+import com.db4o.nativequery.expr.cmp.operand.ConstValue;
+import com.db4o.nativequery.expr.cmp.operand.FieldValue;
+import com.db4o.nativequery.expr.cmp.operand.MethodCallValue;
+import com.db4o.nativequery.expr.cmp.operand.PredicateFieldRoot;
+import com.db4o.nativequery.expr.cmp.operand.StaticFieldRoot;
+import com.db4o.nativequery.expr.cmp.operand.ThreeWayComparison;
+import com.db4o.ta.Activatable;
 
-import EDU.purdue.cs.bloat.cfg.*;
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.tree.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import com.db4o.activation.*;
-import com.db4o.instrumentation.api.*;
-import com.db4o.instrumentation.bloat.*;
-import com.db4o.instrumentation.core.*;
-import com.db4o.instrumentation.util.*;
-import com.db4o.nativequery.*;
-import com.db4o.nativequery.expr.*;
-import com.db4o.nativequery.expr.build.*;
-import com.db4o.nativequery.expr.cmp.*;
-import com.db4o.nativequery.expr.cmp.operand.*;
-import com.db4o.ta.*;
+import com.EDU.purdue.cs.bloat.cfg.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.tree.*;
 
 public class BloatExprBuilderVisitor extends TreeVisitor {
 

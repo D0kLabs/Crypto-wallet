@@ -18,8 +18,8 @@ package com.db4o.instrumentation.bloat;
 import java.lang.reflect.*;
 import java.util.*;
 
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.editor.Type;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.editor.Type;
 
 import com.db4o.instrumentation.api.*;
 

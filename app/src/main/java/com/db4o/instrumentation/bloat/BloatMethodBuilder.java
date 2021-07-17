@@ -19,9 +19,9 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.editor.Type;
-import EDU.purdue.cs.bloat.reflect.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.editor.Type;
+import com.EDU.purdue.cs.bloat.reflect.*;
 
 import com.db4o.instrumentation.api.*;
 import com.db4o.instrumentation.util.*;

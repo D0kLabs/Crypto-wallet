@@ -17,7 +17,7 @@ package com.db4o.nativequery.analysis;
 
 import java.util.*;
 
-import EDU.purdue.cs.bloat.tree.*;
+import com.EDU.purdue.cs.bloat.tree.*;
 
 import com.db4o.nativequery.expr.*;
 import com.db4o.nativequery.expr.build.*;

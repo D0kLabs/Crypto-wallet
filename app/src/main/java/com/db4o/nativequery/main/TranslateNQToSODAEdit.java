@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.nativequery.main;
 
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.file.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.file.*;
 
 import com.db4o.instrumentation.core.*;
 import com.db4o.instrumentation.util.*;

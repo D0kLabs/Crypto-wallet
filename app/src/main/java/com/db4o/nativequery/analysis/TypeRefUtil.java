@@ -17,7 +17,7 @@ package com.db4o.nativequery.analysis;
 
 import java.util.*;
 
-import EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.editor.*;
 
 import com.db4o.instrumentation.api.*;
 import com.db4o.instrumentation.util.*;

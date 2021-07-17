@@ -15,11 +15,21 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation;
 
-import java.util.*;
+import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.EDU.purdue.cs.bloat.editor.EditorVisitor;
+import com.EDU.purdue.cs.bloat.editor.FieldEditor;
+import com.EDU.purdue.cs.bloat.editor.Instruction;
+import com.EDU.purdue.cs.bloat.editor.Label;
+import com.EDU.purdue.cs.bloat.editor.MemberRef;
+import com.EDU.purdue.cs.bloat.editor.MethodEditor;
+import com.EDU.purdue.cs.bloat.editor.Type;
+import com.db4o.instrumentation.core.BloatClassEdit;
+import com.db4o.instrumentation.core.BloatLoaderContext;
+import com.db4o.instrumentation.core.InstrumentationStatus;
 
-import EDU.purdue.cs.bloat.editor.*;
-
-import com.db4o.instrumentation.core.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
 

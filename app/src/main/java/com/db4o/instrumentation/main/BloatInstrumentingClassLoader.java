@@ -15,16 +15,20 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.instrumentation.main;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import com.EDU.purdue.cs.bloat.context.BloatingClassLoader;
+import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.db4o.instrumentation.classfilter.AcceptAllClassesFilter;
+import com.db4o.instrumentation.core.BloatClassEdit;
+import com.db4o.instrumentation.core.BloatLoaderContext;
+import com.db4o.instrumentation.core.ClassFilter;
+import com.db4o.instrumentation.util.BloatUtil;
 
-import EDU.purdue.cs.bloat.context.*;
-import EDU.purdue.cs.bloat.editor.*;
-
-import com.db4o.instrumentation.classfilter.*;
-import com.db4o.instrumentation.core.*;
-import com.db4o.instrumentation.util.*;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @exclude

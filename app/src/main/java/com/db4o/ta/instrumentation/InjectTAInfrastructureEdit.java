@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation;
 
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.reflect.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.reflect.*;
 
 import com.db4o.activation.*;
 import com.db4o.instrumentation.core.*;

@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.nativequery.optimization;
 
-import EDU.purdue.cs.bloat.cfg.*;
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.file.*;
-import EDU.purdue.cs.bloat.tree.*;
+import com.EDU.purdue.cs.bloat.cfg.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.file.*;
+import com.EDU.purdue.cs.bloat.tree.*;
 
 import com.db4o.instrumentation.bloat.*;
 import com.db4o.instrumentation.core.*;

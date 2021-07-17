@@ -17,7 +17,7 @@ package com.db4o.instrumentation.core;
 
 import com.db4o.instrumentation.api.*;
 
-import EDU.purdue.cs.bloat.file.*;
+import com.EDU.purdue.cs.bloat.file.*;
 
 /**
  * @exclude

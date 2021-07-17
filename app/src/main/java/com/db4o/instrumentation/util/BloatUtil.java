@@ -19,7 +19,7 @@ import java.io.*;
 
 import com.db4o.instrumentation.core.*;
 
-import EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.editor.*;
 
 /**
  * @exclude

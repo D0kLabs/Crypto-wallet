@@ -17,10 +17,10 @@ package com.db4o.instrumentation.core;
 
 import java.util.*;
 
-import EDU.purdue.cs.bloat.cfg.*;
-import EDU.purdue.cs.bloat.context.*;
-import EDU.purdue.cs.bloat.editor.*;
-import EDU.purdue.cs.bloat.reflect.*;
+import com.EDU.purdue.cs.bloat.cfg.*;
+import com.EDU.purdue.cs.bloat.context.*;
+import com.EDU.purdue.cs.bloat.editor.*;
+import com.EDU.purdue.cs.bloat.reflect.*;
 
 import com.db4o.instrumentation.bloat.*;
 import com.db4o.instrumentation.util.*;
