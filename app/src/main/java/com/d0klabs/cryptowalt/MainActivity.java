@@ -2,8 +2,6 @@ package com.d0klabs.cryptowalt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -50,12 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private BtTransceiver.ChatController chatController;
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothDevice connectingDevice;
-    private TextView status;
-    private Button btnConnect;
-    private ListView listView;
     private ArrayAdapter<String> chatAdapter;
     private ArrayList<String> chatMessages;
-    private EditText inputLayout;
     private ArrayAdapter<String> discoveredDevicesAdapter;
     public String passwd = null;
     public String readMessage = null;
@@ -64,11 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        status = (TextView) findViewById(R.id.status);
-        btnConnect = (Button) findViewById(R.id.btn_connect);
-        listView = (ListView) findViewById(R.id.list);
-        inputLayout = (EditText) findViewById(R.id.message_edit);
-        View btnSend = findViewById(R.id.Send);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -94,55 +79,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        private void connectToDevice (String deviceAddress){
-            bluetoothAdapter.cancelDiscovery();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-            chatController.connect(device);
-        }
 
         //CpWalDBHelper = new SQLiteOpenHelper(this);
-        btnConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPrinterPickDialog();
-            }
-        });
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //setP();
-                if (inputLayout.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
-                } else {
-                    sendMessage(inputLayout.getText().toString());
-                    inputLayout.setText("");
-                    //String sCompressedSP = Box.compressor(fullSP);
-                    //mPass.setText(sCompressedSP);
-                }
-            }
-        });
+    }
+    private void connectToDevice (String deviceAddress){
+        bluetoothAdapter.cancelDiscovery();
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+        chatController.connect(device);
     }
 
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
-                case MESSAGE_STATE_CHANGE:
-                    switch (msg.arg1) {
-                        case BtTransceiver.ChatController.STATE_CONNECTED:
-                            setStatus("Connected to: " + connectingDevice.getName());
-                            btnConnect.setEnabled(false);
-                            break;
-                        case BtTransceiver.ChatController.STATE_CONNECTING:
-                            setStatus("Connecting...");
-                            btnConnect.setEnabled(false);
-                            break;
-                        case BtTransceiver.ChatController.STATE_LISTEN:
-                        case BtTransceiver.ChatController.STATE_NONE:
-                            setStatus("Not connected");
-                            break;
-                    }
-                    break;
                 case MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
                     String writeMessage = new String(writeBuf);
@@ -227,9 +176,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (chatController != null)
             chatController.stop();
-    }
-
-    public void setStatus(String s) {
-        status.setText(s);
     }
 }
