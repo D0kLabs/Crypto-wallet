@@ -19,7 +19,7 @@ package com.db4o.reflect.generic;
 /**
  * @exclude
  */
-@decaf.IgnoreImplements(decaf.Platform.JDK11)
+//@decaf.IgnoreImplements(decaf.Platform.JDK11)
 public class GenericObject implements Comparable {
 
     final GenericClass _class;

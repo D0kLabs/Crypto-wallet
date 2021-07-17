@@ -22,7 +22,7 @@ import java.util.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore
+//@decaf.Ignore
 public abstract class AbstractList4<E> implements Iterable<E>, Collection<E>, List<E> {
 
 	protected transient int modCount;

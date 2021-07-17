@@ -25,7 +25,7 @@ import com.db4o.activation.*;
  * @sharpen.ignore
  * @since 7.9
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public class ActivatableStack<E> extends Stack<E> implements ActivatableList<E> {
 
 	private transient Activator _activator;

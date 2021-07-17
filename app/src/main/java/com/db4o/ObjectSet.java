@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package  com.db4o;
 
-import java.util.*;
+import com.db4o.ext.ExtObjectSet;
 
-import com.db4o.ext.*;
+import java.util.List;
 
 /**
  * An ObjectSet is a representation for a set of objects returned 
@@ -34,7 +34,7 @@ import com.db4o.ext.*;
  * @see ExtObjectSet for extended functionality.
  * 
  */
-@decaf.IgnoreImplements(value=decaf.Platform.JDK11, interfaces={List.class})
+//@decaf.IgnoreImplements(value=decaf.Platform.JDK11, interfaces={List.class})
 public interface ObjectSet<T> extends List<T>, Iterable<T> {
 	
 	

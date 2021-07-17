@@ -21,7 +21,7 @@ import java.util.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class JdkComparatorWrapper implements QueryComparator {
 	private Comparator _comparator;
 	

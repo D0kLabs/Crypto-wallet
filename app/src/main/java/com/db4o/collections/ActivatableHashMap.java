@@ -15,9 +15,13 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.collections;
 
-import java.util.*;
+import com.db4o.activation.ActivationPurpose;
+import com.db4o.activation.Activator;
 
-import com.db4o.activation.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * extends HashMap with Transparent Activation and
@@ -25,7 +29,7 @@ import com.db4o.activation.*;
  * @since 7.9
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public class ActivatableHashMap<K,V> extends HashMap<K,V> implements ActivatableMap<K,V> {
 
 	private transient Activator _activator;

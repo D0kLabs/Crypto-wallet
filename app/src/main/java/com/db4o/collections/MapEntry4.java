@@ -23,7 +23,7 @@ import java.util.*;
  * 
  * @sharpen.ignore
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class MapEntry4<K, V> implements Map.Entry<K, V> {
 
     private K _key;

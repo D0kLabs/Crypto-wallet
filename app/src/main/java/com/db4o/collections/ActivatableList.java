@@ -23,7 +23,7 @@ import java.util.*;
  * @sharpen.ignore
  * @since 7.9
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public interface ActivatableList<T> extends List<T>, ActivatableCollection<T> {
 
 }

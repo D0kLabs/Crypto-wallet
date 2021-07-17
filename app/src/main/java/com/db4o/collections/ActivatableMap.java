@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.collections;
 
-import java.util.*;
+import com.db4o.ta.Activatable;
 
-import com.db4o.ta.*;
+import java.util.Map;
 
 /**
  * extends Map with Transparent Activation and
@@ -25,7 +25,7 @@ import com.db4o.ta.*;
  * @sharpen.ignore
  * @since 7.9
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public interface ActivatableMap <K,V> extends Map<K,V>, Activatable{
 
 }

@@ -23,6 +23,6 @@ import java.util.*;
  * @since 7.9
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public interface ActivatableSet<E> extends ActivatableCollection<E>, Set<E> {
 }

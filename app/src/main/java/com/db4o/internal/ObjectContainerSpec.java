@@ -24,6 +24,6 @@ package com.db4o.internal;
  * 
  * @exclude
  */
-@decaf.IgnoreImplements
+//@decaf.IgnoreImplements
 public interface ObjectContainerSpec extends InternalObjectContainer {
 }

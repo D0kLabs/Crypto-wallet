@@ -21,7 +21,7 @@ import com.db4o.activation.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public final class ActivatableSupport {
 
 	public static void activate(Activator activator, ActivationPurpose purpose) {

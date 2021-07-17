@@ -15,12 +15,15 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.collections;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
+import com.db4o.activation.ActivationPurpose;
+import com.db4o.activation.Activator;
+import com.db4o.ta.Activatable;
 
-import com.db4o.activation.*;
-import com.db4o.ta.*;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.RandomAccess;
 
 /**
  * Transparent activatable ArrayList implementation.
@@ -41,7 +44,7 @@ import com.db4o.ta.*;
  * @sharpen.if !SILVERLIGHT
  */
 
-@decaf.Ignore
+//@decaf.Ignore
 public class ArrayList4<E> extends AbstractList4<E> implements Cloneable,
 		Serializable, RandomAccess, Activatable {
 

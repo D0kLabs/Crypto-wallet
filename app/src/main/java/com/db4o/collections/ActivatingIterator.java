@@ -15,16 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.collections;
 
-import java.util.*;
+import com.db4o.activation.ActivationPurpose;
+import com.db4o.ta.Activatable;
 
-import com.db4o.activation.*;
-import com.db4o.ta.*;
+import java.util.Iterator;
 
 /**
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public class ActivatingIterator<E> implements Iterator<E> {
 
 	private final Activatable _activatable;

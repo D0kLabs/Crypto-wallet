@@ -15,11 +15,12 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.collections;
 
-import java.util.*;
+import com.db4o.ObjectContainer;
+import com.db4o.internal.InternalObjectContainer;
+import com.db4o.internal.LocalObjectContainer;
+import com.db4o.internal.collections.BigSet;
 
-import com.db4o.*;
-import com.db4o.internal.*;
-import com.db4o.internal.collections.*;
+import java.util.Set;
 
 /**
  * Collection factory with methods to create collections with behaviour
@@ -27,7 +28,7 @@ import com.db4o.internal.collections.*;
  * Example usage:<br/>
  * <code>CollectionFactory.forObjectContainer(objectContainer).newBigSet();</code>
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class CollectionFactory {
 	
 	private final ObjectContainer _objectContainer;

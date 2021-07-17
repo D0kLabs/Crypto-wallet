@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public class DelegatingCollection<V> implements Collection<V> {
 	private Collection<V> _delegating;
 

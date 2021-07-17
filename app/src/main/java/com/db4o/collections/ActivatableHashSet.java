@@ -25,7 +25,7 @@ import com.db4o.activation.*;
  * @since 7.9
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 public class ActivatableHashSet<E> extends HashSet<E> implements ActivatableSet<E> {
 
 	private transient Activator _activator;
