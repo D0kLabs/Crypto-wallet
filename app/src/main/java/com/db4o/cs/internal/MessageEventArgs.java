@@ -20,7 +20,7 @@ import com.db4o.events.*;
 
 public class MessageEventArgs extends EventArgs {
 
-	private Message _message;
+	private final Message _message;
 
 	public MessageEventArgs(Message message) {
 	    _message = message;

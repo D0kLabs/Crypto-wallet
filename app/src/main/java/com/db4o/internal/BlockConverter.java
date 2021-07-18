@@ -22,14 +22,14 @@ import com.db4o.internal.slots.*;
  */
 public interface BlockConverter {
 
-	public int bytesToBlocks(long bytes);
+	int bytesToBlocks(long bytes);
 
-	public int blockAlignedBytes(int bytes);
+	int blockAlignedBytes(int bytes);
 
-	public int blocksToBytes(int blocks);
+	int blocksToBytes(int blocks);
 
-	public Slot toBlockedLength(Slot slot);
+	Slot toBlockedLength(Slot slot);
 
-	public Slot toNonBlockedLength(Slot slot);
+	Slot toNonBlockedLength(Slot slot);
 
 }

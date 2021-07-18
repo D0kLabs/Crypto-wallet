@@ -30,5 +30,5 @@ public interface Constraints extends Constraint
 	 * returns an array of the contained {@link Constraint} objects.
 	 * @return  an array of the contained {@link Constraint} objects.
 	 */
-	public Constraint[] toArray();
+    Constraint[] toArray();
 }

@@ -25,6 +25,6 @@ public interface ObjectAttribute {
      * @param parent the parent object
      * @return Object - the attribute
      */
-    public Object attribute(Object parent);
+    Object attribute(Object parent);
 
 }

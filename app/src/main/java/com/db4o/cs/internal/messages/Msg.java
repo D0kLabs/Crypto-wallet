@@ -27,7 +27,7 @@ import com.db4o.internal.*;
 public abstract class Msg implements Cloneable, Message {
 
 	static int _messageIdGenerator = 1;
-	private static Msg[] _messages = new Msg[75];
+	private static final Msg[] _messages = new Msg[75];
 
 	int _msgID;
 	String _name;

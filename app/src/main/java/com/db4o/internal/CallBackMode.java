@@ -20,7 +20,7 @@ public final class CallBackMode {
 	public final static CallBackMode DELETE_ONLY = new CallBackMode("DELETE_ONLY");
 	public final static CallBackMode NONE = new CallBackMode("NONE");
 
-	private String _desc;
+	private final String _desc;
 	
 	private CallBackMode(String desc) {
 		_desc = desc;

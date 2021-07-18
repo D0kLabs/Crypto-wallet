@@ -34,5 +34,5 @@ public class MonitoredServerSideClientSocket4 extends MonitoredSocket4Base {
 		return _bean;
 	}
 
-	private Networking _bean;
+	private final Networking _bean;
 }

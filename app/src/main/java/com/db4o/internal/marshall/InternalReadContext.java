@@ -25,24 +25,24 @@ import com.db4o.typehandlers.*;
  */
 public interface InternalReadContext extends ReadContext, HandlerVersionContext{
     
-    public ReadBuffer buffer(ReadBuffer buffer);
+    ReadBuffer buffer(ReadBuffer buffer);
     
-    public ReadBuffer buffer();
+    ReadBuffer buffer();
     
-    public ObjectContainerBase container();
+    ObjectContainerBase container();
 
-    public int offset();
+    int offset();
 
-    public Object read(TypeHandler4 handler);
+    Object read(TypeHandler4 handler);
     
-    public Object readAtCurrentSeekPosition(TypeHandler4 handler);
+    Object readAtCurrentSeekPosition(TypeHandler4 handler);
     
-    public ReadWriteBuffer readIndirectedBuffer();
+    ReadWriteBuffer readIndirectedBuffer();
 
-    public void seek(int offset);
+    void seek(int offset);
     
-    public int handlerVersion();
+    int handlerVersion();
     
-    public void notifyNullReferenceSkipped();
+    void notifyNullReferenceSkipped();
 
 }

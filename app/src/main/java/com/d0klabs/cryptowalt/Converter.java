@@ -4,9 +4,9 @@ public class Converter {
         private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
         private static Converter hexStringConverter = null;
 
-        private Converter(){};
+        private Converter(){}
 
-        public static Converter getHexStringConverterInstance()
+    public static Converter getHexStringConverterInstance()
         {
             if (hexStringConverter==null) hexStringConverter = new Converter();
             return hexStringConverter;

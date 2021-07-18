@@ -20,6 +20,6 @@ public interface CancellableVisitor4<T> {
 	/**
 	 * @return true to continue traversal, false otherwise
 	 */
-	public boolean visit(T obj); 
+    boolean visit(T obj);
 
 }

@@ -84,7 +84,7 @@ public class Enum4 implements Comparable {
 			throw new ClassCastException(enumClass.getName());
 		}
 		
-		final Method valuesMethod = enumClass.getMethod("values", new Class[0]);
+		final Method valuesMethod = enumClass.getMethod("values");
 		return (Enum4[]) valuesMethod.invoke(null, new Object[0]);
 	}
 }

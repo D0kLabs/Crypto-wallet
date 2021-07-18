@@ -15,16 +15,21 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation.ant;
 
-import java.util.*;
+import com.db4o.instrumentation.ant.AntClassEditFactory;
+import com.db4o.instrumentation.classfilter.AcceptAllClassesFilter;
+import com.db4o.instrumentation.classfilter.CompositeAndClassFilter;
+import com.db4o.instrumentation.classfilter.CompositeOrClassFilter;
+import com.db4o.instrumentation.core.BloatClassEdit;
+import com.db4o.instrumentation.core.ClassFilter;
+import com.db4o.ta.instrumentation.InjectTransparentActivationEdit;
 
-import org.apache.tools.ant.*;
-import org.apache.tools.ant.types.*;
-import org.apache.tools.ant.util.regexp.*;
+import org.apache.tools.ant.ProjectComponent;
+import org.apache.tools.ant.types.RegularExpression;
+import org.apache.tools.ant.util.regexp.Regexp;
 
-import com.db4o.instrumentation.ant.*;
-import com.db4o.instrumentation.classfilter.*;
-import com.db4o.instrumentation.core.*;
-import com.db4o.ta.instrumentation.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @exclude

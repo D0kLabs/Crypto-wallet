@@ -20,8 +20,8 @@ package com.db4o.reflect.generic;
  */
 public interface GenericConverter {
 	
-	public String toString(GenericObject obj);
+	String toString(GenericObject obj);
 
-	public String toString(GenericArray array);
+	String toString(GenericArray array);
 
 }

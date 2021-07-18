@@ -23,8 +23,8 @@ import com.db4o.config.*;
  */
 @decaf.Ignore
 public abstract class FieldConfigurator extends Db4oConfigurator {
-	private String _className;
-	private String _fieldName;
+	private final String _className;
+	private final String _fieldName;
 
 	public FieldConfigurator(String className, String fieldName) {
 		super();

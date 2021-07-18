@@ -30,13 +30,13 @@ public interface EmbeddedConfigurationItem {
 	 * 
 	 * @param configuration the configuration that the item was added to
 	 */
-	public void prepare(EmbeddedConfiguration configuration);
+    void prepare(EmbeddedConfiguration configuration);
 	
 	/**
 	 * Gives a chance for the item to configure the just opened ObjectContainer.
 	 * 
 	 * @param container the ObjectContainer to configure
 	 */
-	public void apply(EmbeddedObjectContainer db);
+    void apply(EmbeddedObjectContainer db);
 
 }

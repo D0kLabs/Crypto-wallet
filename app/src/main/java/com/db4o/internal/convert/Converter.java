@@ -35,7 +35,7 @@ public class Converter {
     
     private static Converter _instance;
     
-    private Map<Integer, Conversion> _conversions;
+    private final Map<Integer, Conversion> _conversions;
 
 	private int _minimumVersion = Integer.MAX_VALUE;
     

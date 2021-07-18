@@ -36,7 +36,7 @@ public class IoAdaptedObjectContainer extends LocalObjectContainer implements Em
     
     private volatile BlockAwareBin _backupFile;
 
-    private Object             _fileLock;
+    private final Object             _fileLock;
     
     private final FreespaceFiller _freespaceFiller;
 

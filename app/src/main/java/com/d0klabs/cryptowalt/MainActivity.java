@@ -3,15 +3,14 @@ package com.d0klabs.cryptowalt;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -29,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
     // прийом 128 біт і перетворити в Base64
     // кодувати все в Ліс цим Base64
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
-    DBHelperQBE CpWalDBHelper;
-
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
@@ -41,53 +36,18 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_READ_SET = 6;
     public static final String DEVICE_OBJECT = "device_name";
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
+    public String passwd = null;
+    public String readMessage = null;
+    DBHelperQBE CpWalDBHelper;
+    private ActivityMainBinding binding;
+    private AppBarConfiguration mAppBarConfiguration;
     private BtTransceiver.ChatController chatController;
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothDevice connectingDevice;
     private ArrayAdapter<String> chatAdapter;
     private ArrayList<String> chatMessages;
-    private ArrayAdapter<String> discoveredDevicesAdapter;
-    public String passwd = null;
-    public String readMessage = null;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        //CpWalDBHelper = new SQLiteOpenHelper(this);
-    }
-    private void connectToDevice (String deviceAddress){
-        bluetoothAdapter.cancelDiscovery();
-        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-        chatController.connect(device);
-    }
-
+    private DrawerLayout drawer;
+    NavigationView navigationView;
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -126,6 +86,44 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     });
+    private ArrayAdapter<String> discoveredDevicesAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activitymain);
+        binding = DataBindingUtil.setContentView(this, R.layout.activitymain);
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.uppertools);
+       /* binding.uppertools.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        */
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    }
+
+    private void connectToDevice(String deviceAddress) {
+        bluetoothAdapter.cancelDiscovery();
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+        chatController.connect(device);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

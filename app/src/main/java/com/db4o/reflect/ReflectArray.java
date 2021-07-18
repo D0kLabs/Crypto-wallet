@@ -23,39 +23,39 @@ package com.db4o.reflect;
  */
 public interface ReflectArray {
     
-    public void analyze(Object obj, ArrayInfo info);
+    void analyze(Object obj, ArrayInfo info);
     
-    public int[] dimensions(Object arr);
+    int[] dimensions(Object arr);
     
-    public int flatten(
-        Object a_shaped,
-        int[] a_dimensions,
-        int a_currentDimension,
-        Object[] a_flat,
-        int a_flatElement);
+    int flatten(
+            Object a_shaped,
+            int[] a_dimensions,
+            int a_currentDimension,
+            Object[] a_flat,
+            int a_flatElement);
 	
-	public Object get(Object onArray, int index);
+	Object get(Object onArray, int index);
 	
-    public ReflectClass getComponentType(ReflectClass a_class);
+    ReflectClass getComponentType(ReflectClass a_class);
 	
-	public int getLength(Object array);
+	int getLength(Object array);
 	
-	public boolean isNDimensional(ReflectClass a_class);
+	boolean isNDimensional(ReflectClass a_class);
 	
-	public Object newInstance(ReflectClass componentType, ArrayInfo info);
+	Object newInstance(ReflectClass componentType, ArrayInfo info);
 	
-	public Object newInstance(ReflectClass componentType, int length);
+	Object newInstance(ReflectClass componentType, int length);
 	
-	public Object newInstance(ReflectClass componentType, int[] dimensions);
+	Object newInstance(ReflectClass componentType, int[] dimensions);
 	
-	public void set(Object onArray, int index, Object element);
+	void set(Object onArray, int index, Object element);
     
-    public int shape(
-        Object[] a_flat,
-        int a_flatElement,
-        Object a_shaped,
-        int[] a_dimensions,
-        int a_currentDimension);
+    int shape(
+            Object[] a_flat,
+            int a_flatElement,
+            Object a_shaped,
+            int[] a_dimensions,
+            int a_currentDimension);
 
 	
 }

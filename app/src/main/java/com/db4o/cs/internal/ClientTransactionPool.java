@@ -64,7 +64,7 @@ public class ClientTransactionPool {
 	public void release(ShutdownMode mode, Transaction transaction, boolean rollbackOnClose) {
 		synchronized(_mainContainer.lock()) {
 			ContainerCount entry = (ContainerCount) _transaction2Container.get(transaction);
-			entry.container().closeTransaction(transaction, false, mode.isFatal() ? false : rollbackOnClose);
+			entry.container().closeTransaction(transaction, false, !mode.isFatal() && rollbackOnClose);
 			_transaction2Container.remove(transaction);
 			entry.release();
 			if(entry.isEmpty()) {

@@ -40,12 +40,12 @@ public interface ExtObjectServer extends ObjectServer{
      * If a file already exists at the specified path, it will be overwritten.<br><br>
      * @param path a fully qualified path
      */
-    public void backup(String path) throws IOException;
+    void backup(String path) throws IOException;
     
     /**
      * returns the number of connected clients.
      */
-    public int clientCount();
+    int clientCount();
 	
 	 /**
 	 * returns the {@link Configuration} context for this ObjectServer.
@@ -58,24 +58,24 @@ public interface ExtObjectServer extends ObjectServer{
 	 * @return the Configuration context for this ObjectServer
      * @see com.db4o.Db4o#configure
      */
-	public Configuration configure();
+     Configuration configure();
 	
 	/**
 	 * returns the ObjectContainer used by the server.
 	 * <br><br>
 	 * @return the ObjectContainer used by the server
 	 */
-	public ObjectContainer objectContainer();
+    ObjectContainer objectContainer();
 	
 	/**
 	 * removes client access permissions for the specified user.
 	 * <br><br>
 	 * @param userName the name of the user
 	 */
-	public void revokeAccess(String userName);
+    void revokeAccess(String userName);
 	
 	/**
 	 * @return The local port this server uses, 0 if disconnected or in embedded mode
 	 */
-    public int port();
+    int port();
 }

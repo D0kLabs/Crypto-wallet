@@ -18,7 +18,7 @@ package com.db4o.foundation;
 
 public class DelegatingBlockingQueue<T> implements BlockingQueue4<T> {
 	
-	private BlockingQueue4<T> queue;
+	private final BlockingQueue4<T> queue;
 	
 	public T next(long timeout) throws BlockingQueueStoppedException {
 		return queue.next(timeout);

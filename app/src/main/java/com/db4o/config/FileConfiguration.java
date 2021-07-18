@@ -44,7 +44,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void blockSize(int bytes);
+    void blockSize(int bytes);
     
 	/**
 	 * configures the size database files should grow in bytes, when no 
@@ -66,7 +66,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void databaseGrowthSize(int bytes);
+    void databaseGrowthSize(int bytes);
 
     /**
      * turns commit recovery off.
@@ -81,14 +81,14 @@ public interface FileConfiguration {
      * recovery. The method should only be used in emergency situations after consulting
      * db4o support. 
      */
-    public void disableCommitRecovery();
+    void disableCommitRecovery();
     
     /**
      * returns the freespace configuration interface.
      * 
      * @sharpen.property
      */
-    public FreespaceConfiguration freespace();
+    FreespaceConfiguration freespace();
 
     /**
      * configures db4o to generate UUIDs for stored objects.
@@ -98,7 +98,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void generateUUIDs(ConfigScope setting);
+    void generateUUIDs(ConfigScope setting);
 
     /**
      * configures db4o to generate version numbers for stored objects.
@@ -110,7 +110,7 @@ public interface FileConfiguration {
      * @deprecated As of version 8.0 please use {@link #generateCommitTimestamps(boolean)} instead.
      */
     @Deprecated
-    public void generateVersionNumbers(ConfigScope setting);
+    void generateVersionNumbers(ConfigScope setting);
     
 	/**
 	 * Configures db4o to generate commit timestamps for all stored objects.<br>
@@ -139,7 +139,7 @@ public interface FileConfiguration {
      * @sharpen.property
 	 * @since 8.0
 	 */
-    public void generateCommitTimestamps(boolean flag);
+    void generateCommitTimestamps(boolean flag);
 
     /**
      * allows to configure db4o to use a customized byte IO storage mechanism.
@@ -153,7 +153,7 @@ public interface FileConfiguration {
      * @see MemoryStorage
      * @sharpen.property
      */
-    public void storage(Storage storage) throws GlobalOnlyConfigException;
+    void storage(Storage storage) throws GlobalOnlyConfigException;
 
     /**
      * returns the configured {@link Storage}.
@@ -162,7 +162,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public Storage storage();
+    Storage storage();
 
     /**
      * can be used to turn the database file locking thread off. 
@@ -183,7 +183,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void lockDatabaseFile(boolean flag);
+    void lockDatabaseFile(boolean flag);
 
     /**
      * tuning feature only: reserves a number of bytes in database files.
@@ -206,7 +206,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void reserveStorageSpace(long byteCount) throws DatabaseReadOnlyException, NotSupportedException;
+    void reserveStorageSpace(long byteCount) throws DatabaseReadOnlyException, NotSupportedException;
     
     /**
      * configures the path to be used to store and read 
@@ -216,7 +216,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void blobPath(String path) throws IOException;
+    void blobPath(String path) throws IOException;
     
     /**
      * turns readOnly mode on and off.
@@ -233,7 +233,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void readOnly(boolean flag);
+    void readOnly(boolean flag);
     
 
     /**
@@ -248,7 +248,7 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void recoveryMode(boolean flag);
+    void recoveryMode(boolean flag);
     
     
     /**
@@ -276,6 +276,6 @@ public interface FileConfiguration {
      * 
      * @sharpen.property
      */
-    public void asynchronousSync(boolean flag);
+    void asynchronousSync(boolean flag);
 
 }

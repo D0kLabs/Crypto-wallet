@@ -20,7 +20,7 @@ import com.db4o.internal.*;
 
 public class NotTransparentActivationEnabled extends DiagnosticBase {
 
-	private ClassMetadata _class;
+	private final ClassMetadata _class;
 	
 	public NotTransparentActivationEnabled(ClassMetadata clazz) {
 		_class = clazz;

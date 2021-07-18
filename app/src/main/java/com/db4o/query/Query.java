@@ -65,7 +65,7 @@ public interface Query {
      * query node or <code>null</code> for objects implementing the 
      * {@link Evaluation} interface.
      */
-    public Constraint constrain (Object constraint);
+    Constraint constrain(Object constraint);
 
     
     /**
@@ -73,7 +73,7 @@ public interface Query {
      * object that holds an array of all constraints on this node.
      * @return {@link Constraints} on this query node.
      */
-    public Constraints constraints();
+    Constraints constraints();
 
 
     /**
@@ -87,14 +87,14 @@ public interface Query {
      * @param fieldName path to the descendant.
      * @return descendant {@link Query} node
      */
-    public Query descend (String fieldName);
+    Query descend(String fieldName);
 
 
     /**
 	 * executes the {@link Query}.
      * @return {@link ObjectSet} - the result of the {@link Query}.
      */
-    public <T> ObjectSet<T> execute ();
+    <T> ObjectSet<T> execute();
 
     
     /**
@@ -113,7 +113,7 @@ public interface Query {
 	 * </p>
      * @return this {@link Query} object to allow the chaining of method calls.
      */
-    public Query orderAscending ();
+    Query orderAscending();
 
 
     /**
@@ -123,7 +123,7 @@ public interface Query {
 	 * For semantics of multiple calls setting ordering criteria, see {@link #orderAscending()}.
      * @return this {@link Query} object to allow the chaining of method calls.
      */
-    public Query orderDescending ();
+    Query orderDescending();
     
     /**
      * Sort the resulting ObjectSet by the given comparator.
@@ -131,7 +131,7 @@ public interface Query {
      * @param comparator The comparator to apply.
      * @return this {@link Query} object to allow the chaining of method calls.
      */
-    public Query sortBy(QueryComparator<?> comparator);
+    Query sortBy(QueryComparator<?> comparator);
 
 
     /**
@@ -142,6 +142,6 @@ public interface Query {
      * @sharpen.ignore
      */
     @decaf.Ignore(decaf.Platform.JDK11)
-    public Query sortBy(Comparator comparator);
+    Query sortBy(Comparator comparator);
 }
 

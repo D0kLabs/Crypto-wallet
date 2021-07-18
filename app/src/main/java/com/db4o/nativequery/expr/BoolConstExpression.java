@@ -20,7 +20,7 @@ public class BoolConstExpression implements Expression {
 	public static final BoolConstExpression TRUE=new BoolConstExpression(true);
 	public static final BoolConstExpression FALSE=new BoolConstExpression(false);
 
-	private boolean _value;
+	private final boolean _value;
 	
 	private BoolConstExpression(boolean value) {
 		this._value=value;

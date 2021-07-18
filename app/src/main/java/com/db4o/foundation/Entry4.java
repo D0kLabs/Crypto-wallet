@@ -21,8 +21,8 @@ package com.db4o.foundation;
  */
 public interface Entry4 {
 	
-	public Object key();
+	Object key();
 	
-	public Object value();
+	Object value();
 
 }

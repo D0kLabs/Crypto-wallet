@@ -67,8 +67,8 @@ public class WildcardAlias implements Alias {
 	}	
 	
 	static class WildcardPattern {
-		private String _head;
-		private String _tail;
+		private final String _head;
+		private final String _tail;
 
 		public WildcardPattern(String pattern) {
 			String[] parts = split(pattern);

@@ -20,7 +20,7 @@ import com.db4o.instrumentation.api.*;
 
 
 public class ArrayAccessValue extends ComparisonOperandDescendant {
-	private ComparisonOperand _index;
+	private final ComparisonOperand _index;
 	
 	public ArrayAccessValue(ComparisonOperandDescendant parent,ComparisonOperand index) {
 		super(parent);

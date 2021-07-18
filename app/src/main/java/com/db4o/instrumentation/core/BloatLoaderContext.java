@@ -29,7 +29,7 @@ import com.db4o.instrumentation.util.*;
  * @exclude
  */
 public class BloatLoaderContext {
-	private EditorContext context;
+	private final EditorContext context;
 	
 	private final BloatReferenceProvider references;
 	

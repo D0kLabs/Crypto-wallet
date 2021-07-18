@@ -24,7 +24,7 @@ public final class SimpleTimer implements Runnable {
 
 	private final long _interval;
 
-	private Lock4 _lock;
+	private final Lock4 _lock;
 
 	public volatile boolean stopped = false;
 

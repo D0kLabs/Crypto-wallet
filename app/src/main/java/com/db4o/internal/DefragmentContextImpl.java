@@ -33,11 +33,11 @@ import com.db4o.typehandlers.*;
  */
 public final class DefragmentContextImpl implements ReadWriteBuffer, DefragmentContext {
 	
-	private ByteArrayBuffer _source;
+	private final ByteArrayBuffer _source;
 	
-	private ByteArrayBuffer _target;
+	private final ByteArrayBuffer _target;
 	
-	private DefragmentServices _services;
+	private final DefragmentServices _services;
 	
 	private final ObjectHeader _objectHeader;
 	

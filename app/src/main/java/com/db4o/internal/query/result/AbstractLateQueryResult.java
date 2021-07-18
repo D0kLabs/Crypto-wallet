@@ -64,11 +64,8 @@ public abstract class AbstractLateQueryResult extends AbstractQueryResult {
 			return true;
 		}
 		ReflectClass claxx = classMetadata.classReflector();
-		if (stream()._handlers.ICLASS_INTERNAL.isAssignableFrom(claxx)){
-			return true; 
-		}
-		return false;
-	}
+        return stream()._handlers.ICLASS_INTERNAL.isAssignableFrom(claxx);
+    }
 	
 	protected Iterable4 classIndexesIterable(final ClassMetadataIterator classCollectionIterator) {
 		return Iterators.concatMap(Iterators.iterable(classCollectionIterator), new Function4() {

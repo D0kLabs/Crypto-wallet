@@ -22,10 +22,10 @@ import com.db4o.ext.*;
  */
 public interface Db4oReplicationReference {
     
-    public Db4oDatabase signaturePart();
+    Db4oDatabase signaturePart();
     
-    public long longPart();
+    long longPart();
     
-    public long version();
+    long version();
 
 }

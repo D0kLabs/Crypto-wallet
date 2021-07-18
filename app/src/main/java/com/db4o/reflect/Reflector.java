@@ -33,26 +33,26 @@ public interface Reflector extends DeepClone{
 	/**
 	 * returns an ReflectArray object, the equivalent to java.lang.reflect.Array.
 	 */
-	public ReflectArray array();
+    ReflectArray array();
 	
 	/**
 	 * returns an ReflectClass for a Class
 	 */
-	public ReflectClass forClass(Class clazz);
+    ReflectClass forClass(Class clazz);
 	
 	/**
 	 * returns an ReflectClass class reflector for a class name or null
 	 * if no such class is found
 	 */
-	public ReflectClass forName(String className);
+    ReflectClass forName(String className);
 	
 	/**
 	 * returns an ReflectClass for an object or null if the passed object is null.
 	 */
-	public ReflectClass forObject(Object obj);
+    ReflectClass forObject(Object obj);
 	
-	public boolean isCollection(ReflectClass clazz);
+	boolean isCollection(ReflectClass clazz);
     
-    public void setParent(Reflector reflector);
+    void setParent(Reflector reflector);
 	
 }

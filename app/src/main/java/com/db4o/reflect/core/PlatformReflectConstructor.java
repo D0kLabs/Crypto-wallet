@@ -22,7 +22,7 @@ public class PlatformReflectConstructor implements ReflectConstructor {
 
 	private static final ReflectClass[] PARAMETER_TYPES = new ReflectClass[]{};
 
-	private Class _clazz;
+	private final Class _clazz;
 	
 	public PlatformReflectConstructor(Class clazz) {
 		_clazz = clazz;

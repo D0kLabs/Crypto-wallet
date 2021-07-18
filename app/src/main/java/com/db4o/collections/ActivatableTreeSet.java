@@ -63,9 +63,9 @@ public class ActivatableTreeSet<E> extends TreeSet<E> implements ActivatableSet<
 	public boolean add(E e) {
 		activate(ActivationPurpose.WRITE);
 		return super.add(e);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public boolean addAll(Collection<? extends E> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.addAll(c);
@@ -130,17 +130,17 @@ public class ActivatableTreeSet<E> extends TreeSet<E> implements ActivatableSet<
 	public java.util.SortedSet<E> subSet(E fromElement, E toElement) {
 		activate(ActivationPurpose.READ);
 		return super.subSet(fromElement, toElement);
-	};
-	
-	public java.util.SortedSet<E> headSet(E toElement) {
+	}
+
+    public java.util.SortedSet<E> headSet(E toElement) {
 		activate(ActivationPurpose.READ);
 		return super.headSet(toElement);
-	};
-	
-	public java.util.SortedSet<E> tailSet(E fromElement) {
+	}
+
+    public java.util.SortedSet<E> tailSet(E fromElement) {
 		activate(ActivationPurpose.READ);
 		return super.tailSet(fromElement);
-	};
+	}
 
 }
 

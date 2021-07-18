@@ -22,10 +22,10 @@ public interface ClientConnection {
 	/**
 	 * @sharpen.property
 	 */
-	public String name();
+    String name();
 
 	/**
 	 * @sharpen.event MessageEventArgs
 	 */
-	public Event4<MessageEventArgs> messageReceived();
+    Event4<MessageEventArgs> messageReceived();
 }

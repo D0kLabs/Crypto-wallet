@@ -41,7 +41,7 @@ public interface FreespaceConfiguration {
      * <code>0</code> all space is reused
      * @param byteCount Slots with this size or smaller will be lost.
      */
-    public void discardSmallerThan(int byteCount);
+    void discardSmallerThan(int byteCount);
     
     /**
      * Configure a way to overwrite freed space in the database file with custom
@@ -52,7 +52,7 @@ public interface FreespaceConfiguration {
      * 
      * @param freespaceFiller The freespace overwriting callback to use
      */
-    public void freespaceFiller(FreespaceFiller freespaceFiller);
+    void freespaceFiller(FreespaceFiller freespaceFiller);
     
     /**
      * configures db4o to use a BTree-based freespace system.
@@ -63,14 +63,14 @@ public interface FreespaceConfiguration {
      * - slower than the RAM-based system, since freespace information
      * is written during every commit<br>
      */
-    public void useBTreeSystem(); 
+    void useBTreeSystem();
     
     /**
      * discontinued freespace system, only available before db4o 7.0. 
      * @deprecated Please use the BTree freespace system instead by
      * calling {@link #useBTreeSystem()}.
      */
-    public void useIndexSystem(); 
+    void useIndexSystem();
 
     /**
      * configures db4o to use a RAM-based freespace system.
@@ -80,6 +80,6 @@ public interface FreespaceConfiguration {
      * - upon abnormal system termination all freespace is lost<br>
      * - memory consumption<br>
      */
-    public void useRamSystem();
+    void useRamSystem();
     
 }

@@ -23,8 +23,8 @@ import com.db4o.internal.*;
 
 class ClientMessageDispatcherImpl implements Runnable, ClientMessageDispatcher {
 	
-	private ClientObjectContainer _container;
-	private Socket4Adapter _socket;
+	private final ClientObjectContainer _container;
+	private final Socket4Adapter _socket;
 	private final BlockingQueue _synchronousMessageQueue;
 	private final BlockingQueue _asynchronousMessageQueue;
 	private boolean _isClosed;

@@ -29,7 +29,7 @@ public interface ServerConfiguration extends FileConfigurationProvider, Networki
      * @param configItem the {@link ServerConfigurationItem}
      * @since 7.12
      */
-	public void addConfigurationItem(ServerConfigurationItem configItem);
+    void addConfigurationItem(ServerConfigurationItem configItem);
 
 	/**
 	 * configures the timeout of the server side socket. <br>
@@ -59,7 +59,7 @@ public interface ServerConfiguration extends FileConfigurationProvider, Networki
 	 *            
 	 * @sharpen.property
 	 */
-	public void timeoutServerSocket(int milliseconds);
+    void timeoutServerSocket(int milliseconds);
 	
 
 }

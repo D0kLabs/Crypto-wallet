@@ -51,9 +51,7 @@ public class HashtableLongEntry extends HashtableIntEntry {
 
 	@Override
 	public boolean sameKeyAs(HashtableIntEntry other) {
-		return other instanceof HashtableLongEntry
-			? ((HashtableLongEntry)other)._longKey == _longKey
-			: false;
+		return other instanceof HashtableLongEntry && ((HashtableLongEntry) other)._longKey == _longKey;
 	}
 	
 	@Override

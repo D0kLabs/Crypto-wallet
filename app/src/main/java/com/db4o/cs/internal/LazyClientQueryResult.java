@@ -58,7 +58,7 @@ public class LazyClientQueryResult extends AbstractQueryResult{
 	}
 	
 	private int askServer(MsgD message, int param){
-		_client.write(message.getWriterForInts(_transaction, new int[]{_queryResultID, param}));
+		_client.write(message.getWriterForInts(_transaction, _queryResultID, param));
 		return ((MsgD)_client.expectedResponse(message)).readInt();
 	}
 

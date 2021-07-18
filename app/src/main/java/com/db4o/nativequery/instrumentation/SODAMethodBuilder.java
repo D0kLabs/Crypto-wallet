@@ -47,7 +47,7 @@ public class SODAMethodBuilder {
 
 	private class SODAExpressionBuilder implements ExpressionVisitor {
 
-		private TypeRef predicateClass;
+		private final TypeRef predicateClass;
 		
 		public SODAExpressionBuilder(TypeRef predicateClass) {
 			this.predicateClass=predicateClass;

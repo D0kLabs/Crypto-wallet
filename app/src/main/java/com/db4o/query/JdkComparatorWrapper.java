@@ -23,7 +23,7 @@ import java.util.*;
  */
 //@decaf.Ignore(decaf.Platform.JDK11)
 public class JdkComparatorWrapper implements QueryComparator {
-	private Comparator _comparator;
+	private final Comparator _comparator;
 	
 	public JdkComparatorWrapper(Comparator comparator) {
 		this._comparator = comparator;

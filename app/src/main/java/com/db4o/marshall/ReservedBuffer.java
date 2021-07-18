@@ -30,6 +30,6 @@ public interface ReservedBuffer {
      * writes a byte array to the reserved buffer.
      * @param bytes the byte array.
      */
-    public void writeBytes(byte[] bytes);
+    void writeBytes(byte[] bytes);
     
 }

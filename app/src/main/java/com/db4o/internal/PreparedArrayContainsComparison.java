@@ -29,7 +29,7 @@ public class PreparedArrayContainsComparison implements PreparedComparison {
 	
 	private final PreparedComparison _preparedComparison; 
 	
-	private ObjectContainerBase _container;
+	private final ObjectContainerBase _container;
 	
 	public PreparedArrayContainsComparison(Context context, ArrayHandler arrayHandler, TypeHandler4 typeHandler, Object obj){
 		_arrayHandler = arrayHandler;

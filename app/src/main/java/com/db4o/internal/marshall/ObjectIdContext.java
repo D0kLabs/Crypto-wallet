@@ -22,6 +22,6 @@ package com.db4o.internal.marshall;
  */
 public interface ObjectIdContext extends HandlerVersionContext, InternalReadContext {
     
-    public int objectId();
+    int objectId();
 
 }

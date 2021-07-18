@@ -24,7 +24,7 @@ import com.db4o.ext.*;
  */
 public class AvailableClassFilter implements StoredClassFilter {
 	
-	private ClassLoader _loader;
+	private final ClassLoader _loader;
 
 	/**
 	 * Will accept only classes that are known to the classloader that loaded

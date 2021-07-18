@@ -18,7 +18,7 @@ package com.db4o.nativequery.expr.cmp.operand;
 import com.db4o.instrumentation.api.*;
 
 public abstract class ComparisonOperandDescendant implements ComparisonOperandAnchor {
-	private ComparisonOperandAnchor _parent;
+	private final ComparisonOperandAnchor _parent;
 	
 	protected ComparisonOperandDescendant(ComparisonOperandAnchor _parent) {
 		this._parent = _parent;

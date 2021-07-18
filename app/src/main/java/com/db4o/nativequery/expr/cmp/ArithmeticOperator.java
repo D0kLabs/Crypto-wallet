@@ -28,8 +28,8 @@ public final class ArithmeticOperator {
 	public final static ArithmeticOperator DIVIDE=new ArithmeticOperator(DIVIDE_ID,"/");
 	public final static ArithmeticOperator MODULO=new ArithmeticOperator(MODULO_ID,"%");
 	
-	private String _op;
-	private int _id;
+	private final String _op;
+	private final int _id;
 	
 	private ArithmeticOperator(int id,String op) {
 		_id=id;

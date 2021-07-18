@@ -29,8 +29,8 @@ public abstract class StringBasedValueTypeHandlerBase<T> implements ValueTypeHan
     private ReflectClass _classReflector;
     
 	public StringBasedValueTypeHandlerBase(Class<T> clazz) {
-		_clazz = clazz;;
-	}
+		_clazz = clazz;
+    }
 
 	public void defragment(DefragmentContext context) {
 	    stringHandler(context).defragment(context);

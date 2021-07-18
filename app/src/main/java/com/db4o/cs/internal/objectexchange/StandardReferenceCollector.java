@@ -21,7 +21,7 @@ import com.db4o.internal.marshall.*;
 
 public class StandardReferenceCollector implements ReferenceCollector {
 
-	private Transaction _transaction;
+	private final Transaction _transaction;
 	
 	public StandardReferenceCollector(Transaction transaction) {
 	    _transaction = transaction;

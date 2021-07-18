@@ -29,50 +29,50 @@ import com.db4o.reflect.*;
  */
 public interface InternalObjectContainer extends ExtObjectContainer {
     
-    public void callbacks(Callbacks cb);
+    void callbacks(Callbacks cb);
     
-    public Callbacks callbacks();
-    
-    /**
-     * @sharpen.property
-     */
-    public ObjectContainerBase container();
+    Callbacks callbacks();
     
     /**
      * @sharpen.property
      */
-    public Transaction transaction();
-    
-    public NativeQueryHandler getNativeQueryHandler();
-
-    public ClassMetadata classMetadataForReflectClass(ReflectClass reflectClass);
-
-    public ClassMetadata classMetadataForName(String name);
-    
-    public ClassMetadata classMetadataForID(int id);
-
-    /**
-     * @sharpen.property
-     */
-    public HandlerRegistry handlers();
+    ObjectContainerBase container();
     
     /**
      * @sharpen.property
      */
-    public Config4Impl configImpl();
+    Transaction transaction();
     
-    public <R> R syncExec(Closure4<R> block);
+    NativeQueryHandler getNativeQueryHandler();
+
+    ClassMetadata classMetadataForReflectClass(ReflectClass reflectClass);
+
+    ClassMetadata classMetadataForName(String name);
     
-    public int instanceCount(ClassMetadata clazz, Transaction trans);
+    ClassMetadata classMetadataForID(int id);
+
+    /**
+     * @sharpen.property
+     */
+    HandlerRegistry handlers();
     
     /**
      * @sharpen.property
      */
-    public boolean isClient();
+    Config4Impl configImpl();
+    
+    <R> R syncExec(Closure4<R> block);
+    
+    int instanceCount(ClassMetadata clazz, Transaction trans);
+    
+    /**
+     * @sharpen.property
+     */
+    boolean isClient();
 
-	public void storeAll(Transaction trans, Iterator4 objects);
+	void storeAll(Transaction trans, Iterator4 objects);
 
-	public UpdateDepthProvider updateDepthProvider();
+	UpdateDepthProvider updateDepthProvider();
 
-	public EventRegistryImpl newEventRegistry();
+	EventRegistryImpl newEventRegistry();
 }

@@ -24,9 +24,9 @@ import java.util.*;
 //@decaf.Ignore
 public class SubArrayList4<E> extends AbstractList4<E> {
 
-	private AbstractList4<E> _delegate;
+	private final AbstractList4<E> _delegate;
 
-	private int _fromIndex;
+	private final int _fromIndex;
 
 	private int _size;
 

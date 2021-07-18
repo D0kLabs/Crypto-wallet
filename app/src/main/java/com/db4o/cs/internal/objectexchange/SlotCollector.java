@@ -22,10 +22,10 @@ import com.db4o.internal.slots.*;
 
 public class SlotCollector {
 	
-	private SlotAccessor _slotAccessor;
-	private ReferenceCollector _referenceCollector;
-	private int _depth;
-	private Map<Integer, Collection4> referenceCache = new HashMap<Integer, Collection4>();
+	private final SlotAccessor _slotAccessor;
+	private final ReferenceCollector _referenceCollector;
+	private final int _depth;
+	private final Map<Integer, Collection4> referenceCache = new HashMap<Integer, Collection4>();
 	
 	public SlotCollector(int depth, ReferenceCollector collector, SlotAccessor accessor) {
 		if (depth < 1) {

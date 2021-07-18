@@ -53,7 +53,7 @@ public final class Messages {
 		}
 		String msg = i_messages[a_code];
 		if(param != null){
-			int pos = msg.indexOf("%",0);
+			int pos = msg.indexOf("%");
 			if(pos > -1){
 				msg = msg.substring(0, pos)
 					  + "'"

@@ -25,7 +25,7 @@ import com.db4o.ext.*;
 public class File4 {
 	
 	public static byte[] readAllBytes(final String fname) 
-		throws FileNotFoundException, IOException {
+		throws IOException {
 			
 		final File file = new File(fname);
 		byte[] bytes = new byte[(int)file.length()];

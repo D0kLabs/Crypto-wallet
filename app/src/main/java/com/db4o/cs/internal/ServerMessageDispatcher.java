@@ -24,48 +24,48 @@ import com.db4o.internal.*;
  */
 public interface ServerMessageDispatcher extends ClientConnection, MessageDispatcher, CommittedCallbackDispatcher {
 
-	public void queryResultFinalized(int queryResultID);
+	void queryResultFinalized(int queryResultID);
 
-	public Socket4Adapter socket();
+	Socket4Adapter socket();
 
-	public int dispatcherID();
+	int dispatcherID();
 
-	public LazyClientObjectSetStub queryResultForID(int queryResultID);
+	LazyClientObjectSetStub queryResultForID(int queryResultID);
 
-	public void switchToMainFile();
+	void switchToMainFile();
 
-	public void switchToFile(MSwitchToFile file);
+	void switchToFile(MSwitchToFile file);
 
-	public void useTransaction(MUseTransaction transaction);
+	void useTransaction(MUseTransaction transaction);
 
-	public void mapQueryResultToID(LazyClientObjectSetStub stub, int queryResultId);
+	void mapQueryResultToID(LazyClientObjectSetStub stub, int queryResultId);
 
-	public ObjectServerImpl server();
+	ObjectServerImpl server();
 
-	public void login();
+	void login();
 
-	public boolean close();
+	boolean close();
 	
-	public boolean close(ShutdownMode mode);
+	boolean close(ShutdownMode mode);
 	
-	public void closeConnection();
+	void closeConnection();
 
-	public void caresAboutCommitted(boolean care);
+	void caresAboutCommitted(boolean care);
 	
-	public boolean caresAboutCommitted();
+	boolean caresAboutCommitted();
 	
-	public boolean write(Msg msg);
+	boolean write(Msg msg);
 
-	public CallbackObjectInfoCollections committedInfo();
+	CallbackObjectInfoCollections committedInfo();
 
-	public ClassInfoHelper classInfoHelper();
+	ClassInfoHelper classInfoHelper();
 
-	public boolean processMessage(Msg message);
+	boolean processMessage(Msg message);
 
-	public void join() throws InterruptedException;
+	void join() throws InterruptedException;
 
-	public void setDispatcherName(String name);
+	void setDispatcherName(String name);
 	
-	public Transaction transaction();
+	Transaction transaction();
 
 }

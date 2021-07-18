@@ -44,7 +44,7 @@ public interface ObjectClass {
      * false to request <b>not</b> calling constructors.
 	 * @see Configuration#callConstructors
      */
-    public void callConstructor(boolean flag);
+    void callConstructor(boolean flag);
 	
 	
 	/**
@@ -63,7 +63,7 @@ public interface ObjectClass {
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 * @see Configuration#activationDepth Why activation?
 	 */
-	public void cascadeOnActivate(boolean flag);
+    void cascadeOnActivate(boolean flag);
 
 
 	/**
@@ -99,7 +99,7 @@ public interface ObjectClass {
 	 * @see com.db4o.ObjectContainer#delete(Object)
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 */
-	public void cascadeOnDelete(boolean flag);
+    void cascadeOnDelete(boolean flag);
 	
 	
 	/**
@@ -118,7 +118,7 @@ public interface ObjectClass {
 	 * @see com.db4o.ObjectContainer#set
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 */
-	public void cascadeOnUpdate(boolean flag);
+    void cascadeOnUpdate(boolean flag);
 	
 	
 	/**
@@ -131,7 +131,7 @@ public interface ObjectClass {
 	 * @param attributeProvider the attribute provider to be used
 	 * @deprecated since version 7.0
 	 */
-	public void compare(ObjectAttribute attributeProvider);
+    void compare(ObjectAttribute attributeProvider);
 	
 	
     /**
@@ -142,7 +142,7 @@ public interface ObjectClass {
      * @param setting 
      * @deprecated As of version 8.0 please use {@link #generateUUIDs(boolean)} and {@link FileConfiguration#generateCommitTimestamps(boolean)} instead
      */
-    public void enableReplication(boolean setting);
+    void enableReplication(boolean setting);
 
 	
 	/**
@@ -150,7 +150,7 @@ public interface ObjectClass {
      * This setting should be used before the database is first created.<br><br>
      * @param setting 
      */
-    public void generateUUIDs(boolean setting);
+    void generateUUIDs(boolean setting);
 
     
     /**
@@ -159,7 +159,7 @@ public interface ObjectClass {
      * @param setting
      * @deprecated As of version 8.0 please use {@link FileConfiguration#generateCommitTimestamps(boolean)} instead
      */
-    public void generateVersionNumbers(boolean setting);
+    void generateVersionNumbers(boolean setting);
 
     /**
      * turns the class index on or off.
@@ -177,7 +177,7 @@ public interface ObjectClass {
      * client and server. <br><br> 
      * This setting can be applied to an open object container. <br><br>
      */
-    public void indexed(boolean flag);
+    void indexed(boolean flag);
     
     /**
 	 * sets the maximum activation depth to the desired value.
@@ -191,7 +191,7 @@ public interface ObjectClass {
 	 * @see Configuration#activationDepth Why activation?
 	 * @see ObjectClass#cascadeOnActivate
      */
-    public void maximumActivationDepth (int depth);
+    void maximumActivationDepth(int depth);
 
     /**
 	 * sets the minimum activation depth to the desired value.
@@ -205,7 +205,7 @@ public interface ObjectClass {
 	 * @see Configuration#activationDepth Why activation?
 	 * @see ObjectClass#cascadeOnActivate
      */
-    public void minimumActivationDepth (int depth);
+    void minimumActivationDepth(int depth);
     
     /**
      * gets the configured minimum activation depth.
@@ -213,7 +213,7 @@ public interface ObjectClass {
      * client and server. <br><br>
      * @return the configured minimum activation depth.
      */
-    public int minimumActivationDepth();
+    int minimumActivationDepth();
 
 
     /**
@@ -224,7 +224,7 @@ public interface ObjectClass {
      * @return an instance of an {@link ObjectField ObjectField}
 	 *  object for configuration.
      */
-    public ObjectField objectField (String fieldName);
+    ObjectField objectField(String fieldName);
     
     
     /**
@@ -254,7 +254,7 @@ public interface ObjectClass {
      * This setting can NOT be applied to an open object container. <br><br>
      * 
      */
-    public void persistStaticFieldValues();
+    void persistStaticFieldValues();
 
     /**
 	 * renames a stored class.
@@ -264,7 +264,7 @@ public interface ObjectClass {
      * This setting can NOT be applied to an open object container. <br><br>
      * @param newName the new fully qualified class name.
      */
-    public void rename (String newName);
+    void rename(String newName);
 
 
 
@@ -276,7 +276,7 @@ public interface ObjectClass {
      * This setting can be applied to an open object container. <br><br>
      * @param flag whether or not transient fields are to be stored.
      */
-    public void storeTransientFields (boolean flag);
+    void storeTransientFields(boolean flag);
 
 
 
@@ -294,7 +294,7 @@ public interface ObjectClass {
 	 * @see ObjectTranslator
 	 * @see ObjectConstructor
      */
-    public void translate (ObjectTranslator translator);
+    void translate(ObjectTranslator translator);
 
 
 
@@ -313,7 +313,7 @@ public interface ObjectClass {
 	 * @see ObjectField#cascadeOnUpdate
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
      */
-    public void updateDepth (int depth);
+    void updateDepth(int depth);
     
 }
 

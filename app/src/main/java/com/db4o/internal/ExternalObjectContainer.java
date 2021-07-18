@@ -46,7 +46,7 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
     	deactivate(null, obj);
     }
     
-    public final void bind(Object obj, long id) throws ArgumentNullException, IllegalArgumentException {
+    public final void bind(Object obj, long id) throws IllegalArgumentException {
         bind(null, obj, id);
     }
     

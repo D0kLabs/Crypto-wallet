@@ -27,7 +27,7 @@ public interface ObjectInfo {
 	/**
 	 * returns the internal db4o ID.
 	 */
-	public long getInternalID();
+    long getInternalID();
 
     /**
      * returns the object that is referenced.
@@ -36,7 +36,7 @@ public interface ObjectInfo {
      * @return the referenced object or null, if the object has
      * been garbage collected.
      */
-    public Object getObject();
+    Object getObject();
     
     /**
      * returns a UUID representation of the referenced object.
@@ -45,7 +45,7 @@ public interface ObjectInfo {
 	 * {@link com.db4o.config.Configuration#generateUUIDs(int)}
      * @return the UUID of the referenced object.
      */
-    public Db4oUUID getUUID();
+    Db4oUUID getUUID();
 
 	/**
 	 * returns the transaction serial number ("version") the referenced object
@@ -61,7 +61,7 @@ public interface ObjectInfo {
 	 * @deprecated As of version 8.0 please use {@link #getCommitTimestamp()} instead.
 	 */
 	@Deprecated
-    public long getVersion();
+    long getVersion();
 	
 	/**
 	 * The serial timestamp the object is assigned to when it is commited.<br>
@@ -75,6 +75,6 @@ public interface ObjectInfo {
 	 * @see FileConfiguration#generateCommitTimestamps(boolean)
 	 * @since 8.0
 	 */
-	public long getCommitTimestamp();
+    long getCommitTimestamp();
 	
 }

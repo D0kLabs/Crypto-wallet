@@ -24,7 +24,7 @@ public class KeySpec {
 		Object evaluate();
 	}
 	
-	private Object _defaultValue;
+	private final Object _defaultValue;
 	
 	public KeySpec(byte defaultValue) {
 		_defaultValue = new Byte(defaultValue);

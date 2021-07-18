@@ -51,8 +51,8 @@ public abstract class BuiltInStringEncoding implements StringEncoding {
 				System.out.println("Warning! Database was created with a custom string encoding but no custom string encoding is configured for this session.");
 			}
 			return new DelegatingStringIO(encoding);
-		};
-		BuiltInStringEncoding builtInEncoding = ALL_ENCODINGS[encodingByte];
+		}
+        BuiltInStringEncoding builtInEncoding = ALL_ENCODINGS[encodingByte];
 		return builtInEncoding.createStringIo(encoding);
     }
 

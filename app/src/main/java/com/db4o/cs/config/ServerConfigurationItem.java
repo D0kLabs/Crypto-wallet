@@ -30,13 +30,13 @@ public interface ServerConfigurationItem {
 	 * 
 	 * @param configuration the configuration that the item was added to
 	 */
-	public void prepare(ServerConfiguration configuration);
+    void prepare(ServerConfiguration configuration);
 	
 	/**
 	 * Gives a chance for the item to configure the just opened ObjectContainer.
 	 * 
 	 * @param container the ObjectContainer to configure
 	 */
-	public void apply(ObjectServer server);
+    void apply(ObjectServer server);
 
 }

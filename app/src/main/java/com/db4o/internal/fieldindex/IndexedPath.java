@@ -44,7 +44,7 @@ public class IndexedPath extends IndexedNodeBase {
 		return field.getFieldMetadata();
 	}
 	
-	private IndexedNode _next;
+	private final IndexedNode _next;
 
 	public IndexedPath(QConObject parent, IndexedNode next) {
 		super(parent);

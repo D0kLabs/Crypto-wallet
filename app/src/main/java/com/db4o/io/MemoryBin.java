@@ -21,7 +21,7 @@ public class MemoryBin implements Bin {
 	
 	private byte[] _bytes;
 	private int _length;
-	private GrowthStrategy _growthStrategy;
+	private final GrowthStrategy _growthStrategy;
 
 	public MemoryBin(int initialSize, GrowthStrategy growthStrategy) {
 		this(new byte[initialSize], growthStrategy);

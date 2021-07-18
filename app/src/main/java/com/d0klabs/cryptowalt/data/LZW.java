@@ -54,7 +54,7 @@ public class LZW {
 
     public static String lzw_extract(String input){
         HashMap<Integer,String> dictionary = new LinkedHashMap<>();
-        String[] data = new String[input.length()];;
+        String[] data = new String[input.length()];
         for (int k=0; k<input.length(); k++){
             data[k] = String.valueOf(input.charAt(k));
         }

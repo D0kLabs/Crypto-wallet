@@ -29,7 +29,7 @@ public interface ReadBuffer {
 	 */
     int offset();
     
-    public BitMap4 readBitMap(int bitCount);
+    BitMap4 readBitMap(int bitCount);
 
     /**
      * reads a byte from the buffer.

@@ -21,10 +21,10 @@ package com.db4o.foundation;
  */
 public interface Sortable4 {
 	
-	public int size();
+	int size();
 	
-	public int compare(int leftIndex, int rightIndex);
+	int compare(int leftIndex, int rightIndex);
 	
-	public void swap(int leftIndex, int rightIndex);
+	void swap(int leftIndex, int rightIndex);
 
 }

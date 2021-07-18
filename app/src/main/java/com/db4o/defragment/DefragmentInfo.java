@@ -27,7 +27,7 @@ package com.db4o.defragment;
  * @see Defragment
  */
 public class DefragmentInfo {
-	private String _msg;
+	private final String _msg;
 
 	public DefragmentInfo(String msg) {
 		_msg = msg;

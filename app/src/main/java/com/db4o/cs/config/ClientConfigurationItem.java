@@ -30,13 +30,13 @@ public interface ClientConfigurationItem {
 	 * 
 	 * @param configuration the configuration that the item was added to
 	 */
-	public void prepare(ClientConfiguration configuration);
+    void prepare(ClientConfiguration configuration);
 	
 	/**
 	 * Gives a chance for the item to configure the just opened ObjectContainer.
 	 * 
 	 * @param container the ObjectContainer to configure
 	 */
-	public void apply(ExtClient client);
+    void apply(ExtClient client);
 
 }

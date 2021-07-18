@@ -24,7 +24,7 @@ import com.EDU.purdue.cs.bloat.file.*;
  */
 public class Db4oClassSource implements ClassSource {
 	
-	private NativeClassFactory _classFactory;
+	private final NativeClassFactory _classFactory;
 	
 	public Db4oClassSource(NativeClassFactory classFactory) {
 		_classFactory = classFactory;

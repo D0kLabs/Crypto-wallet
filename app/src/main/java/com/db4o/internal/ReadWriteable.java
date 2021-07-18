@@ -21,6 +21,6 @@ package com.db4o.internal;
  */
 public interface ReadWriteable extends Readable{
 	
-	public void write(ByteArrayBuffer buffer);
+	void write(ByteArrayBuffer buffer);
 	
 }

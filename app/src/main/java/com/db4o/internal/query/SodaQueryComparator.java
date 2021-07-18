@@ -27,10 +27,10 @@ public class SodaQueryComparator implements Comparator<Integer>, IntComparator {
 	public static class Ordering {
 		
 		@decaf.Public
-		private Direction _direction;
+		private final Direction _direction;
 		
 		@decaf.Public
-		private String[] _fieldPath;
+		private final String[] _fieldPath;
 		
 		@decaf.Public
 		transient List<FieldMetadata> _resolvedPath;
@@ -175,8 +175,8 @@ public class SodaQueryComparator implements Comparator<Integer>, IntComparator {
 	}
 
 	static class FieldValueKey {
-		private int _id;
-		private FieldMetadata _field;
+		private final int _id;
+		private final FieldMetadata _field;
 
 		public FieldValueKey(int id, FieldMetadata field) {
 			_id = id;

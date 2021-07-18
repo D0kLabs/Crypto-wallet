@@ -111,7 +111,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
     
     private int _topLevelCallId = 1;
     
-    private IntIdGenerator _topLevelCallIdGenerator = new IntIdGenerator();
+    private final IntIdGenerator _topLevelCallIdGenerator = new IntIdGenerator();
 
 	private final Environment _environment;
 	
@@ -251,7 +251,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 		return new ActivationContext4(ta, obj, depth);
 	}
     
-    public final void bind(Transaction trans, Object obj, long id) throws ArgumentNullException, IllegalArgumentException {
+    public final void bind(Transaction trans, Object obj, long id) throws IllegalArgumentException {
         synchronized (_lock) {
             if(obj == null){
                 throw new ArgumentNullException();
@@ -1050,10 +1050,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
     }
     
     private final boolean hideClassForExternalUse(ReflectClass claxx){
-        if ((!showInternalClasses()) && _handlers.ICLASS_INTERNAL.isAssignableFrom(claxx)) {
-            return true;
-        }
-        return false;
+        return (!showInternalClasses()) && _handlers.ICLASS_INTERNAL.isAssignableFrom(claxx);
     }
     
     public int classMetadataIdForName(String name) {

@@ -23,7 +23,7 @@ import com.db4o.nativequery.expr.cmp.*;
 import com.db4o.nativequery.expr.cmp.operand.*;
 
 final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor {
-	private Object _predicate;
+	private final Object _predicate;
 	
 	private Object _value=null;
 	

@@ -80,7 +80,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 	private int _topLevelStmtCount = 0;
 
 	public BloatExprBuilderVisitor(BloatLoaderContext bloatUtil) {
-		this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
+		this(bloatUtil, new LinkedList<MemberRef>(), Arrays.asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
 	}
 
 	private BloatExprBuilderVisitor(BloatLoaderContext bloatUtil, LinkedList<MemberRef> methodStack, List<ComparisonOperand> locals) {
@@ -509,9 +509,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 			if(TypeRefUtil.isBooleanField(fieldval)) {
 				retval(comparisonExpression(fieldval,new ConstValue(Boolean.TRUE),ComparisonOperator.VALUE_EQUALITY, true));
 			}
-			if(fieldval.root().equals(CandidateFieldRoot.INSTANCE)) {
-				return true;
-			}
+            return fieldval.root().equals(CandidateFieldRoot.INSTANCE);
 		}
 		return false;
 	}

@@ -19,7 +19,7 @@ import com.db4o.events.*;
 
 public class UncaughtExceptionEventArgs extends EventArgs {
 
-	private Throwable _exception;
+	private final Throwable _exception;
 
 	public UncaughtExceptionEventArgs(Throwable e) {
 		_exception = e;

@@ -37,7 +37,7 @@ public class MonitoredStorage extends StorageDecorator {
 	
 	private static class MonitoredBin extends BinDecorator {
 
-		private IO _ioMBean;
+		private final IO _ioMBean;
 
 		public MonitoredBin(String uri, Bin bin) {
 			super(bin);

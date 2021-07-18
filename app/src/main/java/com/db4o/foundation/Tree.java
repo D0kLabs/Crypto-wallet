@@ -462,9 +462,7 @@ public abstract class Tree<T> implements ShallowClone , DeepClone, Visitable <T>
 			return false;
 		}
 		if(_subsequent != null){
-			if(! _subsequent.traverse(null, visitor)){
-				return false;
-			}
+            return _subsequent.traverse(null, visitor);
 		}
 		return true;
 	}

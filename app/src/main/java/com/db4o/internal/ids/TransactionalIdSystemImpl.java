@@ -25,9 +25,9 @@ import com.db4o.internal.slots.*;
  */
 public class TransactionalIdSystemImpl implements TransactionalIdSystem {
 	
-	private IdSlotChanges _slotChanges;
+	private final IdSlotChanges _slotChanges;
 
-	private TransactionalIdSystemImpl _parentIdSystem;
+	private final TransactionalIdSystemImpl _parentIdSystem;
 	
 	private final Closure4<IdSystem> _globalIdSystem;
 	

@@ -23,7 +23,7 @@ import com.db4o.internal.*;
  */
 public class IdTreeQueryResult extends AbstractQueryResult{
 	
-	private Tree _ids;
+	private final Tree _ids;
 
 	public IdTreeQueryResult(Transaction transaction, IntIterator4 ids) {
 		super(transaction);

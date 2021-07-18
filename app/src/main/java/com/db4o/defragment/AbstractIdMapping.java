@@ -25,7 +25,7 @@ import com.db4o.foundation.*;
  */
 public abstract class AbstractIdMapping implements IdMapping {
 
-	private Hashtable4	_classIDs = new Hashtable4();
+	private final Hashtable4	_classIDs = new Hashtable4();
 
 	public final void mapId(int origID, int mappedID, boolean isClassID) {
 		if(isClassID) {

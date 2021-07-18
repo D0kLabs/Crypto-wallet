@@ -26,7 +26,7 @@ import com.db4o.internal.*;
  */
 public class CancellableObjectEventArgs extends ObjectInfoEventArgs implements CancellableEventArgs {
 	private boolean _cancelled;
-	private Object _object;
+	private final Object _object;
 
 	/**
 	 * Creates a new instance for the specified object.

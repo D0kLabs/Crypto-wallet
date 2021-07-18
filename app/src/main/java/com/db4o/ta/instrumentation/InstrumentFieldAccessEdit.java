@@ -41,7 +41,7 @@ import com.db4o.ta.*;
  */
 class InstrumentFieldAccessEdit implements BloatClassEdit {
 
-	private ClassFilter _filter;
+	private final ClassFilter _filter;
 	
 	public InstrumentFieldAccessEdit(ClassFilter filter) {
 		_filter = filter;

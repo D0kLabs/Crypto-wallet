@@ -23,36 +23,36 @@ import com.db4o.internal.slots.*;
  */
 public interface TransactionalIdSystem {
 
-	public void collectCallBackInfo(CallbackInfoCollector collector);
+	void collectCallBackInfo(CallbackInfoCollector collector);
 
-	public boolean isDirty();
+	boolean isDirty();
 
-	public void commit(FreespaceCommitter freespaceCommitter);
+	void commit(FreespaceCommitter freespaceCommitter);
 
-	public Slot committedSlot(int id);
+	Slot committedSlot(int id);
 
-	public Slot currentSlot(int id);
+	Slot currentSlot(int id);
 	
-	public void accumulateFreeSlots(FreespaceCommitter freespaceCommitter, boolean forFreespace);
+	void accumulateFreeSlots(FreespaceCommitter freespaceCommitter, boolean forFreespace);
 
-	public void rollback();
+	void rollback();
 
-	public void clear();
+	void clear();
 
-	public boolean isDeleted(int id);
+	boolean isDeleted(int id);
 
-	public void notifySlotUpdated(int id, Slot slot, SlotChangeFactory slotChangeFactory);
+	void notifySlotUpdated(int id, Slot slot, SlotChangeFactory slotChangeFactory);
 	
-	public void notifySlotCreated(int id, Slot slot, SlotChangeFactory slotChangeFactory);
+	void notifySlotCreated(int id, Slot slot, SlotChangeFactory slotChangeFactory);
 	
-	public void notifySlotDeleted(int id, SlotChangeFactory slotChangeFactory);
+	void notifySlotDeleted(int id, SlotChangeFactory slotChangeFactory);
 
-	public int newId(SlotChangeFactory slotChangeFactory);
+	int newId(SlotChangeFactory slotChangeFactory);
 
-	public int prefetchID();
+	int prefetchID();
 
-	public void prefetchedIDConsumed(int id);
+	void prefetchedIDConsumed(int id);
 
-	public void close();
+	void close();
 
 }

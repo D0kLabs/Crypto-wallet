@@ -43,6 +43,6 @@ public interface ObjectConstructor extends ObjectTranslator {
 	 * {@link ObjectTranslator#onStore ObjectTranslator.onStore}.
 	 * @return the instantiated object.
 	 */
-	public Object onInstantiate(ObjectContainer container, Object storedObject);
+    Object onInstantiate(ObjectContainer container, Object storedObject);
 	
 }

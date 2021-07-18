@@ -23,7 +23,7 @@ public interface IdSystemConfiguration {
 	/**
 	 * configures db4o to store IDs as pointers.
 	 */
-	public void usePointerBasedSystem();
+    void usePointerBasedSystem();
 	
 	/**
 	 * configures db4o to use a stack of two BTreeIdSystems on 
@@ -31,7 +31,7 @@ public interface IdSystemConfiguration {
 	 * large numbers of IDs. It is the default configuration
 	 * when new databases are created.
 	 */
-	public void useStackedBTreeSystem();
+    void useStackedBTreeSystem();
 	
 	
 	/**
@@ -40,14 +40,14 @@ public interface IdSystemConfiguration {
 	 * smaller databases with a small number of IDs.
 	 * For larger numbers of IDs call {@link #useStackedBTreeSystem()}.
 	 */
-	public void useSingleBTreeSystem();
+    void useSingleBTreeSystem();
 	
 	
 	/**
 	 * configures db4o to use an in-memory ID system.
 	 * All IDs get written to the database file on every commit.
 	 */
-	public void useInMemorySystem();
+    void useInMemorySystem();
 	
 	/**
 	 * configures db4o to use a custom ID system.
@@ -55,6 +55,6 @@ public interface IdSystemConfiguration {
 	 * Note that this factory has to be configured every time you
 	 * open a database that you configured to use a custom IdSystem.
 	 */
-	public void useCustomSystem(IdSystemFactory factory);
+    void useCustomSystem(IdSystemFactory factory);
 
 }

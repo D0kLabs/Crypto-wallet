@@ -22,7 +22,7 @@ public class MappingNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = -1771324770287654802L;
 	
-	private int _id;
+	private final int _id;
 	
 	public MappingNotFoundException(int id) {
 		this._id = id;

@@ -44,7 +44,7 @@ public class KnownClassesRepository {
 	private ObjectContainerBase _stream;
 	private Transaction _trans;
 
-    private ReflectClassBuilder _builder;
+    private final ReflectClassBuilder _builder;
     
     private final ListenerRegistry<ReflectClass> _listeners = ListenerRegistry.newInstance();
 

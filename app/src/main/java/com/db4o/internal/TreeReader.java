@@ -28,7 +28,7 @@ public final class TreeReader
 	private int i_current = 0;
 	private int i_levels = 0;
 	private int i_size;
-	private boolean i_orderOnRead;
+	private final boolean i_orderOnRead;
 	
 	public TreeReader(ByteArrayBuffer a_bytes, Readable a_template) {
 		this(a_bytes, a_template, false);

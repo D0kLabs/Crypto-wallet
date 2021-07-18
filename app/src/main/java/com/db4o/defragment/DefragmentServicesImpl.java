@@ -64,10 +64,10 @@ public class DefragmentServicesImpl implements DefragmentServices {
 	private final LocalObjectContainer _sourceDb;
 	private final LocalObjectContainer _targetDb;
 	private final IdMapping _mapping;
-	private DefragmentListener _listener;
-	private Queue4 _unindexed=new NonblockingQueue();
+	private final DefragmentListener _listener;
+	private final Queue4 _unindexed=new NonblockingQueue();
 
-	private DefragmentConfig _defragConfig;
+	private final DefragmentConfig _defragConfig;
 	
 
 	public DefragmentServicesImpl(DefragmentConfig defragConfig,DefragmentListener listener) throws IOException {
@@ -225,7 +225,7 @@ public class DefragmentServicesImpl implements DefragmentServices {
 		return _sourceDb.classCollection().getID();
 	}
 
-	private Hashtable4 _classIndices=new Hashtable4(16);
+	private final Hashtable4 _classIndices=new Hashtable4(16);
 
 	public int classIndexID(ClassMetadata classMetadata) {
 		return classIndex(classMetadata).id();

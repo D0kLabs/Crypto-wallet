@@ -31,8 +31,8 @@ import com.db4o.instrumentation.util.*;
  */
 class AntFileSetPathRoot implements FilePathRoot, ClassFilter {
 
-	private FileSet[] _fileSets;
-	private DirectoryScanner[] _scanners;
+	private final FileSet[] _fileSets;
+	private final DirectoryScanner[] _scanners;
 
 	public AntFileSetPathRoot(FileSet[] fileSets) {
 		_fileSets = fileSets;

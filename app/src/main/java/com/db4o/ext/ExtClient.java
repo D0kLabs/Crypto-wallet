@@ -31,7 +31,7 @@ public interface ExtClient extends ExtObjectContainer{
      * checks if the client is currently connected to a server.
      * @return true if the client is alive.
      */
-	public boolean isAlive();
+    boolean isAlive();
 	
 }
 

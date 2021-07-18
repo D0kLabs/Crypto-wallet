@@ -21,7 +21,7 @@ import com.db4o.reflect.jdk.*;
 
 public class JdkReverseLookupClassFactory implements NativeClassFactory {
 
-	private Reflector _reflector;
+	private final Reflector _reflector;
 	
 	public JdkReverseLookupClassFactory(Reflector reflector) {
 		_reflector = reflector;

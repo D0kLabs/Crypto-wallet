@@ -17,7 +17,7 @@ package com.db4o.foundation;
 
 public class HashSet4 implements Set4 {
 
-	private Hashtable4 _map;
+	private final Hashtable4 _map;
 	
 	public HashSet4() {
 		this(1);

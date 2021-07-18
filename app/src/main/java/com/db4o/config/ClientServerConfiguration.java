@@ -64,14 +64,14 @@ public interface ClientServerConfiguration {
 	 * @param messageRecipient
 	 *            the MessageRecipient to be used
 	 */
-	public void setMessageRecipient(MessageRecipient messageRecipient);
+    void setMessageRecipient(MessageRecipient messageRecipient);
 
 	/**
 	 * returns the MessageSender for this Configuration context.
 	 * This setting should be used on the client side.
 	 * @return MessageSender
 	 */
-	public MessageSender getMessageSender();
+    MessageSender getMessageSender();
 
 	/**
 	 * configures the time a client waits for a message response 
@@ -86,7 +86,7 @@ public interface ClientServerConfiguration {
 	 * @param milliseconds
 	 *            time in milliseconds
 	 */
-	public void timeoutClientSocket(int milliseconds);
+    void timeoutClientSocket(int milliseconds);
 
 	/**
 	 * configures the timeout of the serverside socket. <br>
@@ -114,7 +114,7 @@ public interface ClientServerConfiguration {
 	 * @param milliseconds
 	 *            time in milliseconds
 	 */
-	public void timeoutServerSocket(int milliseconds);
+    void timeoutServerSocket(int milliseconds);
 
 	
 	/**
@@ -130,7 +130,7 @@ public interface ClientServerConfiguration {
      * This setting can be used on both client and server.<br><br>
      * @param flag the desired setting
      */
-    public void singleThreadedClient(boolean flag);
+    void singleThreadedClient(boolean flag);
 
 
 	/**
@@ -140,7 +140,7 @@ public interface ClientServerConfiguration {
 	 * @param flag
 	 *            false, to turn message batching off.
 	 */
-	public void batchMessages(boolean flag);
+    void batchMessages(boolean flag);
 	
 	/**
 	 * Configures the maximum memory buffer size for batched message. If the
@@ -149,6 +149,6 @@ public interface ClientServerConfiguration {
 	 * This setting can be used on both client and server.<br><br>
 	 * @param maxSize
 	 */
-	public void maxBatchQueueSize(int maxSize);
+    void maxBatchQueueSize(int maxSize);
 
 }

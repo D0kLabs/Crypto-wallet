@@ -23,7 +23,7 @@ package com.db4o;
  */
 public interface TransactionListener {
     
-    public void preCommit();
-    public void postRollback();
+    void preCommit();
+    void postRollback();
     
 }

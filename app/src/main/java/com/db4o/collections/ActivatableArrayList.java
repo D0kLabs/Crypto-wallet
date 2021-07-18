@@ -58,14 +58,14 @@ public class ActivatableArrayList<E> extends ArrayList<E> implements Activatable
 	public boolean add(E e) {
 		activate(ActivationPurpose.WRITE);
 		return super.add(e);
-	};
-	
-	public void add(int index, E element) {
+	}
+
+    public void add(int index, E element) {
 		activate(ActivationPurpose.WRITE);
 		super.add(index, element);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public boolean addAll(Collection<? extends E> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.addAll(c);
@@ -173,9 +173,9 @@ public class ActivatableArrayList<E> extends ArrayList<E> implements Activatable
 	public E set(int index, E element) {
 		activate(ActivationPurpose.WRITE);
 		return super.set(index, element);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public int size() {
 		activate(ActivationPurpose.READ);
 		return super.size();
@@ -197,9 +197,9 @@ public class ActivatableArrayList<E> extends ArrayList<E> implements Activatable
 	public <T extends Object> T[] toArray(T[] a) {
 		activate(ActivationPurpose.READ);
 		return super.toArray(a);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public boolean removeAll(Collection<?> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.removeAll(c);

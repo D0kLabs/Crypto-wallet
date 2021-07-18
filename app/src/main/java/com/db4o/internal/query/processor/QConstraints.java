@@ -29,7 +29,7 @@ import com.db4o.query.*;
  */
 public class QConstraints extends QCon implements Constraints {
 
-	private Constraint[] i_constraints;
+	private final Constraint[] i_constraints;
 
 	QConstraints(Transaction a_trans, Constraint[] constraints) {
 		super(a_trans);

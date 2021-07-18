@@ -186,7 +186,7 @@ public class UUIDFieldMetadata extends VirtualFieldMetadata {
         ObjectContainerBase container = trans.container();
         boolean doAddIndexEntry = isNew && container.maintainsIndices();
         int dbID = 0;
-		boolean linkToDatabase =  (attr != null && attr.i_database == null) ?  true  :  ! isMigrating;
+		boolean linkToDatabase = attr != null && attr.i_database == null || !isMigrating;
         if(linkToDatabase){
             Db4oDatabase db = ((InternalObjectContainer)container).identity();
             if(db == null){

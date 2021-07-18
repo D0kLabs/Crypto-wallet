@@ -46,7 +46,7 @@ public abstract class QQueryBase implements InternalQuery, Unversioned {
     transient Transaction _trans;
     
     @decaf.Public
-    private Collection4 i_constraints = new Collection4();
+    private final Collection4 i_constraints = new Collection4();
 
     @decaf.Public
     private QQuery i_parent;
@@ -851,11 +851,8 @@ public abstract class QQueryBase implements InternalQuery, Unversioned {
 	}
 	
 	public boolean requiresSort() {
-		if (_comparator != null || _orderings != null){
-			return true;
-		}
-		return false;
-	}
+        return _comparator != null || _orderings != null;
+    }
 	
 	public QueryComparator comparator() {
 		return _comparator;

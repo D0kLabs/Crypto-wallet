@@ -30,7 +30,7 @@ public interface QLin<T> {
 	 * @param expression can be any of the following:
 	 * 
 	 */
-	public QLin<T> where(Object expression);
+    QLin<T> where(Object expression);
 	
 	/**
 	 * executes the QLin query and returns the result
@@ -43,18 +43,18 @@ public interface QLin<T> {
 	// FIXME: The return value should not be as closely bound to db4o.
 	// Collection is mutable, it's not nice.
 	// Discuss !!!
-	public ObjectSet<T> select ();
+    ObjectSet<T> select();
 	
 	
-	public QLin<T> equal(Object obj);
+	QLin<T> equal(Object obj);
 
-	public QLin<T> startsWith(String string);
+	QLin<T> startsWith(String string);
 
-	public QLin<T> limit(int size);
+	QLin<T> limit(int size);
 
-	public QLin<T> smaller(Object obj);
+	QLin<T> smaller(Object obj);
 
-	public QLin<T> greater(Object obj);
+	QLin<T> greater(Object obj);
 	
 	
 	/**
@@ -62,10 +62,10 @@ public interface QLin<T> {
 	 * Use the {@link QLinSupport#ascending()} and {@link QLinSupport#descending()}
 	 * helper methods to set the direction.
 	 */
-	public QLin<T> orderBy(Object expression, QLinOrderByDirection direction);
+    QLin<T> orderBy(Object expression, QLinOrderByDirection direction);
 	
-	public T singleOrDefault(T defaultValue);
+	T singleOrDefault(T defaultValue);
 
-	public T single();
+	T single();
 
 }

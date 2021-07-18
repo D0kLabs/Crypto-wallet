@@ -79,7 +79,7 @@ public class FileUsageStatsCollector {
 	
 	private final LocalObjectContainer _db;
 	private FileUsageStats _stats;
-	private BlockConverter _blockConverter;
+	private final BlockConverter _blockConverter;
 	private final SlotMap _slots;
 
 	public FileUsageStatsCollector(ObjectContainer db, boolean collectSlots) {

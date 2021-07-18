@@ -24,44 +24,44 @@ import com.db4o.internal.slots.*;
  */
 public interface FreespaceManager {
 	
-	public void beginCommit();
+	void beginCommit();
 
-	public void endCommit();
+	void endCommit();
 	
-	public int slotCount();
+	int slotCount();
 
-	public void free(Slot slot);
+	void free(Slot slot);
 	
-    public void freeSelf();
+    void freeSelf();
 
-	public int totalFreespace();
+	int totalFreespace();
 	
-	public Slot allocateTransactionLogSlot(int length);
+	Slot allocateTransactionLogSlot(int length);
 
-	public Slot allocateSlot(int length);
+	Slot allocateSlot(int length);
 
-	public void migrateTo(FreespaceManager fm);
+	void migrateTo(FreespaceManager fm);
 
-	public void read(LocalObjectContainer container, Slot slot);
+	void read(LocalObjectContainer container, Slot slot);
 
-	public void start(int id);
+	void start(int id);
 
-	public byte systemType();
+	byte systemType();
 	
-	public void traverse(Visitor4<Slot> visitor);
+	void traverse(Visitor4<Slot> visitor);
 
-	public void write(LocalObjectContainer container);
+	void write(LocalObjectContainer container);
 
-	public void commit();
+	void commit();
 
-	public Slot allocateSafeSlot(int length);
+	Slot allocateSafeSlot(int length);
 
-	public void freeSafeSlot(Slot slot);
+	void freeSafeSlot(Slot slot);
 	
-	public void listener(FreespaceListener listener);
+	void listener(FreespaceListener listener);
 	
-	public void slotFreed(Slot slot);
+	void slotFreed(Slot slot);
 
-	public boolean isStarted();
+	boolean isStarted();
 	
 }

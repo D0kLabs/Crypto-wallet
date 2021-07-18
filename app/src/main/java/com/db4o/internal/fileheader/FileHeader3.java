@@ -30,9 +30,9 @@ public class FileHeader3 extends FileHeader2 {
 	@Override
 	protected byte version() {
 		return (byte) 3;
-	};
-	
-	@Override
+	}
+
+    @Override
 	protected NewFileHeaderBase createNew() {
 		return new FileHeader3();
 	}

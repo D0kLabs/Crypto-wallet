@@ -33,10 +33,10 @@ public class DefragmentConfig {
 	
 	public final static String BACKUP_SUFFIX="backup";
 	
-	private String _origPath;
-	private String _backupPath;
+	private final String _origPath;
+	private final String _backupPath;
 	private String _tempPath;
-	private IdMapping _mapping;
+	private final IdMapping _mapping;
 	private Configuration _config;
 	
 	private StoredClassFilter _storedClassFilter=null;

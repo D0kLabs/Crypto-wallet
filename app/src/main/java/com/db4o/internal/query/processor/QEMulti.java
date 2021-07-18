@@ -24,7 +24,7 @@ import com.db4o.foundation.*;
 public class QEMulti extends QE{
 	
 	@decaf.Public
-    private Collection4 i_evaluators = new Collection4();
+    private final Collection4 i_evaluators = new Collection4();
 	
 	// used by .net LINQ tests
 	public Iterable4 evaluators() {

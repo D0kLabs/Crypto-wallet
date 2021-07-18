@@ -23,7 +23,7 @@ public class Db4oRunner {
 		ClassLoader loader=new NQEnhancingClassloader(parentLoader);
 		Thread.currentThread().setContextClassLoader(loader);
 		Class mainClass=loader.loadClass(args[0]);
-		Method mainMethod=mainClass.getMethod("main",new Class[]{String[].class});
+		Method mainMethod=mainClass.getMethod("main", String[].class);
 		String[] delegateArgs=new String[args.length-1];
 		System.arraycopy(args,1,delegateArgs,0,delegateArgs.length);
 		mainMethod.invoke(null,new Object[]{delegateArgs});

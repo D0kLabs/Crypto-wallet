@@ -38,7 +38,7 @@ public interface ObjectServer {
     * @return true - denotes that the last instance connected to the
     * used database file was closed.
     */
-    public boolean close();
+    boolean close();
 
     /**
      * returns an  {@link ObjectServer } with extended functionality.
@@ -47,7 +47,7 @@ public interface ObjectServer {
      * <br><br>The functionality is split to two interfaces to allow newcomers to
      * focus on the essential methods.
      */
-    public ExtObjectServer ext();
+    ExtObjectServer ext();
 
     /**
      * grants client access to the specified user with the specified password.
@@ -56,7 +56,7 @@ public interface ObjectServer {
      * @param userName the name of the user
      * @param password the password to be used
      */
-    public void grantAccess(String userName, String password);
+    void grantAccess(String userName, String password);
 
     /**
      * opens a client against this server.
@@ -71,5 +71,5 @@ public interface ObjectServer {
      * for it's own version of all peristent objects.  
      * 
      */
-    public ObjectContainer openClient();
+    ObjectContainer openClient();
 }

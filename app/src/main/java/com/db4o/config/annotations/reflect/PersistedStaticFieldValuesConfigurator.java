@@ -21,7 +21,7 @@ package com.db4o.config.annotations.reflect;
  */
 @decaf.Ignore
 public class PersistedStaticFieldValuesConfigurator extends Db4oConfigurator {
-	private String _className;
+	private final String _className;
 
 	public PersistedStaticFieldValuesConfigurator(String name) {
 		_className = name;

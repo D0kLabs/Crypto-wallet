@@ -88,7 +88,7 @@ public class ClassMetadata extends PersistentBase implements StoredClass {
     
     private ModificationAware _modificationChecker = AlwaysModified.INSTANCE;
     
-    private FieldAccessor _fieldAccessor;
+    private final FieldAccessor _fieldAccessor;
 
 	private Function4<UnmarshallingContext, Object> _constructor;
 
@@ -881,10 +881,7 @@ public class ClassMetadata extends PersistentBase implements StoredClass {
         if(_unversioned){
             return false;
         }
-        if(_internal){
-            return false;
-        }
-        return true; 
+        return !_internal;
     }
     
     private boolean generate1(ConfigScope globalConfig, TernaryBool individualConfig) {

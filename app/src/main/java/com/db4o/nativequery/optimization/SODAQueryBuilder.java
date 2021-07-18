@@ -24,11 +24,11 @@ import com.db4o.query.*;
 
 public class SODAQueryBuilder {		
 	private static class SODAQueryVisitor implements ExpressionVisitor {
-		private Object _predicate;
-		private Query _query;
+		private final Object _predicate;
+		private final Query _query;
 		private Constraint _constraint;
-		private NativeClassFactory _classSource;
-		private ReferenceResolver _referenceResolver;
+		private final NativeClassFactory _classSource;
+		private final ReferenceResolver _referenceResolver;
 
 		SODAQueryVisitor(Query query, Object predicate, NativeClassFactory classSource, ReferenceResolver referenceResolver) {
 			_query=query;

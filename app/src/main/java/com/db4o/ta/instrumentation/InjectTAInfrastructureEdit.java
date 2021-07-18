@@ -67,7 +67,7 @@ class InjectTAInfrastructureEdit implements BloatClassEdit {
 		}
 	}
 
-	@decaf.ReplaceFirst("return false;")
+	//@decaf.ReplaceFirst("return false;")
 	private boolean isEnum(Class clazz) {
 		return clazz.isEnum();
 	}

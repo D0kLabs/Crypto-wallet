@@ -23,28 +23,28 @@ public interface StoredClass {
 	/**
 	 * returns the name of this stored class.
 	 */
-	public String getName();
+    String getName();
 	
 	
 	/**
 	 * returns an array of IDs of all stored object instances of this stored class.
 	 */
-	public long[] getIDs();
+    long[] getIDs();
 	
 	/**
 	 * returns the StoredClass for the parent of the class, this StoredClass represents.    
 	 */
-	public StoredClass getParentStoredClass();
+    StoredClass getParentStoredClass();
 	
 	/**
 	 * returns all stored fields of this stored class.
 	 */
-	public StoredField[] getStoredFields();
+    StoredField[] getStoredFields();
 	
 	/**
 	 * returns true if this StoredClass has a class index.
 	 */
-	public boolean hasClassIndex();
+    boolean hasClassIndex();
 	
 	/**
 	 * renames this stored class.
@@ -53,7 +53,7 @@ public interface StoredClass {
 	 * <br><br>.NET: As the name you should provide [Classname, Assemblyname]<br><br>
 	 * @param name the new name
 	 */
-	public void rename(String name);
+    void rename(String name);
 	
 	// TODO: add field creation
 	
@@ -68,7 +68,7 @@ public interface StoredClass {
      * - null, if the first found field should be returned.
 	 * @return the {@link StoredField}
 	 */
-	public StoredField storedField(String name, Object type);
+    StoredField storedField(String name, Object type);
 
 	/**
 	 * Returns the number of instances of this class that have been persisted to the
@@ -77,6 +77,6 @@ public interface StoredClass {
 	 * 
 	 * @return The number of instances
 	 */
-	public int instanceCount();
+    int instanceCount();
 
 }

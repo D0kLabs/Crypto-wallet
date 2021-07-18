@@ -26,7 +26,7 @@ import java.util.*;
 //@decaf.Ignore
 public class MapEntry4<K, V> implements Map.Entry<K, V> {
 
-    private K _key;
+    private final K _key;
 
     private V _value;
 

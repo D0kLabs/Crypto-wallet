@@ -72,14 +72,14 @@ public interface CommonConfiguration {
      * In client/server environment it is good practice to configure the
      * client and the server in exactly the same way. 
      */
-    public void addAlias(Alias alias);
+    void addAlias(Alias alias);
     
     /**
      * Removes an alias previously added with {@link CommonConfiguration#addAlias(Alias)}.
      * 
      * @param alias the alias to remove
      */
-    public void removeAlias(Alias alias);
+    void removeAlias(Alias alias);
     
 
 
@@ -119,7 +119,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void activationDepth(int depth);
+    void activationDepth(int depth);
     
     /**
      * gets the configured activation depth.
@@ -128,14 +128,14 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public int activationDepth();
+    int activationDepth();
 
     /**
      * adds ConfigurationItems to be applied when
      * an ObjectContainer or ObjectServer is opened. 
      * @param configurationItem the ConfigurationItem
      */
-    public void add(ConfigurationItem configurationItem);
+    void add(ConfigurationItem configurationItem);
 
     /**
      * turns automatic database file format version updates on.
@@ -157,7 +157,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void allowVersionUpdates(boolean flag);
+    void allowVersionUpdates(boolean flag);
 
     /**
      * turns automatic shutdown of the engine on and off.
@@ -166,7 +166,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void automaticShutDown(boolean flag);
+    void automaticShutDown(boolean flag);
 
     /**
      * configures the size of BTree nodes in indexes.
@@ -182,7 +182,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void bTreeNodeSize(int size);
+    void bTreeNodeSize(int size);
 
     /**
      * turns callback methods on and off.
@@ -197,7 +197,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void callbacks(boolean flag);
+    void callbacks(boolean flag);
 
     /**
      * advises db4o to try instantiating objects with/without calling
@@ -222,7 +222,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void callConstructors(boolean flag);
+    void callConstructors(boolean flag);
 
     /**
      * tuning feature: configures whether db4o checks all persistent classes upon system
@@ -240,7 +240,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void detectSchemaChanges(boolean flag);
+    void detectSchemaChanges(boolean flag);
 
     /**
      * returns the configuration interface for diagnostics.
@@ -250,7 +250,7 @@ public interface CommonConfiguration {
      * @sharpen.property
      */
     // TODO: refactor to use provider?
-    public DiagnosticConfiguration diagnostic();
+    DiagnosticConfiguration diagnostic();
 
     /**
      * configures whether Exceptions are to be thrown, if objects can not be stored.
@@ -273,7 +273,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void exceptionsOnNotStorable(boolean flag);
+    void exceptionsOnNotStorable(boolean flag);
 
     /**
      * configures db4o to call #intern() on strings upon retrieval.
@@ -283,7 +283,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void internStrings(boolean flag);
+    void internStrings(boolean flag);
 
     /**
      * allows to mark fields as transient with custom annotations/attributes.
@@ -299,7 +299,7 @@ public interface CommonConfiguration {
      */
     // TODO: can we provide meaningful java side semantics for this one?
     // TODO: USE A CLASS!!!!!!
-    public void markTransient(String attributeName);
+    void markTransient(String attributeName);
 
     /**
      * sets the detail level of db4o messages. Messages will be output to the 
@@ -320,7 +320,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void messageLevel(int level);
+    void messageLevel(int level);
 
     /**
      * returns an {@link ObjectClass ObjectClass} object
@@ -334,7 +334,7 @@ public interface CommonConfiguration {
      * @return an instance of an {@link ObjectClass ObjectClass}
      *  object for configuration.
      */
-    public ObjectClass objectClass(Object clazz);
+    ObjectClass objectClass(Object clazz);
 
     /**
      * If set to true, db4o will try to optimize native queries
@@ -352,7 +352,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void optimizeNativeQueries(boolean optimizeNQ);
+    void optimizeNativeQueries(boolean optimizeNQ);
 
     /**
      * indicates whether Native Queries will be optimized dynamically.
@@ -362,14 +362,14 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public boolean optimizeNativeQueries();
+    boolean optimizeNativeQueries();
 
     /**
      * returns the Query configuration interface.
      * 
      * @sharpen.property
      */
-    public QueryConfiguration queries();
+    QueryConfiguration queries();
    
     /**
      * configures the use of a specially designed reflection implementation.
@@ -382,7 +382,7 @@ public interface CommonConfiguration {
      * In client-server environment this setting should be used on both the client and
      * the server side (reflector class must be available)<br><br>
      */
-    public void reflectWith(Reflector reflector);   
+    void reflectWith(Reflector reflector);
 
     /**
      * Assigns a {@link java.io.PrintStream PrintStream} where db4o is to print its event messages.
@@ -399,7 +399,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void outStream(PrintStream outStream);
+    void outStream(PrintStream outStream);
 
     /**
      * configures the string encoding to be used.
@@ -420,7 +420,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-	public void stringEncoding(StringEncoding encoding);
+    void stringEncoding(StringEncoding encoding);
 
     /**
      * tuning feature: configures whether db4o should try to instantiate one instance
@@ -436,7 +436,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void testConstructors(boolean flag);
+    void testConstructors(boolean flag);
 
     /**
      * specifies the global updateDepth.
@@ -456,7 +456,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void updateDepth(int depth);
+    void updateDepth(int depth);
 
     /**
      * turns weak reference management on or off.
@@ -475,7 +475,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void weakReferences(boolean flag);
+    void weakReferences(boolean flag);
 
     /**
      * configures the timer for WeakReference collection.
@@ -486,7 +486,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void weakReferenceCollectionInterval(int milliseconds);
+    void weakReferenceCollectionInterval(int milliseconds);
     
     /**
      * allows registering special TypeHandlers for customized marshalling
@@ -495,19 +495,19 @@ public interface CommonConfiguration {
      * TypeHandler is to be used.
      * @param typeHandler to be used for the classes that match the predicate.
      */
-    public void registerTypeHandler(TypeHandlerPredicate predicate, TypeHandler4 typeHandler);
+    void registerTypeHandler(TypeHandlerPredicate predicate, TypeHandler4 typeHandler);
 
     /**
      * @see Environment
      * @sharpen.property
      */
-	public EnvironmentConfiguration environment();
+    EnvironmentConfiguration environment();
 
 	/**
 	 * Registers a {@link NameProvider} that assigns a custom name to the database to be used in
 	 * {@link Object#toString()}.
 	 */
-	public void nameProvider(NameProvider provider);
+    void nameProvider(NameProvider provider);
 	
 	
 
@@ -520,7 +520,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public void maxStackDepth(int maxStackDepth);
+    void maxStackDepth(int maxStackDepth);
     
     /**
      * gets the configured max stack depth.
@@ -529,7 +529,7 @@ public interface CommonConfiguration {
      * 
      * @sharpen.property
      */
-    public int maxStackDepth();
+    int maxStackDepth();
 
 
 }

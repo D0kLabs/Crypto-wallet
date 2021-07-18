@@ -25,7 +25,7 @@ import com.db4o.ext.*;
 class PagingMemoryBin implements Bin {
 
 	private final int _pageSize;
-	private List<byte[]> _pages = new ArrayList<byte[]>();
+	private final List<byte[]> _pages = new ArrayList<byte[]>();
 	private int _lastPageLength;
 	
 	public PagingMemoryBin(int pageSize) {

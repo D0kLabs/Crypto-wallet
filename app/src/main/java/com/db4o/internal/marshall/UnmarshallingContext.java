@@ -31,9 +31,9 @@ public class UnmarshallingContext extends ObjectReferenceContext implements Hand
     
     private Object _object;
     
-    private int _addToIDTree;
+    private final int _addToIDTree;
     
-    private boolean _checkIDTree;
+    private final boolean _checkIDTree;
     
     public UnmarshallingContext(Transaction transaction, ByteArrayBuffer buffer, ObjectReference ref, int addToIDTree, boolean checkIDTree) {
         super(transaction, buffer, null, ref);
@@ -136,9 +136,6 @@ public class UnmarshallingContext extends ObjectReferenceContext implements Hand
 	private ClassMetadata readObjectHeader() {
         _objectHeader = new ObjectHeader(container(), byteArrayBuffer());
         ClassMetadata classMetadata = _objectHeader.classMetadata();
-        if(classMetadata == null){
-            return null;
-        }
         return classMetadata;
     }
 

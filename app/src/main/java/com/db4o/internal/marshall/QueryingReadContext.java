@@ -33,7 +33,7 @@ public class QueryingReadContext extends AbstractReadContext implements HandlerV
     
     private final int _handlerVersion;
     
-    private IdObjectCollector _collector;
+    private final IdObjectCollector _collector;
     
 	private int _declaredAspectCount;
 

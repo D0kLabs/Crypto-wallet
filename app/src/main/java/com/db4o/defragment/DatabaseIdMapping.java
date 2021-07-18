@@ -33,7 +33,7 @@ import com.db4o.internal.slots.*;
  */
 public class DatabaseIdMapping extends AbstractIdMapping {
 
-	private String _fileName;
+	private final String _fileName;
 
 	private LocalObjectContainer _mappingDb;
 
@@ -124,7 +124,7 @@ public class DatabaseIdMapping extends AbstractIdMapping {
 	}
 	
 	private static class BTreeSpec {
-		private int _nodeSize;
+		private final int _nodeSize;
 		
 		public BTreeSpec(int nodeSize) {
 			_nodeSize = nodeSize;

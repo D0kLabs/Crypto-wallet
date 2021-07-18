@@ -42,14 +42,14 @@ public interface ObjectCallbacks {
      * @param container the <code>ObjectContainer</code> the object is stored in.
      * @return false to prevent activation.
      */
-    public boolean objectCanActivate(ObjectContainer container);
+    boolean objectCanActivate(ObjectContainer container);
 
     /**
      * called before an Object is deactivated.
      * @param container the <code>ObjectContainer</code> the object is stored in.
      * @return false to prevent deactivation.
      */
-    public boolean objectCanDeactivate(ObjectContainer container);
+    boolean objectCanDeactivate(ObjectContainer container);
 
     /**
      * called before an Object is deleted.
@@ -58,33 +58,33 @@ public interface ObjectCallbacks {
      * @param container the <code>ObjectContainer</code> the object is stored in.
      * @return false to prevent the object from being deleted.
      */
-    public boolean objectCanDelete(ObjectContainer container);
+    boolean objectCanDelete(ObjectContainer container);
 
     /**
      * called before an Object is stored the first time.
      * @param container the <code>ObjectContainer</code> is about to be stored to.
      * @return false to prevent the object from being stored.
      */
-    public boolean objectCanNew(ObjectContainer container);
+    boolean objectCanNew(ObjectContainer container);
 
     /**
      * called before a persisted Object is updated.
      * @param container the <code>ObjectContainer</code> the object is stored in.
      * @return false to prevent the object from being updated.
      */
-    public boolean objectCanUpdate(ObjectContainer container);
+    boolean objectCanUpdate(ObjectContainer container);
     
     /**
      * called upon activation of an object.
      * @param container the <code>ObjectContainer</code> the object is stored in.
      */
-    public void objectOnActivate(ObjectContainer container);
+    void objectOnActivate(ObjectContainer container);
 
     /**
      * called upon deactivation of an object.
      * @param container the <code>ObjectContainer</code> the object is stored in.
      */
-    public void objectOnDeactivate(ObjectContainer container);
+    void objectOnDeactivate(ObjectContainer container);
 
     /**
      * called after an object was deleted.
@@ -92,17 +92,17 @@ public interface ObjectCallbacks {
      * the server.
      * @param container the <code>ObjectContainer</code> the object was stored in.
      */
-    public void objectOnDelete(ObjectContainer container);
+    void objectOnDelete(ObjectContainer container);
 
     /**
      * called after a new object was stored.
      * @param container the <code>ObjectContainer</code> the object is stored to.
      */
-    public void objectOnNew(ObjectContainer container);
+    void objectOnNew(ObjectContainer container);
 
     /**
      * called after an object was updated.
      * @param container the <code>ObjectContainer</code> the object is stored in.
      */
-    public void objectOnUpdate(ObjectContainer container);
+    void objectOnUpdate(ObjectContainer container);
 }

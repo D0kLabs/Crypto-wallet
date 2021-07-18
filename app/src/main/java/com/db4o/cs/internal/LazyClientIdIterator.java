@@ -27,7 +27,7 @@ public class LazyClientIdIterator implements IntIterator4{
 	
 	private int _current;
 	
-	private int[] _ids;
+	private final int[] _ids;
 	
 	private final int _batchSize;
 	

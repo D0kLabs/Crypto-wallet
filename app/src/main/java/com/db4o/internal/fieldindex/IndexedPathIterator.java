@@ -20,7 +20,7 @@ import com.db4o.internal.btree.*;
 
 final class IndexedPathIterator extends CompositeIterator4 {
 	
-	private IndexedPath _path;
+	private final IndexedPath _path;
 	
 	public IndexedPathIterator(IndexedPath path, Iterator4 iterator) {
 		super(iterator);

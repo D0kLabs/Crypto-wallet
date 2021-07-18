@@ -1,10 +1,9 @@
 package com.d0klabs.cryptowalt.data;
 
-import android.bluetooth.BluetoothDevice;
 import android.provider.BaseColumns;
 
 public class WalletContract {
-    private WalletContract(){};
+    private WalletContract(){}
 
     public static final class TrustedEntry implements BaseColumns{
         public final static String TABLE_NAME = "trusted";

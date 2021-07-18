@@ -18,12 +18,12 @@ package com.db4o.internal.handlers;
 
 interface NetType {
 	
-	public Object defaultValue();
+	Object defaultValue();
 	
-	public int typeID();
+	int typeID();
 	
-	public void write(Object obj, byte[] bytes, int offset);
+	void write(Object obj, byte[] bytes, int offset);
 	
-	public Object read(byte[] bytes, int offset);
+	Object read(byte[] bytes, int offset);
 	
 }

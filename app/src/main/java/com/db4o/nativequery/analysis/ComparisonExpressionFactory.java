@@ -62,8 +62,8 @@ public class ComparisonExpressionFactory {
 	}
 
 	private static class BuilderSpec {
-		private int _op;
-		private boolean _primitive;
+		private final int _op;
+		private final boolean _primitive;
 
 		public BuilderSpec(int op, boolean primitive) {
 			this._op = op;
@@ -88,14 +88,12 @@ public class ComparisonExpressionFactory {
 			final BuilderSpec other = (BuilderSpec) obj;
 			if (_op != other._op)
 				return false;
-			if (_primitive != other._primitive)
-				return false;
-			return true;
-		}		
+            return _primitive == other._primitive;
+        }
 	}
 	
 	private static class PlainComparisonBuilder {
-		private ComparisonOperator op;
+		private final ComparisonOperator op;
 
 		public PlainComparisonBuilder(ComparisonOperator op) {
 			this.op = op;

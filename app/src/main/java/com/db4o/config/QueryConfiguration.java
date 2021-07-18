@@ -99,13 +99,13 @@ public interface QueryConfiguration {
      * - {@link com.db4o.config.QueryEvaluationMode#LAZY}<br><br>
      * This setting must be issued from the client side.
      */
-	public void evaluationMode(QueryEvaluationMode mode);
+    void evaluationMode(QueryEvaluationMode mode);
 	
 	/**
 	 * @see #evaluationMode(QueryEvaluationMode)
 	 * @return the currently configured query evaluation mode
 	 */
-	public QueryEvaluationMode evaluationMode();
+    QueryEvaluationMode evaluationMode();
 	
 
 }

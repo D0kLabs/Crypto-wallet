@@ -20,6 +20,6 @@ package com.db4o.foundation;
  */
 public interface Listener4<E> {
 	
-	public void onEvent(E event);
+	void onEvent(E event);
 
 }

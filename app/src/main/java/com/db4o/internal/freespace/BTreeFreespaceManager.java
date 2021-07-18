@@ -29,7 +29,7 @@ public class BTreeFreespaceManager extends AbstractFreespaceManager {
 	
     private final LocalObjectContainer     _file;
 	
-	private InMemoryFreespaceManager _delegate;
+	private final InMemoryFreespaceManager _delegate;
 	
 	private BTree _slotsByAddress;
 	
@@ -41,7 +41,7 @@ public class BTreeFreespaceManager extends AbstractFreespaceManager {
 
 	private FreespaceListener _listener = NullFreespaceListener.INSTANCE;
 	
-	private TransactionalIdSystem _idSystem;
+	private final TransactionalIdSystem _idSystem;
 	
 	public BTreeFreespaceManager(LocalObjectContainer file, Procedure4<Slot> slotFreedCallback,  int discardLimit, int remainderSizeLimit) {
 		super(slotFreedCallback, discardLimit, remainderSizeLimit);
@@ -100,7 +100,7 @@ public class BTreeFreespaceManager extends AbstractFreespaceManager {
 	        if(DTrace.enabled){
 	            DTrace.FREESPACEMANAGER_BTREE_FREE.logLength(slot.address(), slot.length());
 	        }
-            Slot remove[] = new Slot[2];
+            Slot[] remove = new Slot[2];
 	        Slot newFreeSlot = slot;
 	        BTreePointer pointer = searchBTree(_slotsByAddress, slot, SearchTarget.LOWEST);
 			BTreePointer previousPointer = pointer != null ? pointer.previous() : _slotsByAddress.lastPointer(transaction()); 

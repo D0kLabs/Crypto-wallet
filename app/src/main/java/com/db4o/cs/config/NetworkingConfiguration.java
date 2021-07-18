@@ -29,7 +29,7 @@ public interface NetworkingConfiguration {
 	/**
 	 * @sharpen.property
 	 */
-	public void clientServerFactory(ClientServerFactory factory);
+    void clientServerFactory(ClientServerFactory factory);
 	
 	/**
 	 * @sharpen.property
@@ -51,7 +51,7 @@ public interface NetworkingConfiguration {
      * 
      * @sharpen.property
      */
-    public void singleThreadedClient(boolean flag);
+    void singleThreadedClient(boolean flag);
 
 	/**
 	 * Configures to batch messages between client and server. By default, batch
@@ -62,7 +62,7 @@ public interface NetworkingConfiguration {
 	 *            
 	 * @sharpen.property
 	 */
-	public void batchMessages(boolean flag);
+    void batchMessages(boolean flag);
 	
 	/**
 	 * Configures the maximum memory buffer size for batched message. If the
@@ -73,7 +73,7 @@ public interface NetworkingConfiguration {
 	 * 
 	 * @sharpen.property
 	 */
-	public void maxBatchQueueSize(int maxSize);
+    void maxBatchQueueSize(int maxSize);
 	
 
 	/**
@@ -92,12 +92,12 @@ public interface NetworkingConfiguration {
 	 * 
 	 * @sharpen.property
 	 */
-	public Socket4Factory socketFactory();
+    Socket4Factory socketFactory();
 
 	/**
 	 * @since 7.11
 	 * 
 	 * @sharpen.property
 	 */
-	public void socketFactory(Socket4Factory socket4Factory);
+    void socketFactory(Socket4Factory socket4Factory);
 }

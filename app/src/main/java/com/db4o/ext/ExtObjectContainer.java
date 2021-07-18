@@ -49,7 +49,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * {@link Activatable} will also be activated. Any {@link Activatable} objects 
      * along the referenced graph will break cascading activation.
      */
-    public void activate(Object obj)throws Db4oIOException, DatabaseClosedException; 
+    void activate(Object obj)throws Db4oIOException, DatabaseClosedException;
 
     /**
      * deactivates an object. 
@@ -58,7 +58,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * 
      * @param obj the object to be deactivated.
      */
-    public void deactivate(Object obj);
+    void deactivate(Object obj);
     
     /**
      * backs up a database file of an open ObjectContainer.
@@ -74,7 +74,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * configuration/environment
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    public void backup(String path) throws Db4oIOException,
+    void backup(String path) throws Db4oIOException,
 			DatabaseClosedException, NotSupportedException;
 
 
@@ -94,7 +94,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * configuration/environment
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    public void backup(Storage targetStorage, String path) throws Db4oIOException,
+    void backup(Storage targetStorage, String path) throws Db4oIOException,
 			DatabaseClosedException, NotSupportedException;
     
     /**
@@ -117,7 +117,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws InvalidIDException when the provided id is outside the scope of the 
      * database IDs.
      */
-    public void bind(Object obj, long id) throws InvalidIDException, DatabaseClosedException;
+    void bind(Object obj, long id) throws InvalidIDException, DatabaseClosedException;
 
     /**
      * returns the Configuration context for this ObjectContainer.
@@ -133,7 +133,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * context for this ObjectContainer
      * @see Db4o#configure
      */
-    public Configuration configure();
+    Configuration configure();
     
     /**
      * returns a member at the specific path without activating intermediate objects.
@@ -144,7 +144,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @param path an array of field names to navigate by
      * @return the object at the specified path or null if no object is found
      */
-    public Object descend(Object obj, String[] path);
+    Object descend(Object obj, String[] path);
 
     /**
      * returns the stored object for an internal ID.
@@ -164,7 +164,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws InvalidIDException when the provided id is outside the scope of the
      * file length.
      */
-    public <T> T getByID(long ID) throws DatabaseClosedException, InvalidIDException;
+    <T> T getByID(long ID) throws DatabaseClosedException, InvalidIDException;
     
     /**
      * returns a stored object for a {@link Db4oUUID}.
@@ -180,7 +180,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public <T> T getByUUID(Db4oUUID uuid) throws DatabaseClosedException, Db4oIOException;
+    <T> T getByUUID(Db4oUUID uuid) throws DatabaseClosedException, Db4oIOException;
 
     /**
      * returns the internal unique object ID.
@@ -197,7 +197,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @return the associated internal ID or <code>0</code>, if the passed
      * object is not stored in this <code>ObjectContainer</code>.
      */
-    public long getID(Object obj);
+    long getID(Object obj);
     
     /**
      * returns the {@link ObjectInfo} for a stored object.
@@ -206,13 +206,13 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @param obj the stored object 
      * @return the {@link ObjectInfo} 
      */
-    public ObjectInfo getObjectInfo(Object obj);
+    ObjectInfo getObjectInfo(Object obj);
     
     /**
      * returns the Db4oDatabase object for this ObjectContainer. 
      * @return the Db4oDatabase identity object for this ObjectContainer.
      */
-    public Db4oDatabase identity();
+    Db4oDatabase identity();
 
     /**
      * tests if an object is activated.
@@ -221,21 +221,21 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @param obj to be tested<br><br>
      * @return <code>true</code> if the passed object is active.
      */
-    public boolean isActive(Object obj);
+    boolean isActive(Object obj);
 
     /**
      * tests if an object with this ID is currently cached.
      * <br><br>
      * @param ID the internal ID
      */
-    public boolean isCached(long ID);
+    boolean isCached(long ID);
 
     /**
      * tests if this <code>ObjectContainer</code> is closed.
      * <br><br>
      * @return <code>true</code> if this <code>ObjectContainer</code> is closed.
      */
-    public boolean isClosed();
+    boolean isClosed();
 
     /**
      * tests if an object is stored in this <code>ObjectContainer</code>.
@@ -244,7 +244,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @return <code>true</code> if the passed object is stored.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public boolean isStored(Object obj) throws DatabaseClosedException;
+    boolean isStored(Object obj) throws DatabaseClosedException;
     
     /**
      * returns all class representations that are known to this
@@ -252,7 +252,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @return all class representations that are known to this
      * ObjectContainer because they have been used or stored. 
      */
-    public ReflectClass[] knownClasses();
+    ReflectClass[] knownClasses();
 
     /**
      * returns the main synchronization lock.
@@ -263,7 +263,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * since deadlocks can be produced with just two lines of code.
      * @return Object the ObjectContainer lock object
      */
-    public Object lock();
+    Object lock();
     
 	/**
 	 * opens a new ObjectContainer on top of this ObjectContainer.
@@ -272,7 +272,7 @@ public interface ExtObjectContainer extends ObjectContainer {
 	 * @return the new ObjectContainer session.
 	 * @since 8.0
 	 */
-	public ObjectContainer openSession();
+    ObjectContainer openSession();
     
     
 	/**
@@ -292,7 +292,7 @@ public interface ExtObjectContainer extends ObjectContainer {
 	 * @param committed whether committed or set values are to be returned
 	 * @return the object
 	 */
-    public <T> T peekPersisted(T object,int depth, boolean committed);
+    <T> T peekPersisted(T object, int depth, boolean committed);
     
 
     /**
@@ -302,7 +302,7 @@ public interface ExtObjectContainer extends ObjectContainer {
     * on performance since indices will have to be reread before further 
     * inserts, updates or queries can take place.
     */
-    public void purge();
+    void purge();
 
     /**
      * unloads a specific object from the db4o reference mechanism.
@@ -319,14 +319,14 @@ public interface ExtObjectContainer extends ObjectContainer {
      * reretrieved with queries.<br><br>
      * @param obj the object to be removed from the reference mechanism.
      */
-    public void purge(Object obj);
+    void purge(Object obj);
     
 	/**
 	 * Return the reflector currently being used by db4objects.
 	 * 
 	 * @return the current Reflector.
 	 */
-	public GenericReflector reflector();
+    GenericReflector reflector();
 	
     /**
      * refreshs all members on a stored object to the specified depth.
@@ -337,14 +337,14 @@ public interface ExtObjectContainer extends ObjectContainer {
 	 * @param depth the member {@link Configuration#activationDepth(int) depth}
 	 *  to which refresh is to cascade.
      */
-    public void refresh(Object obj, int depth);
+    void refresh(Object obj, int depth);
 
 
     /**
      * releases a semaphore, if the calling transaction is the owner.
      * @param name the name of the semaphore to be released.
      */
-    public void releaseSemaphore(String name);
+    void releaseSemaphore(String name);
 
 	/**
      * deep update interface to store or update objects.
@@ -355,7 +355,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @param depth the depth to which the object is to be updated
      * @see com.db4o.ObjectContainer#set
      */
-    public void store (Object obj, int depth);
+    void store(Object obj, int depth);
     
 
     /**
@@ -398,7 +398,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * <br><code>false</code>, if the semaphore is owned by another
      * transaction.
      */
-    public boolean setSemaphore(String name, int waitForAvailability);
+    boolean setSemaphore(String name, int waitForAvailability);
     
     /**
 	* returns a {@link StoredClass} meta information object.
@@ -411,12 +411,12 @@ public interface ExtObjectContainer extends ObjectContainer {
 	* @param clazz class name, Class object, or example object.<br><br>
 	* @return an instance of an {@link StoredClass} meta information object.
 	*/
-    public StoredClass storedClass(Object clazz);
+    StoredClass storedClass(Object clazz);
 
     /**
      * returns an array of all {@link StoredClass} meta information objects.
      */
-    public StoredClass[] storedClasses();
+    StoredClass[] storedClasses();
     
     
     /**
@@ -426,7 +426,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * ObjectContainer. 
      * @return the {@link SystemInfo} for this ObjectContainer.
      */
-    public SystemInfo systemInfo();
+    SystemInfo systemInfo();
 
     /**
      * returns the current transaction serial number.
@@ -434,6 +434,6 @@ public interface ExtObjectContainer extends ObjectContainer {
      * and for replication purposes.
      * @return the current transaction serial number.
      */
-    public long version();
+    long version();
 	
 }

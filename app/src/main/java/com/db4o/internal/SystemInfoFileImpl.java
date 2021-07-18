@@ -23,7 +23,7 @@ import com.db4o.internal.freespace.*;
  */
 public class SystemInfoFileImpl implements SystemInfo{
     
-    private LocalObjectContainer _file;
+    private final LocalObjectContainer _file;
 
     public SystemInfoFileImpl(LocalObjectContainer file){
         _file = file;

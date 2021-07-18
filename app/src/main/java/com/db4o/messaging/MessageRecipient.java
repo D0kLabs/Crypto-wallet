@@ -34,6 +34,8 @@ public interface MessageRecipient {
 	
 	/**
 	 * the method called upon the arrival of messages.
-	 * @param context contextual information for the message.	 * @param message the message received.	 */
-	public void processMessage(MessageContext context, Object message);
+	 * @param context contextual information for the message.
+	 * @param message the message received.
+	 */
+    void processMessage(MessageContext context, Object message);
 }

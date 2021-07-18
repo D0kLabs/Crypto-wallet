@@ -24,20 +24,20 @@ import com.db4o.query.*;
  */
 public interface QueryResult extends Iterable4 {
 
-    public Object get(int index);
+    Object get(int index);
 
-	public IntIterator4 iterateIDs();
+	IntIterator4 iterateIDs();
 	
-	public Object lock();
+	Object lock();
 	
-    public ExtObjectContainer objectContainer();
+    ExtObjectContainer objectContainer();
     
-    public int indexOf(int id);
+    int indexOf(int id);
 
-    public int size();
+    int size();
     
-    public void sort(QueryComparator cmp);
+    void sort(QueryComparator cmp);
     
-    public void sortIds(IntComparator cmp);
+    void sortIds(IntComparator cmp);
 
 }

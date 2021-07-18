@@ -19,8 +19,8 @@ import com.db4o.foundation.*;
 
 public class FieldIndexException extends ChainedRuntimeException {
 
-	private String _className;
-	private String _fieldName;
+	private final String _className;
+	private final String _fieldName;
 	
 	public FieldIndexException(FieldMetadata field) {
 		this(null,null,field);

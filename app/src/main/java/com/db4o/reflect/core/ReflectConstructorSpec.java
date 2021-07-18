@@ -23,9 +23,9 @@ import com.db4o.foundation.*;
  * objects.
  */
 public class ReflectConstructorSpec {
-	private ReflectConstructor _constructor;
+	private final ReflectConstructor _constructor;
 	private Object[] _args;
-	private TernaryBool _canBeInstantiated;
+	private final TernaryBool _canBeInstantiated;
 
 	public static final ReflectConstructorSpec UNSPECIFIED_CONSTRUCTOR =
 		new ReflectConstructorSpec(TernaryBool.UNSPECIFIED);

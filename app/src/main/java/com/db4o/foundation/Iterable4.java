@@ -23,5 +23,5 @@ public interface Iterable4<T> {
 	/**
 	 * @sharpen.rename GetEnumerator
 	 */
-	public Iterator4<T> iterator();
+    Iterator4<T> iterator();
 }

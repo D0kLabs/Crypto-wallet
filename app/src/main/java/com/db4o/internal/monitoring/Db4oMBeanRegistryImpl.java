@@ -30,7 +30,7 @@ import static com.db4o.foundation.Environments.*;
 @decaf.Ignore
 public class Db4oMBeanRegistryImpl implements Db4oMBeanRegistry {
 
-	private Set<Db4oMBean> _beans = new HashSet<Db4oMBean>();
+	private final Set<Db4oMBean> _beans = new HashSet<Db4oMBean>();
 	
 	public Db4oMBeanRegistryImpl() {
 		ObjectContainer db = my(ObjectContainer.class);

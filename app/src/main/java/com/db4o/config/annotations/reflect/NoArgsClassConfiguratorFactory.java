@@ -25,10 +25,10 @@ import java.lang.reflect.*;
  */
 @decaf.Ignore
 public class NoArgsClassConfiguratorFactory implements Db4oConfiguratorFactory {
-	private Constructor _constructor;
+	private final Constructor _constructor;
 
 	public NoArgsClassConfiguratorFactory(Class<?> configuratorClass) throws NoSuchMethodException {
-		_constructor=configuratorClass.getConstructor(new Class[]{String.class});
+		_constructor=configuratorClass.getConstructor(String.class);
 	}
 
 	public Db4oConfigurator configuratorFor(AnnotatedElement element, Annotation annotation) {

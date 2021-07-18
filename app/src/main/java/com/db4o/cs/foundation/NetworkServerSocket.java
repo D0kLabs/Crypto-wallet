@@ -20,7 +20,7 @@ import java.net.*;
 
 public class NetworkServerSocket extends NetworkServerSocketBase {
 
-	private ServerSocket _socket;
+	private final ServerSocket _socket;
 	
     public NetworkServerSocket(int port) throws IOException {
         _socket = new ServerSocket(port);

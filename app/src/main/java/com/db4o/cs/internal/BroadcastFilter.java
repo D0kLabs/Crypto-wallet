@@ -16,5 +16,5 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.internal;
 
 public interface BroadcastFilter {
-	public boolean accept(ServerMessageDispatcher dispatcher);
+	boolean accept(ServerMessageDispatcher dispatcher);
 }

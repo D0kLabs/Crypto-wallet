@@ -28,13 +28,13 @@ public interface ReadContext extends Context, ReadBuffer {
      * an ID and returns the object with this ID.
      * @return the object
      */
-    public Object readObject();
+    Object readObject();
 
     
     /**
      * reads sub-objects, in cases where the {@link TypeHandler4}
      * is known.
      */
-    public Object readObject(TypeHandler4 handler);
+    Object readObject(TypeHandler4 handler);
 
 }

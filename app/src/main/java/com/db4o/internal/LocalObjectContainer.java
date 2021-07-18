@@ -46,7 +46,7 @@ public abstract class LocalObjectContainer extends ExternalObjectContainer imple
     
     private boolean             i_isServer = false;
 
-    private Lock4 				_semaphoresLock = new Lock4();
+    private final Lock4 				_semaphoresLock = new Lock4();
     private Hashtable4          _semaphores;
 
     private int _blockEndAddress;
@@ -399,7 +399,7 @@ public abstract class LocalObjectContainer extends ExternalObjectContainer imple
     }
     
     @Override
-    public ByteArrayBuffer[] readSlotBuffers(Transaction transaction, int ids[]) {
+    public ByteArrayBuffer[] readSlotBuffers(Transaction transaction, int[] ids) {
     	ByteArrayBuffer[] buffers = new ByteArrayBuffer[ids.length];
 		for (int i = 0; i < ids.length; ++i) {
 			if (ids[i] == 0) {

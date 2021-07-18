@@ -25,43 +25,43 @@ import com.db4o.typehandlers.*;
 
 public interface DefragmentContext extends BufferContext, MarshallingInfo, HandlerVersionContext{
 	
-	public TypeHandler4 typeHandlerForId(int id);
+	TypeHandler4 typeHandlerForId(int id);
 
-	public int copyID();
+	int copyID();
 
-	public int copyIDReturnOriginalID();
+	int copyIDReturnOriginalID();
 	
-	public int copySlotlessID();
+	int copySlotlessID();
 
-	public int copyUnindexedID();
+	int copyUnindexedID();
 	
-	public void defragment(TypeHandler4 handler);
+	void defragment(TypeHandler4 handler);
 	
-	public int handlerVersion();
+	int handlerVersion();
 
-	public void incrementOffset(int length);
+	void incrementOffset(int length);
 
 	boolean isLegacyHandlerVersion();
 	
-	public int mappedID(int origID);
+	int mappedID(int origID);
 	
-	public ByteArrayBuffer sourceBuffer();
+	ByteArrayBuffer sourceBuffer();
 	
-	public ByteArrayBuffer targetBuffer();
+	ByteArrayBuffer targetBuffer();
 
-	public Slot allocateTargetSlot(int length);
+	Slot allocateTargetSlot(int length);
 
-	public Slot allocateMappedTargetSlot(int sourceAddress, int length);
+	Slot allocateMappedTargetSlot(int sourceAddress, int length);
 
-	public int copySlotToNewMapped(int sourceAddress, int length) throws IOException;
+	int copySlotToNewMapped(int sourceAddress, int length) throws IOException;
 
-	public ByteArrayBuffer sourceBufferByAddress(int sourceAddress, int length) throws IOException;
+	ByteArrayBuffer sourceBufferByAddress(int sourceAddress, int length) throws IOException;
 	
-	public ByteArrayBuffer sourceBufferById(int sourceId) throws IOException;
+	ByteArrayBuffer sourceBufferById(int sourceId) throws IOException;
 	
-	public void targetWriteBytes(int address, ByteArrayBuffer buffer);
+	void targetWriteBytes(int address, ByteArrayBuffer buffer);
 	
-	public DefragmentServices services();
+	DefragmentServices services();
 	
-	public ObjectContainerBase container();
+	ObjectContainerBase container();
 }

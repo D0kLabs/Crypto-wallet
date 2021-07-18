@@ -20,6 +20,6 @@ package com.db4o.foundation;
  */
 public interface Visitable <T> {
 	
-	public void accept(Visitor4<T> visitor);
+	void accept(Visitor4<T> visitor);
 
 }

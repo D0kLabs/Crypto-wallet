@@ -20,5 +20,5 @@ package com.db4o.cs.internal.messages;
  */
 public interface ClientSideMessage {
 
-	public boolean processAtClient();
+	boolean processAtClient();
 }

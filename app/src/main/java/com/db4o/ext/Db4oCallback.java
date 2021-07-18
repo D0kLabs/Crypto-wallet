@@ -25,6 +25,6 @@ public interface Db4oCallback {
      * the callback method
      * @param obj the object passed to the callback method
      */
-    public void callback(Object obj);
+    void callback(Object obj);
 
 }

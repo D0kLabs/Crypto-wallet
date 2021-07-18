@@ -46,9 +46,9 @@ public final class MUserMessage extends MsgObject implements ServerSideMessage, 
 		public Transaction transaction() {
 			return MUserMessage.this.transaction();
 		}
-	};
-	
-	private boolean processUserMessage() {
+	}
+
+    private boolean processUserMessage() {
 		final MessageRecipient recipient = messageRecipient();
 		if (recipient == null) {
 			return true;

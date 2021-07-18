@@ -19,9 +19,9 @@ import com.db4o.instrumentation.api.*;
 import com.db4o.nativequery.expr.cmp.operand.*;
 
 class TypeDeducingVisitor implements ComparisonOperandVisitor {
-	private TypeRef _predicateClass;
+	private final TypeRef _predicateClass;
 	private TypeRef _clazz;
-	private ReferenceProvider _referenceProvider;
+	private final ReferenceProvider _referenceProvider;
 	
 	public TypeDeducingVisitor(ReferenceProvider provider, TypeRef predicateClass) {
 		this._predicateClass = predicateClass;

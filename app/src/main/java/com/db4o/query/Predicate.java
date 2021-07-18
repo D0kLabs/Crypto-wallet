@@ -190,7 +190,7 @@ public abstract class Predicate<ExtentType> implements Serializable{
 		try {
 			Method filterMethod=getFilterMethod();
 			Platform4.setAccessible(filterMethod);
-			Object ret=filterMethod.invoke(this,new Object[]{candidate});
+			Object ret=filterMethod.invoke(this, candidate);
 			return ((Boolean)ret).booleanValue();
 		} catch (Exception e) {
 			// TODO: log this exception somewhere?

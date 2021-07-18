@@ -28,7 +28,7 @@ class QEBitmap {
 		_bitmap = bitmap;
 	}
 	
-	private boolean[] _bitmap;
+	private final boolean[] _bitmap;
 
 	public boolean takeGreater() {
 		return _bitmap[QE.GREATER];

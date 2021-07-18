@@ -16,11 +16,11 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.reflect.self;
 
 public class FieldInfo {
-	private String _name;
-	private Class _clazz;
-	private boolean _isPublic; 
-	private boolean _isStatic; 
-	private boolean _isTransient;
+	private final String _name;
+	private final Class _clazz;
+	private final boolean _isPublic;
+	private final boolean _isStatic;
+	private final boolean _isTransient;
 
 	
 	

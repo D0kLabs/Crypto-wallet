@@ -21,12 +21,12 @@ package com.db4o.foundation;
  */
 public interface Iterator4<E> {
 
-	public boolean moveNext();
+	boolean moveNext();
 
 	/**
 	 * @sharpen.property
 	 */
-	public E current();
+    E current();
 
-	public void reset();
+	void reset();
 }

@@ -45,10 +45,10 @@ import com.db4o.reflect.*;
  */
 public class GenericReflector implements Reflector, DeepClone {
 	
-	private KnownClassesRepository _repository;
+	private final KnownClassesRepository _repository;
 
 	/* default delegate Reflector is the JdkReflector */
-	private Reflector _delegate;
+	private final Reflector _delegate;
     private GenericArrayReflector _array;
     
     

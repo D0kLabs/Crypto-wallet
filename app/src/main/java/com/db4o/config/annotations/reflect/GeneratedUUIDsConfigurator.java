@@ -22,9 +22,9 @@ package com.db4o.config.annotations.reflect;
  */
 @decaf.Ignore
 public class GeneratedUUIDsConfigurator extends Db4oConfigurator {
-	private String _className;
+	private final String _className;
 
-	private boolean _value;
+	private final boolean _value;
 
 	public GeneratedUUIDsConfigurator(String name, boolean value_) {
 		_className = name;

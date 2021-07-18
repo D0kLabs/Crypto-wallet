@@ -57,9 +57,9 @@ public final class HandlerRegistry {
 
     public StringHandler _stringHandler;
     
-    private Hashtable4 _mapIdToTypeInfo = newHashtable();
+    private final Hashtable4 _mapIdToTypeInfo = newHashtable();
     
-    private Hashtable4 _mapReflectorToClassMetadata = newHashtable();
+    private final Hashtable4 _mapReflectorToClassMetadata = newHashtable();
 
     private int _highestBuiltinTypeID = Handlers4.ANY_ARRAY_N_ID + 1;
 
@@ -67,7 +67,7 @@ public final class HandlerRegistry {
 
     private final Hashtable4        _mapReflectorToTypeHandler  = newHashtable();
     
-    private SharedIndexedFields              		_indexes;
+    private final SharedIndexedFields              		_indexes;
     
     Db4oReplicationReferenceProvider _replicationReferenceProvider;
     

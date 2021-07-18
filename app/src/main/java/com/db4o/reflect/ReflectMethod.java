@@ -24,8 +24,8 @@ import com.db4o.internal.*;
  */
 public interface ReflectMethod {
 	
-	public Object invoke(Object onObject, Object[] parameters) throws ReflectException;
+	Object invoke(Object onObject, Object[] parameters) throws ReflectException;
     
-    public ReflectClass getReturnType();
+    ReflectClass getReturnType();
 	
 }

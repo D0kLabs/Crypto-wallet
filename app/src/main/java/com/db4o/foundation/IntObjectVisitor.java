@@ -20,6 +20,6 @@ package com.db4o.foundation;
  */
 public interface IntObjectVisitor {
     
-    public void visit(int anInt, Object anObject);
+    void visit(int anInt, Object anObject);
 
 }

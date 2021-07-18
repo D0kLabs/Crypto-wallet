@@ -21,6 +21,6 @@ package com.db4o.marshall;
  */
 public interface BufferContext extends ReadBuffer, Context {
 
-    public ReadBuffer buffer();
+    ReadBuffer buffer();
 
 }

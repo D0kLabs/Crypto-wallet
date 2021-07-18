@@ -29,7 +29,7 @@ import com.db4o.internal.metadata.*;
  */
 public final class FirstPassCommand implements PassCommand {
 	
-	private IDMappingCollector _collector = new IDMappingCollector();
+	private final IDMappingCollector _collector = new IDMappingCollector();
 	
 	public void processClass(final DefragmentServicesImpl context, ClassMetadata classMetadata,int id,int classIndexID) {
 		_collector.createIDMapping(context,id, true);

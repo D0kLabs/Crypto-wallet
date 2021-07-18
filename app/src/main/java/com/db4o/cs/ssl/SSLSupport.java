@@ -24,7 +24,7 @@ import com.db4o.internal.*;
 @decaf.Ignore
 public class SSLSupport implements ConfigurationItem {
 
-	private SSLContext _context;
+	private final SSLContext _context;
 
 	public SSLSupport() {
 		this(null);

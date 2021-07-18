@@ -20,9 +20,9 @@ package com.db4o.internal.marshall;
  */
 public interface AspectVersionContext {
 	
-    public int declaredAspectCount();
+    int declaredAspectCount();
     
-    public void declaredAspectCount(int count);
+    void declaredAspectCount(int count);
 
 
 }

@@ -27,6 +27,6 @@ public interface CacheConfiguration {
      * @sharpen.property
      * @deprecated since 7.14 BTrees have their own LRU cache now.
      */
-    public void slotCacheSize(int size);
+    void slotCacheSize(int size);
 
 }

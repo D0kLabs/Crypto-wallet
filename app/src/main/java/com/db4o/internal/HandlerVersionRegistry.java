@@ -49,7 +49,7 @@ public class HandlerVersionRegistry {
         }
         if(replacement instanceof VersionedTypeHandler){
             return (TypeHandler4) ((VersionedTypeHandler)replacement).deepClone(new TypeHandlerCloneContext(_registry, originalHandler,  version));
-        };
+        }
         return replacement;
     }
 

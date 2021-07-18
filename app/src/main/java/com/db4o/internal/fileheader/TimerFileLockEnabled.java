@@ -31,11 +31,11 @@ public class TimerFileLockEnabled extends TimerFileLock{
     
     private final Object _timerLock;
     
-    private byte[] _longBytes = new byte[Const4.LONG_LENGTH];
+    private final byte[] _longBytes = new byte[Const4.LONG_LENGTH];
     
-    private byte[] _intBytes = new byte[Const4.INT_LENGTH];
+    private final byte[] _intBytes = new byte[Const4.INT_LENGTH];
     
-    private int _headerLockOffset = 2 + Const4.INT_LENGTH; 
+    private final int _headerLockOffset = 2 + Const4.INT_LENGTH;
     
     private final long _opentime;
     

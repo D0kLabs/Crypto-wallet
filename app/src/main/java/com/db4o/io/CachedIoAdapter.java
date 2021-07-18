@@ -34,9 +34,9 @@ public class CachedIoAdapter extends IoAdapter {
 
 	private long _position;
 
-	private int _pageSize;
+	private final int _pageSize;
 
-	private int _pageCount;
+	private final int _pageCount;
 
 	private long _fileLength;
 
@@ -46,9 +46,9 @@ public class CachedIoAdapter extends IoAdapter {
 
 	private boolean _readOnly;
 
-	private static int DEFAULT_PAGE_SIZE = 1024;
+	private static final int DEFAULT_PAGE_SIZE = 1024;
 
-	private static int DEFAULT_PAGE_COUNT = 64;
+	private static final int DEFAULT_PAGE_COUNT = 64;
 
 	// private Hashtable4 _posPageMap = new Hashtable4(PAGE_COUNT);
 

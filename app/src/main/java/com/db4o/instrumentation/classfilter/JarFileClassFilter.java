@@ -23,7 +23,7 @@ import com.db4o.instrumentation.util.*;
 
 public class JarFileClassFilter implements ClassFilter {
 
-	private JarFile _jarFile;
+	private final JarFile _jarFile;
 	
 	public JarFileClassFilter(JarFile jarFile) {
 		_jarFile = jarFile;

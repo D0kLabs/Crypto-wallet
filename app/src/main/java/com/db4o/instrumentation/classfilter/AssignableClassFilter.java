@@ -22,7 +22,7 @@ import com.db4o.instrumentation.core.*;
  */
 public class AssignableClassFilter implements ClassFilter {
 
-	private Class _targetClazz;
+	private final Class _targetClazz;
 	
 	public AssignableClassFilter(Class targetClazz) {
 		_targetClazz = targetClazz;

@@ -37,7 +37,7 @@ public final class ClassMetadataRepository extends PersistentBase {
     private Hashtable4 _classMetadataByID;
     
     private int _classMetadataCreationDepth;
-    private Queue4 _initClassMetadataOnUp;
+    private final Queue4 _initClassMetadataOnUp;
 	
 	private final PendingClassInits _classInits; 
 

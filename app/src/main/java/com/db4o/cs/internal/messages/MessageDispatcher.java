@@ -22,9 +22,9 @@ package com.db4o.cs.internal.messages;
  */
 public interface MessageDispatcher {
 
-	public boolean isMessageDispatcherAlive();
+	boolean isMessageDispatcherAlive();
 	
-	public boolean write(Msg msg);
+	boolean write(Msg msg);
 	
-	public boolean close();
+	boolean close();
 }

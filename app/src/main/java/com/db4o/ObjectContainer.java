@@ -71,7 +71,7 @@ public interface ObjectContainer {
      *  @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 *  @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public void activate (Object obj, int depth) throws Db4oIOException, DatabaseClosedException;
+    void activate(Object obj, int depth) throws Db4oIOException, DatabaseClosedException;
     
     /**
      * closes the <code>ObjectContainer</code>.
@@ -84,7 +84,7 @@ public interface ObjectContainer {
      * and the database file were closed.
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-	public boolean close () throws Db4oIOException;
+    boolean close() throws Db4oIOException;
 
     /**
      * commits the running transaction.
@@ -94,7 +94,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    public void commit () throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void commit() throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
     
 
     /**
@@ -115,7 +115,7 @@ public interface ObjectContainer {
 	 * to which deactivate is to cascade.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	*/
-    public void deactivate (Object obj, int depth) throws DatabaseClosedException;
+    void deactivate(Object obj, int depth) throws DatabaseClosedException;
 
     /**
      * deletes a stored object permanently.
@@ -142,7 +142,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    public void delete (Object obj) throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void delete(Object obj) throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
     
     /**
      * returns an ObjectContainer with extended functionality.
@@ -153,7 +153,7 @@ public interface ObjectContainer {
      * to allow newcomers to focus on the essential methods.<br><br>
      * @return this, casted to ExtObjectContainer
      */
-    public ExtObjectContainer ext();
+    ExtObjectContainer ext();
 	   
 	/**
      * Query-By-Example interface to retrieve objects.
@@ -193,7 +193,7 @@ public interface ObjectContainer {
 	 * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 */
-    public <T> BluetoothDevice queryByExample (Object template) throws Db4oIOException, DatabaseClosedException;
+    <T> BluetoothDevice queryByExample(Object template) throws Db4oIOException, DatabaseClosedException;
     
     /**
      * creates a new S.O.D.A. {@link Query Query}.
@@ -205,7 +205,7 @@ public interface ObjectContainer {
      * @return a new Query object
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public Query query () throws DatabaseClosedException;
+    Query query() throws DatabaseClosedException;
     
     /**
      * queries for all instances of a class.
@@ -214,7 +214,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public <TargetType> ObjectSet <TargetType> query(Class<TargetType> clazz) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Class<TargetType> clazz) throws Db4oIOException, DatabaseClosedException;
 
     
     /**
@@ -278,7 +278,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate) throws Db4oIOException, DatabaseClosedException;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},
@@ -290,7 +290,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    public <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate,QueryComparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, QueryComparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},
@@ -304,7 +304,7 @@ public interface ObjectContainer {
      * @sharpen.ignore
      */
     @decaf.Ignore(decaf.Platform.JDK11)
-    public <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, Comparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, Comparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
 
     /**
      * rolls back the running transaction.
@@ -315,7 +315,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    public void rollback() throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void rollback() throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
    
 
 	/**
@@ -350,7 +350,7 @@ public interface ObjectContainer {
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    public void store (Object obj) throws DatabaseClosedException, DatabaseReadOnlyException;
+    void store(Object obj) throws DatabaseClosedException, DatabaseReadOnlyException;
     
     
     

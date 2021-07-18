@@ -16,11 +16,11 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.reflect.self;
 
 public class ClassInfo {
-	private Class _superClass;
+	private final Class _superClass;
 
-	private boolean _isAbstract;
+	private final boolean _isAbstract;
 
-	private FieldInfo[] _fieldInfo;
+	private final FieldInfo[] _fieldInfo;
 
 	public ClassInfo(boolean isAbstract, Class superClass, FieldInfo[] fieldInfo) {
 		_isAbstract = isAbstract;

@@ -22,7 +22,7 @@ import com.db4o.instrumentation.api.*;
  */
 public class ClassLoaderNativeClassFactory implements NativeClassFactory {
 
-	private ClassLoader _loader;
+	private final ClassLoader _loader;
 	
 	public ClassLoaderNativeClassFactory(ClassLoader loader) {
 		_loader = loader;

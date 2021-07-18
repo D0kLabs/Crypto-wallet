@@ -71,7 +71,7 @@ public class ReferenceSystemRegistry {
         return res;
     }
 
-    private static interface ReferenceSource {
+    private interface ReferenceSource {
     	ObjectReference referenceFrom(ReferenceSystem referenceSystem);
     }
 }

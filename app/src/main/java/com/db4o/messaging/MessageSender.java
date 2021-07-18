@@ -34,5 +34,5 @@ public interface MessageSender {
 	 * sends a message to the server.
 	 * @param obj the message parameter, any object may be used.
 	 */
-    public void send(Object obj);
+    void send(Object obj);
 }

@@ -25,29 +25,29 @@ public interface BTreeRange {
 	 * this range.
 	 * @return an Iterator4 over BTreePointer value
 	 */
-	public Iterator4 pointers();
+    Iterator4 pointers();
 	
-	public Iterator4 keys();
+	Iterator4 keys();
 
-	public int size();
+	int size();
 
-	public BTreeRange greater();
+	BTreeRange greater();
 
-	public BTreeRange union(BTreeRange other);
+	BTreeRange union(BTreeRange other);
 
-	public BTreeRange extendToLast();
+	BTreeRange extendToLast();
 
-	public BTreeRange smaller();
+	BTreeRange smaller();
 
-	public BTreeRange extendToFirst();
+	BTreeRange extendToFirst();
 
-	public BTreeRange intersect(BTreeRange range);
+	BTreeRange intersect(BTreeRange range);
 
-	public BTreeRange extendToLastOf(BTreeRange upperRange);
+	BTreeRange extendToLastOf(BTreeRange upperRange);
 
-	public boolean isEmpty();
+	boolean isEmpty();
 	
-	public void accept(BTreeRangeVisitor visitor);
+	void accept(BTreeRangeVisitor visitor);
 
-	public BTreePointer lastPointer();
+	BTreePointer lastPointer();
 }

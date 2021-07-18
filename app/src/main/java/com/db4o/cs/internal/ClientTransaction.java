@@ -67,7 +67,7 @@ public final class ClientTransaction extends Transaction {
         if (! super.delete(ref, id, cascade)){
         	return false;
         }
-        MsgD msg = Msg.TA_DELETE.getWriterForInts(this, new int[] {id, cascade});
+        MsgD msg = Msg.TA_DELETE.getWriterForInts(this, id, cascade);
         _client.writeBatchedMessage(msg);
         return true;
     }

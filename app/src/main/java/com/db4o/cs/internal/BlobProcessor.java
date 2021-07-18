@@ -20,8 +20,8 @@ import com.db4o.foundation.*;
 
 class BlobProcessor implements Runnable {
 	
-	private ClientObjectContainer			stream;
-	private Queue4 				queue = new NonblockingQueue();
+	private final ClientObjectContainer			stream;
+	private final Queue4 				queue = new NonblockingQueue();
 	private boolean				terminated = false;
 	
 	BlobProcessor(ClientObjectContainer aStream){

@@ -21,9 +21,9 @@ package com.db4o.io;
  */
 public class BlockAwareBinWindow {
 
-	private BlockAwareBin _bin;
-	private int _blockOff;
-	private int _len;
+	private final BlockAwareBin _bin;
+	private final int _blockOff;
+	private final int _len;
 	private boolean _disabled;
 
 	/**

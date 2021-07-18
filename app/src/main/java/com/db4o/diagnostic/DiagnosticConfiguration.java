@@ -34,10 +34,10 @@ public interface DiagnosticConfiguration {
     /**
      * adds a DiagnosticListener to listen to Diagnostic messages.
      */
-    public void addListener(DiagnosticListener listener);
+    void addListener(DiagnosticListener listener);
     
     /**
      * removes all DiagnosticListeners.
      */
-    public void removeAllListeners();
+    void removeAllListeners();
 }

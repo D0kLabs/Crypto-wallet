@@ -111,9 +111,9 @@ public class ActivatableHashMap<K,V> extends HashMap<K,V> implements Activatable
 	public V put(K key, V value) {
 		activate(ActivationPurpose.WRITE);
 		return super.put(key, value);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public void putAll(Map<? extends K, ? extends V> m) {
 		activate(ActivationPurpose.WRITE);
 		super.putAll(m);

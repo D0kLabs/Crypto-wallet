@@ -41,7 +41,7 @@ public abstract class AbstractReflectArray implements ReflectArray {
 	        count++;
 	        claxx = claxx.getComponentType();
 	    }
-	    int dim[] = new int[count];
+	    int[] dim = new int[count];
 	    for (int i = 0; i < count; i++) {
 	        try {
 	            dim[i] = getLength(arr);

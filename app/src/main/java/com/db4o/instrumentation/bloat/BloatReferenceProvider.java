@@ -25,7 +25,7 @@ import com.db4o.instrumentation.api.*;
 
 public class BloatReferenceProvider implements ReferenceProvider {
 	
-	private Hashtable _types = new Hashtable();
+	private final Hashtable _types = new Hashtable();
 
 	public MethodRef forMethod(TypeRef declaringType, String methodName, TypeRef[] parameterTypes, TypeRef returnType) {
 		Type[] argTypes=BloatTypeRef.bloatTypes(parameterTypes);

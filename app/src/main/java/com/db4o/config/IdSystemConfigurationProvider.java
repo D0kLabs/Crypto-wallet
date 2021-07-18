@@ -25,6 +25,6 @@ public interface IdSystemConfigurationProvider {
 	 * Access to the IdSystem-related configuration methods.
 	 * @sharpen.property
 	 */
-	public IdSystemConfiguration idSystem();
+    IdSystemConfiguration idSystem();
 
 }

@@ -17,8 +17,8 @@ package com.db4o.foundation;
 
 public class NoDuplicatesQueue implements Queue4 {
 
-	private Queue4 _queue;
-	private Hashtable4 _seen;
+	private final Queue4 _queue;
+	private final Hashtable4 _seen;
 	
 	public NoDuplicatesQueue(Queue4 queue) {
 		_queue = queue;

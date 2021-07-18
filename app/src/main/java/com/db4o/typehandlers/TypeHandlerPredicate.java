@@ -32,6 +32,6 @@ public interface TypeHandlerPredicate {
      * @return true if the TypeHandler is to be used for a specific
      * Type.
      */
-    public boolean match(ReflectClass classReflector);
+    boolean match(ReflectClass classReflector);
 
 }

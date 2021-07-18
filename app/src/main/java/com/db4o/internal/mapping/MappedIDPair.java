@@ -19,8 +19,8 @@ package com.db4o.internal.mapping;
  * @exclude
  */
 public class MappedIDPair {
-	private int _orig;
-	private int _mapped;
+	private final int _orig;
+	private final int _mapped;
 
 	public MappedIDPair(int orig, int mapped) {
 		_orig=orig;

@@ -20,8 +20,8 @@ import com.db4o.nativequery.expr.cmp.*;
 import com.db4o.nativequery.expr.cmp.operand.*;
 
 class ComparisonBytecodeGeneratingVisitor implements ComparisonOperandVisitor {
-	private MethodBuilder _methodBuilder;
-	private TypeRef _predicateClass;
+	private final MethodBuilder _methodBuilder;
+	private final TypeRef _predicateClass;
 	private boolean _inArithmetic=false;
 	private TypeRef _opClass=null;
 	private TypeRef _staticRoot=null;

@@ -22,7 +22,7 @@ import com.db4o.internal.*;
 
 class OverlapMap {
 
-	private Set<Pair<SlotDetail, SlotDetail>> _dupes = new HashSet<Pair<SlotDetail,SlotDetail>>();
+	private final Set<Pair<SlotDetail, SlotDetail>> _dupes = new HashSet<Pair<SlotDetail,SlotDetail>>();
 	private TreeIntObject _slots = null;
 	private final BlockConverter _blockConverter;
 	

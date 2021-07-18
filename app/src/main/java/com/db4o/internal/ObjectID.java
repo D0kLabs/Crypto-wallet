@@ -28,19 +28,19 @@ public class ObjectID {
     public static final ObjectID IS_NULL = new ObjectID(-1) {
     	public String toString() {
     		return "ObjectID.IS_NULL";
-    	};
+    	}
     };
     
     public static final ObjectID NOT_POSSIBLE = new ObjectID(-2){
     	public String toString() {
     		return "ObjectID.NOT_POSSIBLE";
-    	};
+    	}
     };
 
     public static final ObjectID IGNORE = new ObjectID(-3){
     	public String toString() {
     		return "ObjectID.IGNORE";
-    	};
+    	}
     };
     
     public ObjectID(int id){

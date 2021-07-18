@@ -55,9 +55,9 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
 
 	private Socket4Adapter _socket;
 
-	private BlockingQueue _synchronousMessageQueue = new BlockingQueue();
+	private final BlockingQueue _synchronousMessageQueue = new BlockingQueue();
 	
-	private BlockingQueue _asynchronousMessageQueue = new BlockingQueue();
+	private final BlockingQueue _asynchronousMessageQueue = new BlockingQueue();
 
 	private final String _password; // null denotes password not necessary
 
@@ -81,13 +81,13 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
     
     private int _blockSize = 1;
     
-	private Collection4 _batchedMessages = new Collection4();
+	private final Collection4 _batchedMessages = new Collection4();
 	
 	// initial value of _batchedQueueLength is
 	// used for to write the number of messages.
 	private int _batchedQueueLength = Const4.INT_LENGTH;
 
-	private boolean _login;
+	private final boolean _login;
 	
 	private final ClientHeartbeat _heartbeat;
 	
@@ -106,7 +106,7 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
 	private boolean _bypassSlotCache = false;
 	
 	public interface MessageListener {
-		public void onMessage(Msg msg);
+		void onMessage(Msg msg);
 	}
 	
 	static{
@@ -342,7 +342,7 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
 	}
 
 	public final boolean delete4(Transaction ta, ObjectReference yo, Object obj, int a_cascade, boolean userCall) {
-		MsgD msg = Msg.DELETE.getWriterForInts(_transaction, new int[] { yo.getID(), userCall ? 1 : 0 });
+		MsgD msg = Msg.DELETE.getWriterForInts(_transaction, yo.getID(), userCall ? 1 : 0);
 		writeBatchedMessage(msg);
 		return true;
 	}
@@ -592,8 +592,7 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
 	}
 
 	public void readBytes(byte[] a_bytes, int a_address, int a_length) {
-		MsgD msg = Msg.READ_SLOT.getWriterForInts(_transaction, new int[] {
-				a_address, a_length });
+		MsgD msg = Msg.READ_SLOT.getWriterForInts(_transaction, a_address, a_length);
 		write(msg);
 		ByteArrayBuffer reader = expectedBufferResponse(Msg.READ_SLOT);
 		System.arraycopy(reader._buffer, 0, a_bytes, 0, a_length);
@@ -609,7 +608,7 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
 	}
 	
 	public final StatefulBuffer readStatefulBufferById(Transaction a_ta, int a_id, boolean lastCommitted) {
-		MsgD msg = Msg.READ_OBJECT.getWriterForInts(a_ta, new int[]{a_id, lastCommitted?1:0});
+		MsgD msg = Msg.READ_OBJECT.getWriterForInts(a_ta, a_id, lastCommitted?1:0);
 		write(msg);
 		StatefulBuffer bytes = ((MsgObject) expectedResponse(Msg.OBJECT_TO_CLIENT)).unmarshall();
 		if(bytes != null){
@@ -1133,7 +1132,7 @@ public class ClientObjectContainer extends ExternalObjectContainer implements Ex
     }
 
 	private ByteArrayBuffer fetchSlotBuffer(final Transaction transaction, final int id, final boolean lastCommitted) {
-	    MsgD msg = Msg.READ_READER_BY_ID.getWriterForInts(transaction, new int[]{id, lastCommitted?1:0});
+	    MsgD msg = Msg.READ_READER_BY_ID.getWriterForInts(transaction, id, lastCommitted?1:0);
 	    write(msg);
 	    final ByteArrayBuffer buffer = ((MReadBytes) expectedResponse(Msg.READ_BYTES)).unmarshall();
 	    return buffer;

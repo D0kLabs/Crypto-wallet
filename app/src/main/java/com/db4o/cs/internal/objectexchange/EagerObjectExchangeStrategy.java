@@ -22,7 +22,7 @@ import com.db4o.internal.*;
 
 public class EagerObjectExchangeStrategy implements ObjectExchangeStrategy {
 
-	private ObjectExchangeConfiguration _config;
+	private final ObjectExchangeConfiguration _config;
 
 	public EagerObjectExchangeStrategy(ObjectExchangeConfiguration config) {
 		_config = config;

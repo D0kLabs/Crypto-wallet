@@ -25,11 +25,11 @@ public class SelfClass implements ReflectClass {
 
 	private SelfField[] _fields;
 
-	private Reflector _parentReflector;
+	private final Reflector _parentReflector;
 
-	private SelfReflectionRegistry _registry;
+	private final SelfReflectionRegistry _registry;
 
-	private Class _class;
+	private final Class _class;
 
 	private Class _superClass;
 

@@ -23,6 +23,6 @@ import com.db4o.internal.marshall.*;
  */
 public interface ReadsObjectIds {
     
-    public ObjectID readObjectID(InternalReadContext context);
+    ObjectID readObjectID(InternalReadContext context);
 
 }

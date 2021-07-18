@@ -18,9 +18,9 @@ package com.db4o.internal.query;
 import com.db4o.query.*;
 
 public class NQOptimizationInfo {
-	private Predicate _predicate;
-	private String _message;
-	private Object _optimized;
+	private final Predicate _predicate;
+	private final String _message;
+	private final Object _optimized;
 
 	public NQOptimizationInfo(Predicate predicate, String message, Object optimized) {
 		this._predicate = predicate;

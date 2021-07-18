@@ -28,6 +28,6 @@ public interface PreparedComparison<T> {
 	 * 
 	 * Typical implementation: return this.object - obj;
 	 */
-	public int compareTo(T obj);
+    int compareTo(T obj);
 
 }

@@ -44,7 +44,7 @@ public class DTrace {
 	
 	public static RandomAccessFile _logFile;
 	
-	private static int UNUSED = -1;
+	private static final int UNUSED = -1;
     
     private static void breakPoint(){
         if(enabled){ 

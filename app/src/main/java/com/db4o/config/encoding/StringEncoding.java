@@ -26,7 +26,7 @@ public interface StringEncoding {
 	 * @param str the string to encode
 	 * @return the encoded byte array
 	 */
-	public byte[] encode(String str);
+    byte[] encode(String str);
 	
 	/**
 	 * called when a byte array is to be decoded to a string.  
@@ -35,6 +35,6 @@ public interface StringEncoding {
 	 * @param length the length of the encoded string in the byte array
 	 * @return the string
 	 */
-	public String decode(byte[] bytes, int start, int length);
+    String decode(byte[] bytes, int start, int length);
 
 }

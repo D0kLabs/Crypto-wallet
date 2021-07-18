@@ -28,7 +28,7 @@ public interface SystemInfo {
      * that defragment should be run.  
      * @return the number of entries in the Freespace Manager.
      */
-    public int freespaceEntryCount();
+    int freespaceEntryCount();
     
     /**
      * returns the freespace size in the database in bytes.
@@ -41,12 +41,12 @@ public interface SystemInfo {
      * <br><br>To reclaim freespace run defragment.
      * @return  the freespace size in the database in bytes.
      */
-    public long freespaceSize();
+    long freespaceSize();
 
     /**
      * Returns the total size of the database on disk.
      * @return total size of database on disk
      */
-    public long totalSize();
+    long totalSize();
 
 }

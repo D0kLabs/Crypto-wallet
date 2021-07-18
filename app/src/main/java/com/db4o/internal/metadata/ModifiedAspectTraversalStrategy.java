@@ -50,7 +50,7 @@ public class ModifiedAspectTraversalStrategy implements AspectTraversalStrategy 
 	    }
 	}
 	
-	static interface TraverseAspectCommandProcessor {
+	interface TraverseAspectCommandProcessor {
 		void process(TraverseAspectCommand command, ClassAspect currentAspect, int currentSlot);
 	}
 

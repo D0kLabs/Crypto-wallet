@@ -24,7 +24,7 @@ import com.db4o.cs.foundation.*;
 @decaf.Ignore
 public class SSLSocketFactory implements Socket4Factory {
 
-	private SSLContext _context;
+	private final SSLContext _context;
 
 	public SSLSocketFactory(SSLContext context) {
 		_context = context;

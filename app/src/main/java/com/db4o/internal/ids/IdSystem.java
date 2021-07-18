@@ -23,17 +23,17 @@ import com.db4o.internal.slots.*;
  */
 public interface IdSystem {
 
-	public int newId();
+	int newId();
 
-	public Slot committedSlot(int id);
+	Slot committedSlot(int id);
 
-	public void returnUnusedIds(Visitable<Integer> visitable);
+	void returnUnusedIds(Visitable<Integer> visitable);
 
-	public void close();
+	void close();
 
-	public void completeInterruptedTransaction(int transactionId1, int transactionId2);
+	void completeInterruptedTransaction(int transactionId1, int transactionId2);
 
-	public void commit(Visitable<SlotChange> slotChanges, FreespaceCommitter freespaceCommitter);
+	void commit(Visitable<SlotChange> slotChanges, FreespaceCommitter freespaceCommitter);
 
-	public void traverseOwnSlots(Procedure4<Pair<Integer, Slot>> block);
+	void traverseOwnSlots(Procedure4<Pair<Integer, Slot>> block);
 }

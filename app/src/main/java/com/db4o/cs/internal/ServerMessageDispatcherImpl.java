@@ -36,7 +36,7 @@ public final class ServerMessageDispatcherImpl implements ServerMessageDispatche
 
     private final ObjectServerImpl _server;
 
-    private Socket4Adapter _socket;
+    private final Socket4Adapter _socket;
 
     private final ClientTransactionHandle _transactionHandle;
     

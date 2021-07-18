@@ -142,7 +142,7 @@ public class Iterators {
 	}
 	
 	public static Iterable4 append(Iterable4 front, Object last) {
-		return concat(iterable(new Object[] { front, singletonIterable(last) }));
+		return concat(iterable(front, singletonIterable(last)));
 	}
 	
 	/**

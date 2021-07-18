@@ -20,7 +20,7 @@ import com.db4o.reflect.*;
 
 public class SelfReflector implements Reflector {
 	private SelfArray _arrayHandler;
-	private SelfReflectionRegistry _registry;
+	private final SelfReflectionRegistry _registry;
 
 	private Reflector _parent;
 

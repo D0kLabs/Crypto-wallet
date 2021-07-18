@@ -45,7 +45,7 @@ public class MarshallerFamily {
         
     }
    
-    private static int CURRENT_VERSION = FamilyVersion.CLASS_ASPECTS;
+    private static final int CURRENT_VERSION = FamilyVersion.CLASS_ASPECTS;
     
     public final ClassMarshaller _class;
     

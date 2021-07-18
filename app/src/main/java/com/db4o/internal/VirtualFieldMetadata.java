@@ -37,7 +37,7 @@ public abstract class VirtualFieldMetadata extends FieldMetadata {
     
     private ReflectClass _classReflector;
 
-	private BuiltinTypeHandler _handler;
+	private final BuiltinTypeHandler _handler;
 
     VirtualFieldMetadata(int fieldTypeID, BuiltinTypeHandler handler) {
         super(fieldTypeID);

@@ -21,6 +21,6 @@ package com.db4o.internal.replication;
  */
 public interface Db4oReplicationReferenceProvider {
     
-    public Db4oReplicationReference referenceFor(Object obj);
+    Db4oReplicationReference referenceFor(Object obj);
 
 }

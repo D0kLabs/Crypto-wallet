@@ -24,10 +24,10 @@ class PendingClassInits {
 	
 	private Collection4 _pending = new Collection4();
 
-	private Queue4<ClassMetadata> _members = new NonblockingQueue();
-	private Queue4<ClassMetadata> _statics = new NonblockingQueue();
-    private Queue4<ClassMetadata> _writes = new NonblockingQueue();
-    private Queue4<ClassMetadata> _inits = new NonblockingQueue();
+	private final Queue4<ClassMetadata> _members = new NonblockingQueue();
+	private final Queue4<ClassMetadata> _statics = new NonblockingQueue();
+    private final Queue4<ClassMetadata> _writes = new NonblockingQueue();
+    private final Queue4<ClassMetadata> _inits = new NonblockingQueue();
 	
 	private boolean _running = false;
 	

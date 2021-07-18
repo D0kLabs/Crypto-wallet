@@ -35,7 +35,7 @@ public interface Candidate {
 	 * {@link Candidate}.
 	 * @return Object the persistent object.
 	 */
-	public Object getObject();
+    Object getObject();
 	
 	/**
 	 * specify whether the Candidate is to be included in the 
@@ -44,13 +44,13 @@ public interface Candidate {
 	 * This method may be called multiple times. The last call prevails.
 	 * @param flag inclusion.
 	 */
-	public void include(boolean flag);
+    void include(boolean flag);
 	
 	
 	/**
 	 * returns the {@link ObjectContainer} the Candidate object is stored in.
 	 * @return the {@link ObjectContainer}
 	 */
-	public ObjectContainer objectContainer();
+    ObjectContainer objectContainer();
 	
 }

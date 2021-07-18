@@ -36,9 +36,9 @@ class DalvikVM extends JDK_5 {
 			}
 			return new DalvikVM();
 		}
-	};
-	
-	@Override
+	}
+
+    @Override
 	public ReflectConstructor serializableConstructor(Reflector reflector, final Class clazz) {
 		
 		return new ReflectConstructor() {
@@ -104,12 +104,12 @@ class DalvikVM extends JDK_5 {
 		return DalvikSignatureGenerator.generateSignature();
 	}
 	
-	private static interface ObjectFactory {
-		public Object newInstance(Class clazz);
+	private interface ObjectFactory {
+		Object newInstance(Class clazz);
 	}
 	
-	private static interface ObjectFactoryFactory {
-		public ObjectFactory newFactory(Class clazz);
+	private interface ObjectFactoryFactory {
+		ObjectFactory newFactory(Class clazz);
 	}
 	
 	private static class Dalvik2ObjectFactoryFactory implements ObjectFactoryFactory{
@@ -124,7 +124,7 @@ class DalvikVM extends JDK_5 {
 	
 	private static class Dalvik3ObjectFactoryFactory implements ObjectFactoryFactory{
 		
-		private int _methodId;
+		private final int _methodId;
 
 		public Dalvik3ObjectFactoryFactory() {
 			try {
@@ -144,7 +144,7 @@ class DalvikVM extends JDK_5 {
 	
 	private static class Dalvik2ObjectFactory implements ObjectFactory {
 		
-		private Method _method;
+		private final Method _method;
 		
 		public Dalvik2ObjectFactory(){
 			try {
@@ -167,11 +167,11 @@ class DalvikVM extends JDK_5 {
 	
 	private static class Dalvik3ObjectFactory implements ObjectFactory {
 		
-		private Method _method;
+		private final Method _method;
 		
 		private final Class _clazz;
 		
-		private int _methodId;
+		private final int _methodId;
 		
 		public Dalvik3ObjectFactory(Class clazz, int methodId) {
 			_clazz = clazz;

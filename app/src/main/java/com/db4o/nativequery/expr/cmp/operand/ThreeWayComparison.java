@@ -19,9 +19,9 @@ import com.db4o.nativequery.expr.*;
 
 
 public class ThreeWayComparison implements ExpressionPart {
-	private FieldValue _left;
-	private ComparisonOperand _right;
-	private boolean _swapped;
+	private final FieldValue _left;
+	private final ComparisonOperand _right;
+	private final boolean _swapped;
 
 	public ThreeWayComparison(FieldValue left, ComparisonOperand right,boolean swapped) {
 		this._left = left;

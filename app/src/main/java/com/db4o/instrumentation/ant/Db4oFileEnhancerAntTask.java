@@ -85,7 +85,7 @@ public class Db4oFileEnhancerAntTask extends Task {
 		}
 	}
 
-	private static interface FileResourceBlock {
+	private interface FileResourceBlock {
 		void process(FileResource resource) throws Exception;
 	}
 	

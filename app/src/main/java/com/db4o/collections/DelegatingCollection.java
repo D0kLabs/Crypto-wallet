@@ -22,7 +22,7 @@ import java.util.*;
  */
 //@decaf.Remove(decaf.Platform.JDK11)
 public class DelegatingCollection<V> implements Collection<V> {
-	private Collection<V> _delegating;
+	private final Collection<V> _delegating;
 
 	public DelegatingCollection(Collection<V> delegating) {
 		_delegating = delegating;

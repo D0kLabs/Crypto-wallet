@@ -36,7 +36,7 @@ public class MLogin extends MsgD implements MessageWithResponse {
     				int blockSize = container().blockSize();
     				int encrypt = container()._handlers.i_encrypt ? 1 : 0;
     				serverMessageDispatcher().login();
-    				return Msg.LOGIN_OK.getWriterForInts(transaction(), new int[] { blockSize, encrypt, serverMessageDispatcher().dispatcherID() });
+    				return Msg.LOGIN_OK.getWriterForInts(transaction(), blockSize, encrypt, serverMessageDispatcher().dispatcherID());
     			}
     		}
 	    }

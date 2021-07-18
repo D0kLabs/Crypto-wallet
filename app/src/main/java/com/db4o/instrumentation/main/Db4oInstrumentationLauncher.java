@@ -31,7 +31,7 @@ public class Db4oInstrumentationLauncher {
 		ClassLoader loader=new BloatInstrumentingClassLoader(classPath, parentLoader, compositeEdit);
 		Thread.currentThread().setContextClassLoader(loader);
 		Class mainClass=loader.loadClass(mainClazzName);
-		Method mainMethod=mainClass.getMethod("main",new Class[]{String[].class});
+		Method mainMethod=mainClass.getMethod("main", String[].class);
 		mainMethod.invoke(null,new Object[]{args});
 	}
 

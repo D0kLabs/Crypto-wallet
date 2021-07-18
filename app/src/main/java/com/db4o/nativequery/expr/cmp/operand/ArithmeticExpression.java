@@ -20,9 +20,9 @@ import com.db4o.nativequery.expr.cmp.*;
 
 
 public class ArithmeticExpression implements ComparisonOperand {
-	private ArithmeticOperator _op;
-	private ComparisonOperand _left;
-	private ComparisonOperand _right;
+	private final ArithmeticOperator _op;
+	private final ComparisonOperand _left;
+	private final ComparisonOperand _right;
 
 	public ArithmeticExpression(ComparisonOperand left, ComparisonOperand right,ArithmeticOperator op) {
 		this._op=op;

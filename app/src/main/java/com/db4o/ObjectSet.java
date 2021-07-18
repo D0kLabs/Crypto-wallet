@@ -46,7 +46,7 @@ public interface ObjectSet<T> extends List<T>, Iterable<T> {
      * <br><br>The ObjectSet functionality is split to two interfaces
      * to allow newcomers to focus on the essential methods.
      */
-    public ExtObjectSet ext();
+    ExtObjectSet ext();
 	
 	
     /**
@@ -55,7 +55,7 @@ public interface ObjectSet<T> extends List<T>, Iterable<T> {
      * @return boolean - <code>true</code> if the <code>ObjectSet</code> has more
 	 * elements.
      */
-    public boolean hasNext ();
+    boolean hasNext();
 
     /**
 	 * returns the next object in the <code>ObjectSet</code>.
@@ -67,13 +67,13 @@ public interface ObjectSet<T> extends List<T>, Iterable<T> {
 	 * setting.<br><br>
      * @return the next object in the <code>ObjectSet</code>.
      */
-    public T next ();
+    T next();
 
     /**
 	 * resets the <code>ObjectSet</code> cursor before the first element.
 	 * <br><br>A subsequent call to <code>next()</code> will return the first element.
      */
-    public void reset ();
+    void reset();
 
     /**
 	 * returns the number of elements in the <code>ObjectSet</code>.
@@ -81,5 +81,5 @@ public interface ObjectSet<T> extends List<T>, Iterable<T> {
      * 
      * @sharpen.ignore
      */
-    public int size ();
+    int size();
 }

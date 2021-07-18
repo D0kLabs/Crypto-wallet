@@ -24,9 +24,9 @@ import com.db4o.reflect.*;
  */
 public interface ReflectConstructor {
 	
-	public ReflectClass[] getParameterTypes();
+	ReflectClass[] getParameterTypes();
 	
-	public Object newInstance(Object[] parameters);
+	Object newInstance(Object[] parameters);
 	
 }
 

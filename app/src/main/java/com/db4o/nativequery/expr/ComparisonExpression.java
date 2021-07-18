@@ -19,9 +19,9 @@ import com.db4o.nativequery.expr.cmp.ComparisonOperator;
 import com.db4o.nativequery.expr.cmp.operand.*;
 
 public class ComparisonExpression implements Expression {
-	private FieldValue _left;
-	private ComparisonOperand _right;
-	private ComparisonOperator _op;
+	private final FieldValue _left;
+	private final ComparisonOperand _right;
+	private final ComparisonOperator _op;
 
 	public ComparisonExpression(FieldValue left, ComparisonOperand right,ComparisonOperator op) {
 		if(left==null||right==null||op==null) {

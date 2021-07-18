@@ -20,7 +20,7 @@ import com.db4o.internal.slots.*;
 
 public class StandardSlotAccessor implements SlotAccessor {
 
-	private LocalTransaction _transaction;
+	private final LocalTransaction _transaction;
 	
 	public StandardSlotAccessor(LocalTransaction transaction) {
 		_transaction = transaction;

@@ -45,7 +45,7 @@ public interface Blob extends Db4oType {
      * stored.
      * @return String the name of the file.
      */
-    public String getFileName();
+    String getFileName();
 
     /**
      * returns the status after the last read- or write-operation.
@@ -62,7 +62,7 @@ public interface Blob extends Db4oType {
      * @return status - the current status
      * @see com.db4o.ext.Status  constants
      */
-    public double getStatus();
+    double getStatus();
 
     /**
      * reads a file into the db4o system and stores it as a blob.
@@ -73,7 +73,7 @@ public interface Blob extends Db4oType {
      * @param file the file the blob is to be read from.
      * @throws IOException in case of errors
      */
-    public void readFrom(File file) throws IOException;
+    void readFrom(File file) throws IOException;
 
     /**
      * reads a file into the db4o system and stores it as a blob.
@@ -83,7 +83,7 @@ public interface Blob extends Db4oType {
      * @param file the file the blob is to be read from.
      * @throws IOException in case of errors
      */
-    public void readLocal(File file) throws IOException;
+    void readLocal(File file) throws IOException;
 
     /**
      * writes stored blob data to a file.
@@ -94,7 +94,7 @@ public interface Blob extends Db4oType {
      * data was stored
      * @param file the file the blob is to be written to.
      */
-    public void writeLocal(File file) throws IOException;
+    void writeLocal(File file) throws IOException;
 
     /**
      * writes stored blob data to a file.
@@ -106,7 +106,7 @@ public interface Blob extends Db4oType {
      * data was stored
      * @param file the file the blob is to be written to.
      */
-    public void writeTo(File file) throws IOException;
+    void writeTo(File file) throws IOException;
 
     /**
      * Deletes the current file stored in this BLOB.
@@ -114,5 +114,5 @@ public interface Blob extends Db4oType {
      * @throws IOException in case of errors and in case no
      * data was stored
      */
-    public void deleteFile() throws IOException;
+    void deleteFile() throws IOException;
 }

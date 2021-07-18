@@ -33,19 +33,19 @@ public class SlotChangeFactory {
 	public static final SlotChangeFactory SYSTEM_OBJECTS = new SlotChangeFactory(){
 		public SlotChange newInstance(int id) {
 			return new SystemSlotChange(id);
-		};
-	};
+		}
+    };
 	
 	public static final SlotChangeFactory ID_SYSTEM = new SlotChangeFactory(){
 		public SlotChange newInstance(int id) {
 			return new IdSystemSlotChange(id);
-		};
-	};
+		}
+    };
 	
 	public static final SlotChangeFactory FREE_SPACE = new SlotChangeFactory(){
 		public SlotChange newInstance(int id) {
 			return new FreespaceSlotChange(id);
-		};
-	};
+		}
+    };
 	
 }

@@ -48,13 +48,13 @@ public class ObjectServerImpl implements ObjectServerEvents, ObjectServer, ExtOb
 	private final Collection4 _dispatchers = new Collection4();
 
 	private LocalObjectContainer _container;
-	private ClientTransactionPool _transactionPool;
+	private final ClientTransactionPool _transactionPool;
 
 	private final Lock4 _startupLock = new Lock4();
 	
-	private ServerConfigurationImpl _serverConfig;
+	private final ServerConfigurationImpl _serverConfig;
 	
-	private BlockingQueue _committedInfosQueue = new BlockingQueue();
+	private final BlockingQueue _committedInfosQueue = new BlockingQueue();
 	
 	private CommittedCallbacksDispatcher _committedCallbacksDispatcher;
     

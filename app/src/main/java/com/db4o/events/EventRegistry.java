@@ -37,7 +37,7 @@ public interface EventRegistry {
 	 * @return event
 	 * @see QueryEventArgs
 	 */
-	public Event4<QueryEventArgs> queryStarted();
+    Event4<QueryEventArgs> queryStarted();
 	
 	/**
 	 * This event is fired upon a query end and can be used to gather 
@@ -48,7 +48,7 @@ public interface EventRegistry {
 	 * @return event
 	 * @see QueryEventArgs
 	 */
-	public Event4<QueryEventArgs> queryFinished();
+    Event4<QueryEventArgs> queryFinished();
 
 	/**
 	 * This event is fired before an object is saved for the first time.
@@ -60,7 +60,7 @@ public interface EventRegistry {
 	 * @see CancellableObjectEventArgs
 	 * @see com.db4o.ObjectContainer#store(Object)
 	 */
-	public Event4<CancellableObjectEventArgs> creating();
+    Event4<CancellableObjectEventArgs> creating();
 
 	/**
 	 * 	This event is fired before an object is activated.
@@ -72,7 +72,7 @@ public interface EventRegistry {
 	 * 	@see CancellableObjectEventArgs
 	 * @see com.db4o.ObjectContainer#activate(Object, int)
 	 */
-	public Event4<CancellableObjectEventArgs> activating();
+    Event4<CancellableObjectEventArgs> activating();
 	
 	/**
 	 * This event is fired before an object is updated.
@@ -85,7 +85,7 @@ public interface EventRegistry {
 	 * @see CancellableObjectEventArgs
 	 * @see com.db4o.ObjectContainer#store(Object)
 	 */
-	public Event4<CancellableObjectEventArgs> updating();
+    Event4<CancellableObjectEventArgs> updating();
 	
 	/**
 	 * This event is fired before an object is deleted.
@@ -100,7 +100,7 @@ public interface EventRegistry {
 	 * @see CancellableObjectEventArgs
 	 * @see com.db4o.ObjectContainer#delete(Object)
 	 */
-	public Event4<CancellableObjectEventArgs> deleting();
+    Event4<CancellableObjectEventArgs> deleting();
 	
 	/**
 	 * This event is fired before an object is deactivated.
@@ -113,7 +113,7 @@ public interface EventRegistry {
 	 * @see CancellableObjectEventArgs
 	 * @see com.db4o.ObjectContainer#deactivate(Object, int)
 	 */
-	public Event4 deactivating();
+    Event4 deactivating();
 
 	/**
 	 * This event is fired after an object is activated.
@@ -127,7 +127,7 @@ public interface EventRegistry {
 	 * @see ObjectInfoEventArgs
 	 * @see com.db4o.ObjectContainer#activate(Object, int)
 	 */
-	public Event4<ObjectInfoEventArgs> activated();
+    Event4<ObjectInfoEventArgs> activated();
 
 	/**
 	 * This event is fired after an object is created (saved for the first time).
@@ -141,7 +141,7 @@ public interface EventRegistry {
 	 * @see ObjectEventArgs
 	 * @see com.db4o.ObjectContainer#store(Object)
 	 */
-	public Event4<ObjectInfoEventArgs> created();
+    Event4<ObjectInfoEventArgs> created();
 
 	/**
 	 * This event is fired after an object is updated.
@@ -155,7 +155,7 @@ public interface EventRegistry {
 	 * @see ObjectInfoEventArgs
 	 * @see com.db4o.ObjectContainer#store(Object)
 	 */
-	public Event4<ObjectInfoEventArgs> updated();
+    Event4<ObjectInfoEventArgs> updated();
 
 	/**
 	 * This event is fired after an object is deleted.
@@ -171,7 +171,7 @@ public interface EventRegistry {
 	 * @see ObjectEventArgs
 	 * @see com.db4o.ObjectContainer#delete(Object)
 	 */
-	public Event4<ObjectInfoEventArgs> deleted();
+    Event4<ObjectInfoEventArgs> deleted();
 
 	/**
 	 * This event is fired after an object is deactivated.
@@ -185,7 +185,7 @@ public interface EventRegistry {
 	 * @see ObjectEventArgs
 	 * @see com.db4o.ObjectContainer#delete(Object)
 	 */
-	public Event4<ObjectInfoEventArgs> deactivated();
+    Event4<ObjectInfoEventArgs> deactivated();
 	
 	/**
 	 * This event is fired just before a transaction is committed.
@@ -200,7 +200,7 @@ public interface EventRegistry {
 	 * @see CommitEventArgs
 	 * @see com.db4o.ObjectContainer#commit()
 	 */
-	public Event4<CommitEventArgs> committing();
+    Event4<CommitEventArgs> committing();
 	
 	/**
 	 * This event is fired after a transaction has been committed.
@@ -214,7 +214,7 @@ public interface EventRegistry {
 	 * @see CommitEventArgs
 	 * @see com.db4o.ObjectContainer#commit()
 	 */
-	public Event4<CommitEventArgs> committed();
+    Event4<CommitEventArgs> committed();
 
 	/**
 	 * This event is fired when a persistent object is instantiated. 
@@ -225,7 +225,7 @@ public interface EventRegistry {
 	 * @return event
 	 * @see ObjectInfoEventArgs
 	 */
-	public Event4<ObjectInfoEventArgs> instantiated();
+    Event4<ObjectInfoEventArgs> instantiated();
 
 	/**
 	 * This event is fired when a new class is registered with metadata.
@@ -236,7 +236,7 @@ public interface EventRegistry {
 	 * @return event
 	 * @see ClassEventArgs
 	 */
-	public Event4<ClassEventArgs> classRegistered();
+    Event4<ClassEventArgs> classRegistered();
 	
 	/**
 	 * This event is fired when the {@link com.db4o.ObjectContainer#close} is
@@ -245,7 +245,7 @@ public interface EventRegistry {
 	 * @sharpen.event com.db4o.events.ObjectContainerEventArgs
 	 * @return event
 	 */
-	public Event4<ObjectContainerEventArgs> closing();
+    Event4<ObjectContainerEventArgs> closing();
 
 	/**
 	 * This event is fired when the {@link com.db4o.ObjectContainer} has
@@ -254,5 +254,5 @@ public interface EventRegistry {
 	 * @sharpen.event com.db4o.events.ObjectContainerEventArgs
 	 * @return event
 	 */
-	public Event4<ObjectContainerEventArgs> opened();
+    Event4<ObjectContainerEventArgs> opened();
 }

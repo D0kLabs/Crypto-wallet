@@ -25,6 +25,6 @@ public interface QLinable {
 	/**
 	 * starts a {@link QLin} query against a class. 
 	 */
-	public <T> QLin<T> from(Class<T> clazz);
+    <T> QLin<T> from(Class<T> clazz);
 
 }

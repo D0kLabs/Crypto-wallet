@@ -21,9 +21,9 @@ package com.db4o.config.annotations.reflect;
  */
 @decaf.Ignore
 public class CalledConstructorConfigurator extends Db4oConfigurator {
-	private String _className;
+	private final String _className;
 
-	private boolean _value;
+	private final boolean _value;
 
 	public CalledConstructorConfigurator(String className, boolean value) {
 		this._className = className;

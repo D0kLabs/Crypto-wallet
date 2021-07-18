@@ -24,12 +24,12 @@ import com.db4o.marshall.*;
  */
 public interface MarshallingInfo extends AspectVersionContext {
 
-    public ClassMetadata classMetadata();
+    ClassMetadata classMetadata();
 
-    public ReadBuffer buffer();
+    ReadBuffer buffer();
     
-    public void beginSlot();
+    void beginSlot();
     
-    public boolean isNull(int fieldIndex);
+    boolean isNull(int fieldIndex);
     
 }

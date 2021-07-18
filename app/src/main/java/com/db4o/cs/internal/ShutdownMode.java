@@ -30,7 +30,7 @@ public abstract class ShutdownMode {
 	
 	public static class FatalMode extends ShutdownMode {
 		
-		private Throwable _exc;
+		private final Throwable _exc;
 		
 		FatalMode(Throwable exc) {
 			_exc = exc;

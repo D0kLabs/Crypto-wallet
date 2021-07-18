@@ -26,13 +26,13 @@ import com.db4o.typehandlers.*;
  */
 public interface DeleteContext extends Context, ReadBuffer, HandlerVersionContext{
     
-    public boolean cascadeDelete();
+    boolean cascadeDelete();
 
-	public int cascadeDeleteDepth();
+	int cascadeDeleteDepth();
 	
-	public void delete(TypeHandler4 handler);
+	void delete(TypeHandler4 handler);
 	
-	public void deleteObject();
+	void deleteObject();
 
 	boolean isLegacyHandlerVersion();
 	
@@ -40,6 +40,6 @@ public interface DeleteContext extends Context, ReadBuffer, HandlerVersionContex
 
 	Slot readSlot();
 
-	public int objectId();
+	int objectId();
 	
 }

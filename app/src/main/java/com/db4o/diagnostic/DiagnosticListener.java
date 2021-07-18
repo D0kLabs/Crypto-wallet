@@ -27,6 +27,6 @@ public interface DiagnosticListener {
     /**
      * this method will be called with Diagnostic messages.  
      */
-    public void onDiagnostic(Diagnostic d);
+    void onDiagnostic(Diagnostic d);
 
 }

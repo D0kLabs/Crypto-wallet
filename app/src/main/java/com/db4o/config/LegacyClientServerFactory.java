@@ -23,22 +23,22 @@ import com.db4o.ext.*;
  */
 public interface LegacyClientServerFactory {
 	
-	public ObjectContainer openClient(
-			   Configuration config,
-			   String hostName, 
-			   int port, 
-			   String user, 
-			   String password)
+	ObjectContainer openClient(
+            Configuration config,
+            String hostName,
+            int port,
+            String user,
+            String password)
 			    throws 
 			     Db4oIOException, 
 			     OldFormatException,
 			     InvalidPasswordException ;
 			 
 			 
-			 public ObjectServer openServer(
-			   Configuration config,
-			   String databaseFileName, 
-			   int port) 
+			 ObjectServer openServer(
+                     Configuration config,
+                     String databaseFileName,
+                     int port)
 			    throws 
 			     Db4oIOException,
 			     IncompatibleFileFormatException, 

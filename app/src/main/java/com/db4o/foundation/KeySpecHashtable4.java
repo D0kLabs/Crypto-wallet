@@ -20,7 +20,7 @@ package com.db4o.foundation;
  */
 public class KeySpecHashtable4 implements DeepClone {
     
-    private SynchronizedHashtable4 _delegate;
+    private final SynchronizedHashtable4 _delegate;
     
 	private KeySpecHashtable4(SynchronizedHashtable4 delegate_) {
 		_delegate = delegate_;

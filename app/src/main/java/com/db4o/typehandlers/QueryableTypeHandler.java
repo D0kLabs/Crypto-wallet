@@ -17,6 +17,6 @@ package com.db4o.typehandlers;
 
 public interface QueryableTypeHandler extends TypeHandler4 {
 	
-    public boolean descendsIntoMembers();
+    boolean descendsIntoMembers();
 
 }

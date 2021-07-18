@@ -25,7 +25,7 @@ import com.db4o.query.*;
  */
 public class QueryEventArgs extends TransactionalEventArgs {
 	
-	private Query _query;
+	private final Query _query;
 
 	/**
 	 * Creates a new instance for the specified {@link Query} instance.

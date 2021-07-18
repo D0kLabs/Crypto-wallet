@@ -28,6 +28,6 @@ public interface ReflectClassPredicate {
 	 * @param item item to be matched to the criteria
 	 * @return true, if the requirements are met
 	 */
-    public boolean match(ReflectClass item);
+    boolean match(ReflectClass item);
 
 }

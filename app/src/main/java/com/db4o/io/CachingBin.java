@@ -32,7 +32,7 @@ class CachingBin extends BinDecorator {
 	
 	private long _fileLength;
 	
-	private Procedure4<Page> _onDiscardPage = new Procedure4<Page>() {
+	private final Procedure4<Page> _onDiscardPage = new Procedure4<Page>() {
     	public void apply(Page discardedPage) {
     		flushPage(discardedPage);
     		_pagePool.returnObject(discardedPage);

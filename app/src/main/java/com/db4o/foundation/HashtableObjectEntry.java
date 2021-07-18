@@ -60,9 +60,7 @@ public class HashtableObjectEntry extends HashtableIntEntry {
 
 	@Override
 	public boolean sameKeyAs(HashtableIntEntry other) {
-		return other instanceof HashtableObjectEntry
-			? hasKey(((HashtableObjectEntry) other)._objectKey)
-			: false;
+		return other instanceof HashtableObjectEntry && hasKey(((HashtableObjectEntry) other)._objectKey);
 	}
 	
 	@Override

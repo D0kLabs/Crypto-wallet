@@ -48,7 +48,7 @@ public final class QCandidates implements Visitor4 {
     ClassMetadata i_classMetadata;
 
     // possible field information
-    private QField _field;
+    private final QField _field;
 
     // current executing constraint, only set where needed
     QCon i_currentConstraint;

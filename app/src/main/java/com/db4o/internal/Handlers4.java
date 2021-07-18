@@ -182,11 +182,8 @@ public class Handlers4 {
 	    if (isValueType(handler)) {
 	        return false;
 	    }
-	    if (isUntyped(handler)) {
-	        return false;
-	    }
-	    return true;
-	}
+        return !isUntyped(handler);
+    }
 
 	public static TypeHandler4 arrayElementHandler(TypeHandler4 handler, QueryingReadContext queryingReadContext) {
 		if(! (handler instanceof CascadingTypeHandler)){
@@ -207,11 +204,8 @@ public class Handlers4 {
 	    if(isValueType(typeHandler)){
 	        return false;
 	    }
-	    if(isUntyped(typeHandler)){
-	        return false;
-	    }
-	    return true;
-	}
+        return !isUntyped(typeHandler);
+    }
 
 	public static void cascadeActivation(ActivationContext context, TypeHandler4 handler) {
     	if(! (handler instanceof CascadingTypeHandler)){

@@ -52,7 +52,7 @@ public class SimpleMain {
 			db=Db4o.openFile(config, FILENAME);
 			final String protoName="Achilles";
 			Predicate<Student> filter=new Predicate<Student>() {
-				private int protoAge=203;
+				private final int protoAge=203;
 				
 				public boolean match(Student candidate) {
 					return candidate.tortue!=null&&candidate.getTortue().getAge()>=protoAge/2

@@ -19,13 +19,13 @@ import com.db4o.reflect.*;
 
 public class SelfField implements ReflectField {
 
-	private String _name;
+	private final String _name;
 
-	private ReflectClass _type;
+	private final ReflectClass _type;
 
-	private SelfClass _selfclass;
+	private final SelfClass _selfclass;
 
-	private SelfReflectionRegistry _registry;
+	private final SelfReflectionRegistry _registry;
 
 	public SelfField(String name, ReflectClass type, SelfClass selfclass,
 			SelfReflectionRegistry registry) {

@@ -54,7 +54,7 @@ public interface ClientConfiguration extends NetworkingConfigurationProvider, Co
 	 * 
 	 * @sharpen.property
 	 */
-	public MessageSender messageSender();
+    MessageSender messageSender();
 
 	/**
 	 * Sets the depth to which prefetched objects will be activated.
@@ -88,7 +88,7 @@ public interface ClientConfiguration extends NetworkingConfigurationProvider, Co
 	 *            
 	 * @sharpen.property
 	 */
-	public void timeoutClientSocket(int milliseconds);
+    void timeoutClientSocket(int milliseconds);
 
 	/**
      * adds ConfigurationItems to be applied when
@@ -96,5 +96,5 @@ public interface ClientConfiguration extends NetworkingConfigurationProvider, Co
      * @param configItem the {@link ClientConfigurationItem}
      * @since 7.12
      */
-	public void addConfigurationItem(ClientConfigurationItem configItem);
+    void addConfigurationItem(ClientConfigurationItem configItem);
 }

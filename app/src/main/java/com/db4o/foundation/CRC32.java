@@ -20,7 +20,7 @@ package com.db4o.foundation;
  */
 public class CRC32
 {
-   private static int crcTable[];
+   private static int[] crcTable;
 
    static {
       buildCRCTable();     
@@ -47,7 +47,7 @@ public class CRC32
       }
    }
 
-   public static long checkSum(byte buffer[], int start, int count)
+   public static long checkSum(byte[] buffer, int start, int count)
    {
       int temp1, temp2;
       int i = start;

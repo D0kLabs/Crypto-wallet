@@ -24,7 +24,7 @@ import java.util.*;
 @decaf.Ignore(decaf.Platform.JDK11)
 public class CollectionIterableBase implements IterableBaseWrapper {
 
-	private Collection _delegate;
+	private final Collection _delegate;
 	
 	public CollectionIterableBase(Collection delegate) {
 		_delegate = delegate;

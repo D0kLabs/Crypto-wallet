@@ -57,12 +57,12 @@ public interface Alias {
     /**
      * return the stored name for a runtime name or null if not handled. 
      */
-	public String resolveRuntimeName(String runtimeTypeName);
+    String resolveRuntimeName(String runtimeTypeName);
 	
     /**
      * return the runtime name for a stored name or null if not handled. 
      */
-	public String resolveStoredName(String storedTypeName);
+    String resolveStoredName(String storedTypeName);
 	
 
 }

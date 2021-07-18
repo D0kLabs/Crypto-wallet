@@ -42,7 +42,7 @@ public abstract class ConversionStage {
 		}
 	}
 
-	private LocalObjectContainer _file;
+	private final LocalObjectContainer _file;
 	
 	protected ConversionStage(LocalObjectContainer file) {
 		_file = file;

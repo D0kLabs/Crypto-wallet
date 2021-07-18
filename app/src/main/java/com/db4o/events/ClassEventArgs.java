@@ -19,7 +19,7 @@ import com.db4o.internal.*;
 
 public class ClassEventArgs extends EventArgs {
 
-	private ClassMetadata _clazz;
+	private final ClassMetadata _clazz;
 
 	public ClassEventArgs(ClassMetadata clazz) {
 		_clazz = clazz;

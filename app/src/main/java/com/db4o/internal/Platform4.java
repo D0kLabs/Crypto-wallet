@@ -481,14 +481,11 @@ public final class Platform4 {
 
     private static final boolean noNIO() {
         try {
-            if (propertyIs("java.vendor", "Sun")
-                && propertyIs("java.version", "1.4.0")
-                && (propertyIs("os.name", "Linux")
+            return propertyIs("java.vendor", "Sun")
+                    && propertyIs("java.version", "1.4.0")
+                    && (propertyIs("os.name", "Linux")
                     || propertyIs("os.name", "Windows 95")
-                    || propertyIs("os.name", "Windows 98"))) {
-                return true;
-            }
-            return false;
+                    || propertyIs("os.name", "Windows 98"));
         } catch (Exception e) {
             return true;
         }

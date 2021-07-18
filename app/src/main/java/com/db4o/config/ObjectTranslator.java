@@ -38,7 +38,7 @@ public interface ObjectTranslator {
      * @return return the object to store.<br>It needs to be of the class
 	 * {@link #storedClass()}.
      */
-    public Object onStore(ObjectContainer container, Object applicationObject);
+    Object onStore(ObjectContainer container, Object applicationObject);
 
     /**
 	 * db4o calls this method during activation.
@@ -46,12 +46,12 @@ public interface ObjectTranslator {
      * @param applicationObject the object to set the members on
      * @param storedObject the object that was stored
      */
-    public void onActivate(ObjectContainer container, Object applicationObject, Object storedObject);
+    void onActivate(ObjectContainer container, Object applicationObject, Object storedObject);
 
     /**
 	 * return the Class you are converting to.
      * @return the Class of the object you are returning with the method
 	 * {@link #onStore(ObjectContainer, Object)}
 	 */
-	 public Class storedClass ();
+    Class storedClass();
 }

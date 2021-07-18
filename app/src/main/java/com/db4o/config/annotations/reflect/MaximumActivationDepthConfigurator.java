@@ -21,9 +21,9 @@ package com.db4o.config.annotations.reflect;
  */
 @decaf.Ignore
 public class MaximumActivationDepthConfigurator extends Db4oConfigurator {
-	private String _className;
+	private final String _className;
 
-	private int _max;
+	private final int _max;
 
 	public MaximumActivationDepthConfigurator(String name, int max) {
 		this._className = name;

@@ -38,7 +38,7 @@ import com.db4o.ext.*;
  * @deprecated Symbian is not supported anymore since 8.0
  */
 public class SymbianIoAdapter extends RandomAccessFileAdapter {
-    private byte[] _seekBytes=new byte[500];
+    private final byte[] _seekBytes=new byte[500];
     private String _path;
     private long _pos;
     private long _length;

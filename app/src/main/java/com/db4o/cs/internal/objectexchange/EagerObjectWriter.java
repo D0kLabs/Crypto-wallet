@@ -23,8 +23,8 @@ import com.db4o.internal.slots.*;
 
 public class EagerObjectWriter {
 
-	private LocalTransaction _transaction;
-	private ObjectExchangeConfiguration _config;
+	private final LocalTransaction _transaction;
+	private final ObjectExchangeConfiguration _config;
 
 	public EagerObjectWriter(ObjectExchangeConfiguration config, LocalTransaction transaction) {
 		_config = config;

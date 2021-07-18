@@ -61,8 +61,8 @@ public interface DefragmentServices extends IDMapping {
 	
 	int targetNewId();
 	
-	public IdMapping mapping();
+	IdMapping mapping();
 	
-	public void commitIds();
+	void commitIds();
 	
 }

@@ -45,7 +45,7 @@ public class DefaultFilePathRoot implements FilePathRoot {
 
 	private static class FileSystemIterator implements Iterator {
 		private final String _extension;
-		private LinkedList _stack = new LinkedList();
+		private final LinkedList _stack = new LinkedList();
 
 		public FileSystemIterator(String[] roots, String extension) {
 			_extension = extension;

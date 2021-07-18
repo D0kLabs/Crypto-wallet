@@ -22,8 +22,8 @@ import com.db4o.reflect.*;
  */
 public class GenericClassBuilder implements ReflectClassBuilder {
 
-	private GenericReflector _reflector;
-	private Reflector _delegate;
+	private final GenericReflector _reflector;
+	private final Reflector _delegate;
 	
 	public GenericClassBuilder(GenericReflector reflector, Reflector delegate_) {
 		super();

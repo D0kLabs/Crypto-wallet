@@ -28,7 +28,7 @@ import com.db4o.reflect.*;
 public class JdkMethod implements ReflectMethod{
 	
 	private final Method method;
-    private Reflector reflector;
+    private final Reflector reflector;
 	
 	public JdkMethod(Method method_, Reflector reflector_){
 		method = method_;

@@ -76,21 +76,21 @@ public interface Configuration {
      * @param depth the desired global activation depth.
      * @see ObjectClass#maximumActivationDepth configuring classes individually
      */
-    public void activationDepth(int depth);
+    void activationDepth(int depth);
     
     /**
      * gets the configured activation depth.
      * 
      * @return the configured activation depth.
      */
-    public int activationDepth();
+    int activationDepth();
     
     /**
      * adds ConfigurationItems to be applied when
      * an ObjectContainer or ObjectServer is opened. 
      * @param configurationItem the ConfigurationItem
      */
-    public void add(ConfigurationItem configurationItem);
+    void add(ConfigurationItem configurationItem);
     
     /**
      * adds a new Alias for a class, namespace or package.
@@ -129,14 +129,14 @@ public interface Configuration {
      * or connecting to a server.<br><br>
      * In client/server environment this setting should be used on the server side.
      */
-    public void addAlias(Alias alias);
+    void addAlias(Alias alias);
     
     /**
      * Removes an alias previously added with {@link Configuration#addAlias(Alias)}.
      * 
      * @param alias the alias to remove
      */
-    public void removeAlias(Alias alias);
+    void removeAlias(Alias alias);
     
     /**
      * turns automatic database file format version updates on.
@@ -156,7 +156,7 @@ public interface Configuration {
      * In client-server environment this setting should be used on both client 
      * and server.
      */
-    public void allowVersionUpdates(boolean flag);
+    void allowVersionUpdates(boolean flag);
     
     /**
      * turns automatic shutdown of the engine on and off.
@@ -165,7 +165,7 @@ public interface Configuration {
      * and server.
      * @param flag whether db4o should shut down automatically.
      */
-    public void automaticShutDown(boolean flag);
+    void automaticShutDown(boolean flag);
     
     /**
      * sets the storage data blocksize for new ObjectContainers. 
@@ -181,7 +181,7 @@ public interface Configuration {
      * should be used on the server side.
      * @param bytes the size in bytes from 1 to 127
      */
-    public void blockSize(int bytes) throws GlobalOnlyConfigException;
+    void blockSize(int bytes) throws GlobalOnlyConfigException;
     
     
     /**
@@ -196,7 +196,7 @@ public interface Configuration {
      * client-server environment. 
      * @param size the number of elements held in one BTree node.
      */
-    public void bTreeNodeSize(int size);
+    void bTreeNodeSize(int size);
     
     
     /**
@@ -212,13 +212,13 @@ public interface Configuration {
      * client-server environment. 
      @param height the height of the cache from the root
      */
-    public void bTreeCacheHeight(int height);
+    void bTreeCacheHeight(int height);
     
     
     /**
      * returns the Cache configuration interface.
      */
-    public CacheConfiguration cache();
+    CacheConfiguration cache();
     
     
     /**
@@ -232,7 +232,7 @@ public interface Configuration {
      * @param flag false to turn callback methods off
      * @see com.db4o.ext.ObjectCallbacks Using callbacks
      */
-    public void callbacks(boolean flag);
+    void callbacks(boolean flag);
     
     /**
      * advises db4o to try instantiating objects with/without calling
@@ -255,7 +255,7 @@ public interface Configuration {
      * false to request <b>not</b> calling constructors.
      * @see ObjectClass#callConstructor
      */
-    public void callConstructors(boolean flag);
+    void callConstructors(boolean flag);
 
     /**
      * turns 
@@ -268,12 +268,12 @@ public interface Configuration {
      * activation depths off
      * @see Configuration#activationDepth Why activation?
      */
-    public void classActivationDepthConfigurable(boolean flag);
+    void classActivationDepthConfigurable(boolean flag);
     
     /**
      * returns client/server configuration interface.
      */
-    public ClientServerConfiguration clientServer();
+    ClientServerConfiguration clientServer();
     
 	/**
 	 * configures the size database files should grow in bytes, when no 
@@ -293,7 +293,7 @@ public interface Configuration {
 	 *  
      * @param bytes amount of bytes
      */
-    public void databaseGrowthSize(int bytes);
+    void databaseGrowthSize(int bytes);
 
     /**
      * tuning feature: configures whether db4o checks all persistent classes upon system
@@ -309,13 +309,13 @@ public interface Configuration {
      * <code>true</code>
      * @param flag the desired setting
      */
-    public void detectSchemaChanges(boolean flag);
+    void detectSchemaChanges(boolean flag);
     
     /**
      * returns the configuration interface for diagnostics.
      * @return the configuration interface for diagnostics.
      */
-    public DiagnosticConfiguration diagnostic();
+    DiagnosticConfiguration diagnostic();
     
     /**
      * turns commit recovery off.
@@ -330,7 +330,7 @@ public interface Configuration {
      * recovery. The method should only be used in emergency situations after consulting
      * db4o support. 
      */
-    public void disableCommitRecovery();
+    void disableCommitRecovery();
     
     /**
      * configures the use of encryption.
@@ -347,7 +347,7 @@ public interface Configuration {
      * off.
      * @see #password
      */
-    public void encrypt(boolean flag) throws GlobalOnlyConfigException;
+    void encrypt(boolean flag) throws GlobalOnlyConfigException;
     
     /**
      * configures whether Exceptions are to be thrown, if objects can not be stored.
@@ -368,12 +368,12 @@ public interface Configuration {
      * client and server.<br><br>
      * @param flag false to not throw Exceptions if objects can not be stored (fail silently).
      */
-    public void exceptionsOnNotStorable(boolean flag);
+    void exceptionsOnNotStorable(boolean flag);
     
     /**
      * returns the freespace configuration interface.
      */
-    public FreespaceConfiguration freespace();
+    FreespaceConfiguration freespace();
     
     /**
      * configures db4o to generate UUIDs for stored objects.
@@ -381,7 +381,7 @@ public interface Configuration {
      * This setting should be used when the database is first created.<br><br>
      * @param setting the scope for UUID generation: disabled, generate for all classes, or configure individually
      */
-    public void generateUUIDs(ConfigScope setting);
+    void generateUUIDs(ConfigScope setting);
 
     /**
      * configures db4o to generate version numbers for stored objects.
@@ -392,7 +392,7 @@ public interface Configuration {
      * @deprecated As of version 8.0 please use {@link #generateCommitTimestamps(boolean)} instead.
      */
     @Deprecated
-    public void generateVersionNumbers(ConfigScope setting);
+    void generateVersionNumbers(ConfigScope setting);
     
 	/**
 	 * Configures db4o to generate commit timestamps for all stored objects.<br>
@@ -419,7 +419,7 @@ public interface Configuration {
 	 *            is defragmenting the container.
 	 * @since 8.0
 	 */
-    public void generateCommitTimestamps(boolean flag);
+    void generateCommitTimestamps(boolean flag);
 
     /**
      * configures db4o to call #intern() on strings upon retrieval.
@@ -427,12 +427,12 @@ public interface Configuration {
      * client and server.
      * @param flag true to intern strings
      */
-    public void internStrings(boolean flag);
+    void internStrings(boolean flag);
     
     /**
      * returns true if strings will be interned.
      */
-    public boolean internStrings();
+    boolean internStrings();
     
     /**
      * allows to configure db4o to use a customized byte IO adapter.
@@ -448,7 +448,7 @@ public interface Configuration {
      * 
      * @deprecated Use {@link #storage(Storage)} instead.
      */
-    public void io(IoAdapter adapter) throws GlobalOnlyConfigException;
+    void io(IoAdapter adapter) throws GlobalOnlyConfigException;
     
     /**
      * allows to configure db4o to use a customized byte IO storage mechanism.
@@ -463,13 +463,13 @@ public interface Configuration {
      * @see StorageDecorator
      * @sharpen.property
      */
-    public void storage(Storage factory) throws GlobalOnlyConfigException;
+    void storage(Storage factory) throws GlobalOnlyConfigException;
     
     /**
      * returns the configured {@link Storage}
      * @sharpen.property
      */
-    public Storage storage();
+    Storage storage();
     
     /**
      * returns the configured {@link IoAdapter}.
@@ -478,7 +478,7 @@ public interface Configuration {
      * 
      * @deprecated Use {@link #storage()} instead.
      */
-    public IoAdapter io();
+    IoAdapter io();
     /**
      * allows to mark fields as transient with custom attributes.
      * <br><br>.NET only: Call this method with the attribute name that you
@@ -490,7 +490,7 @@ public interface Configuration {
      * @param attributeName - the fully qualified name of the attribute, including
      * it's namespace  
      */
-    public void markTransient(String attributeName);
+    void markTransient(String attributeName);
 
     /**
      * sets the detail level of db4o messages. Messages will be output to the 
@@ -507,7 +507,7 @@ public interface Configuration {
      * @param level integer from 0 to 3
      * @see #setOut
      */
-    public void messageLevel(int level);
+    void messageLevel(int level);
 
     /**
      * can be used to turn the database file locking thread off. 
@@ -527,7 +527,7 @@ public interface Configuration {
      * In client-server environment this setting should be used on both client and server.<br><br>  
      * @param flag <code>false</code> to turn database file locking off.
      */
-    public void lockDatabaseFile(boolean flag);
+    void lockDatabaseFile(boolean flag);
 
     /**
      * returns an {@link ObjectClass ObjectClass} object
@@ -541,7 +541,7 @@ public interface Configuration {
      * @return an instance of an {@link ObjectClass ObjectClass}
      *  object for configuration.
      */
-    public ObjectClass objectClass(Object clazz);
+    ObjectClass objectClass(Object clazz);
 
     /**
      * If set to true, db4o will try to optimize native queries
@@ -556,7 +556,7 @@ public interface Configuration {
      * @param optimizeNQ true, if db4o should try to optimize
      * native queries at query execution time, false otherwise
      */
-    public void optimizeNativeQueries(boolean optimizeNQ);
+    void optimizeNativeQueries(boolean optimizeNQ);
     
     /**
      * indicates whether Native Queries will be optimized dynamically.
@@ -564,7 +564,7 @@ public interface Configuration {
      * dynamically.
      * @see #optimizeNativeQueries
      */
-    public boolean optimizeNativeQueries();
+    boolean optimizeNativeQueries();
     
     /**
      * protects the database file with a password.
@@ -580,13 +580,13 @@ public interface Configuration {
      * 
      * @param pass the password to be used.
      */
-    public void password(String pass) throws GlobalOnlyConfigException;
+    void password(String pass) throws GlobalOnlyConfigException;
 
     
     /**
      * returns the Query configuration interface.
      */
-    public QueryConfiguration queries();
+    QueryConfiguration queries();
     
     /**
      * turns readOnly mode on and off.
@@ -600,7 +600,7 @@ public interface Configuration {
      * @param flag <code>true</code> for configuring readOnly mode for subsequent
      * calls to {@link com.db4o.Db4o#openFile Db4o.openFile()}.
      */
-    public void readOnly(boolean flag);
+    void readOnly(boolean flag);
     
     /**
      * turns recovery mode on and off.<br><br>
@@ -612,7 +612,7 @@ public interface Configuration {
      * corrupted database.
      * @param flag <code>true</code> to turn recover mode on.
      */
-    public void recoveryMode(boolean flag);
+    void recoveryMode(boolean flag);
 
     /**
      * configures the use of a specially designed reflection implementation.
@@ -625,7 +625,7 @@ public interface Configuration {
      * In client-server environment this setting should be used on the server side
      * (reflector class must be available)<br><br>
      */
-    public void reflectWith(Reflector reflector);
+    void reflectWith(Reflector reflector);
     
     /**
      * tuning feature only: reserves a number of bytes in database files.
@@ -648,7 +648,7 @@ public interface Configuration {
      * Default configuration: 0<br><br> 
      * @param byteCount the number of bytes to reserve
      */
-    public void reserveStorageSpace(long byteCount) throws DatabaseReadOnlyException, NotSupportedException;
+    void reserveStorageSpace(long byteCount) throws DatabaseReadOnlyException, NotSupportedException;
 
     /**
      * configures the path to be used to store and read 
@@ -658,7 +658,7 @@ public interface Configuration {
      * server side. <br><br>
      * @param path the path to be used
      */
-    public void setBlobPath(String path) throws IOException;
+    void setBlobPath(String path) throws IOException;
 
     /**
      * Assigns a {@link java.io.PrintStream PrintStream} where db4o is to print its event messages.
@@ -673,7 +673,7 @@ public interface Configuration {
      * @param outStream the new <code>PrintStream</code> for messages.
      * @see #messageLevel
      */
-    public void setOut(PrintStream outStream);
+    void setOut(PrintStream outStream);
     
     /**
      * configures the string encoding to be used.
@@ -691,7 +691,7 @@ public interface Configuration {
      * <code>config.stringEncoding(StringEncodings.utf8()));</code>
      * @see StringEncodings
      */
-	public void stringEncoding(StringEncoding encoding);
+    void stringEncoding(StringEncoding encoding);
 
     
     /**
@@ -706,7 +706,7 @@ public interface Configuration {
      * <code>true</code>
      * @param flag the desired setting
      */
-    public void testConstructors(boolean flag);
+    void testConstructors(boolean flag);
 
     /**
      * specifies the global updateDepth.
@@ -724,7 +724,7 @@ public interface Configuration {
      * @see ObjectClass#cascadeOnUpdate
      * @see com.db4o.ext.ObjectCallbacks Using callbacks
      */
-    public void updateDepth(int depth);
+    void updateDepth(int depth);
 
     /**
      * turns weak reference management on or off.
@@ -741,7 +741,7 @@ public interface Configuration {
      * from disposing of unused objects.
      * <br><br>The default setting is <code>true</code>.
      */
-    public void weakReferences(boolean flag);
+    void weakReferences(boolean flag);
     
     /**
      * configures the timer for WeakReference collection.
@@ -750,7 +750,7 @@ public interface Configuration {
      * collection off.
      * @param milliseconds the time in milliseconds
      */
-    public void weakReferenceCollectionInterval(int milliseconds);
+    void weakReferenceCollectionInterval(int milliseconds);
     
     /**
      * allows registering special TypeHandlers for customized marshalling
@@ -759,17 +759,17 @@ public interface Configuration {
      * TypeHandler is to be used.
      * @param typeHandler to be used for the classes that match the predicate.
      */
-    public void registerTypeHandler(TypeHandlerPredicate predicate, TypeHandler4 typeHandler);
+    void registerTypeHandler(TypeHandlerPredicate predicate, TypeHandler4 typeHandler);
 
 
     /**
      * @see CommonConfiguration#maxStackDepth()
      */
-	public int maxStackDepth();
+    int maxStackDepth();
 	
 	/**
 	 * @see CommonConfiguration#maxStackDepth(int) 
 	 */
-	public void maxStackDepth(int maxStackDepth);
+    void maxStackDepth(int maxStackDepth);
 
 }

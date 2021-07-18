@@ -23,7 +23,7 @@ import com.db4o.config.*;
  */
 @decaf.Ignore
 public abstract class ClassConfigurator extends Db4oConfigurator {
-	private String _className;
+	private final String _className;
 	
 	protected ClassConfigurator(String className) {
 		_className=className;

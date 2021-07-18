@@ -29,11 +29,11 @@ import com.db4o.internal.caching.*;
  */
 public class CachingStorage extends StorageDecorator {
 
-	private static int DEFAULT_PAGE_COUNT = 64;
-	private static int DEFAULT_PAGE_SIZE = 1024;
+	private static final int DEFAULT_PAGE_COUNT = 64;
+	private static final int DEFAULT_PAGE_SIZE = 1024;
 	
-	private int _pageCount;
-	private int _pageSize;
+	private final int _pageCount;
+	private final int _pageSize;
 
 	/**
 	 * default constructor to create a Caching storage with the default

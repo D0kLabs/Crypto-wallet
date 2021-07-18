@@ -29,13 +29,13 @@ public interface ConfigurationItem {
 	 * 
 	 * @param configuration the configuration that the item was added to
 	 */
-	public void prepare(Configuration configuration);
+    void prepare(Configuration configuration);
 	
 	/**
 	 * Gives a chance for the item to configure the just opened ObjectContainer.
 	 * 
 	 * @param container the ObjectContainer to configure
 	 */
-	public void apply(InternalObjectContainer container);
+    void apply(InternalObjectContainer container);
 	
 }

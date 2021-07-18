@@ -24,11 +24,11 @@ import com.db4o.reflect.generic.*;
 
 public class ClassInfoHelper {
 
-	private Hashtable4 _classMetaTable = new Hashtable4();
+	private final Hashtable4 _classMetaTable = new Hashtable4();
 
-	private Hashtable4 _genericClassTable = new Hashtable4();
+	private final Hashtable4 _genericClassTable = new Hashtable4();
 
-	private Config4Impl _config;
+	private final Config4Impl _config;
 
 	public ClassInfoHelper(Config4Impl config) {
 		_config = config;
@@ -63,9 +63,7 @@ public class ClassInfoHelper {
 
 	private boolean shouldStoreTransientFields(ReflectClass claxx) {		
 		Config4Class configClass = _config.configClass(claxx.getName());
-		return configClass == null 
-							? false 
-							: configClass.storeTransientFields();
+		return configClass != null && configClass.storeTransientFields();
 	}
 
 	private ClassInfo mapSuperclass(ReflectClass claxx) {

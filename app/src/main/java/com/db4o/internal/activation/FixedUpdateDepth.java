@@ -20,7 +20,7 @@ import com.db4o.internal.*;
 
 public abstract class FixedUpdateDepth implements UpdateDepth {
 
-	private int _depth;
+	private final int _depth;
 	private boolean _tpMode = false;
 	
 	public FixedUpdateDepth(int depth) {

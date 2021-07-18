@@ -20,6 +20,6 @@ package com.db4o.internal;
  */
 public interface ModificationAware {
 	
-	public boolean isModified(Object obj);
+	boolean isModified(Object obj);
 
 }

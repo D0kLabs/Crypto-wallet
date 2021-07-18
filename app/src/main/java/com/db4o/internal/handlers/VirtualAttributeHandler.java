@@ -23,6 +23,6 @@ import com.db4o.internal.marshall.*;
  */
 public interface VirtualAttributeHandler {
     
-    public void readVirtualAttributes(ObjectReferenceContext context);
+    void readVirtualAttributes(ObjectReferenceContext context);
 
 }

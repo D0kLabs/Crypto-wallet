@@ -33,9 +33,9 @@ public final class ComparisonOperator {
 	public final static ComparisonOperator ENDS_WITH=new ComparisonOperator(ENDSWITH_ID,"<ENDSWITH>", false);
 	public final static ComparisonOperator REFERENCE_EQUALITY=new ComparisonOperator(IDENTITY_ID,"===", true);
 
-	private int _id;
-	private String _op;
-	private boolean _symmetric;
+	private final int _id;
+	private final String _op;
+	private final boolean _symmetric;
 	
 	private ComparisonOperator(int id, String op, boolean symmetric) {
 		_id=id;

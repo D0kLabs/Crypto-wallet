@@ -17,7 +17,7 @@ package com.db4o.nativequery.expr;
 
 
 public class NotExpression implements Expression {
-	private Expression _expr;
+	private final Expression _expr;
 
 	public NotExpression(Expression expr) {
 		this._expr = expr;

@@ -20,7 +20,7 @@ import com.db4o.foundation.*;
 
 class ShutDownRunnable implements Runnable {
 	
-	private Collection4 _containers = new Collection4();
+	private final Collection4 _containers = new Collection4();
 	
 	public volatile boolean dontRemove = false;
 

@@ -25,12 +25,12 @@ import java.util.*;
 @decaf.Ignore(decaf.Platform.JDK11)
 public class ReflectionIterableBase implements IterableBaseWrapper {
 
-	private Object _delegate;
-	private Method _method;
+	private final Object _delegate;
+	private final Method _method;
 	
 	public ReflectionIterableBase(Object delegate) throws Exception {
 		_delegate = delegate;
-		_method = _delegate.getClass().getMethod("iterator", new Class[0]);
+		_method = _delegate.getClass().getMethod("iterator");
 		_method.setAccessible(true);
 	}
 	

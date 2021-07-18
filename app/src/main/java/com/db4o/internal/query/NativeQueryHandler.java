@@ -36,7 +36,7 @@ public class NativeQueryHandler {
 	public final static String PREOPTIMIZED = "PREOPTIMIZED";
 	public final static String DYNOPTIMIZED = "DYNOPTIMIZED";
 	
-	private ObjectContainer _container;
+	private final ObjectContainer _container;
 	private Db4oNQOptimizer _enhancer;
 	private List4 _listeners;
 	
@@ -111,9 +111,7 @@ public class NativeQueryHandler {
 		
 		try {
 			Constructor constructor;
-			constructor = clazz.getConstructor(new Class[]{
-													Reflector.class
-													});
+			constructor = clazz.getConstructor(Reflector.class);
 			
 			if(constructor == null)
 				return;

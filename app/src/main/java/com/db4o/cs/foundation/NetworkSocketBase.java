@@ -22,10 +22,10 @@ import com.db4o.internal.*;
 
 public abstract class NetworkSocketBase implements Socket4 {
 
-	private String _hostName;
-	private Socket _socket;
-	private InputStream _in;
-	private OutputStream _out;
+	private final String _hostName;
+	private final Socket _socket;
+	private final InputStream _in;
+	private final OutputStream _out;
 
 	public NetworkSocketBase(Socket socket) throws IOException {
 		this(socket, null);

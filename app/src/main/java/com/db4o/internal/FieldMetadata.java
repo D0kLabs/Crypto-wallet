@@ -84,9 +84,7 @@ public class FieldMetadata extends ClassAspect implements StoredField {
         _fieldTypeID = fieldType.getID();
         
         // TODO: beautify !!!  possibly pull up isPrimitive to ReflectField
-        boolean isPrimitive = field instanceof GenericField
-        	? ((GenericField)field).isPrimitive()
-        	: false;
+        boolean isPrimitive = field instanceof GenericField && ((GenericField) field).isPrimitive();
         configure(field.getFieldType(), isPrimitive);
         checkDb4oType();
         setAvailable();
@@ -1091,11 +1089,8 @@ public class FieldMetadata extends ClassAspect implements StoredField {
 		if(hasIndex()){
 			return false;
 		}
-		if(isStruct()){
-			return false;
-		}
-		return true;
-	}
+        return !isStruct();
+    }
 
 	private boolean isStruct() {
 		return _fieldType != null && _fieldType.isStruct();

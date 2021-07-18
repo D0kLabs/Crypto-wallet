@@ -56,8 +56,8 @@ public class ZipFileExtraction {
 		extractFileEntry(entry);
 	}
 
-	private void extractFileEntry(ZipEntry entry) throws FileNotFoundException,
-			IOException {
+	private void extractFileEntry(ZipEntry entry) throws
+            IOException {
 		final FileOutputStream fos = new FileOutputStream(targetPathFor(entry));
 		try {
 			final InputStream is = _zipFile.getInputStream(entry);

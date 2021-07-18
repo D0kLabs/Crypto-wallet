@@ -23,22 +23,22 @@ import com.db4o.internal.*;
  */
 public interface ReferenceSystem {
 
-	public void addNewReference(ObjectReference ref);
+	void addNewReference(ObjectReference ref);
 
-	public void addExistingReference(ObjectReference ref);
+	void addExistingReference(ObjectReference ref);
 
-	public void commit();
+	void commit();
 	
-	public ObjectReference referenceForId(int id);
+	ObjectReference referenceForId(int id);
 
-	public ObjectReference referenceForObject(Object obj);
+	ObjectReference referenceForObject(Object obj);
 	
-	public void removeReference(ObjectReference ref);
+	void removeReference(ObjectReference ref);
 	
-	public void rollback();
+	void rollback();
 	
-	public void traverseReferences(Visitor4 visitor);
+	void traverseReferences(Visitor4 visitor);
 
-	public void discarded();
+	void discarded();
 
 }

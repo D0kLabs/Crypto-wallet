@@ -49,14 +49,14 @@ public class ActivatableLinkedList<E> extends LinkedList<E> implements Activatab
 	public boolean add(E e) {
 		activate(ActivationPurpose.WRITE);
 		return super.add(e);
-	};
-	
-	public void add(int index, E element) {
+	}
+
+    public void add(int index, E element) {
 		activate(ActivationPurpose.WRITE);
 		super.add(index, element);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public boolean addAll(Collection<? extends E> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.addAll(c);
@@ -71,15 +71,15 @@ public class ActivatableLinkedList<E> extends LinkedList<E> implements Activatab
 	public void addFirst(E e) {
 		activate(ActivationPurpose.WRITE);
 		super.addFirst(e);
-	};
-	
-	public void addLast(E e) {
+	}
+
+    public void addLast(E e) {
 		activate(ActivationPurpose.WRITE);
 		super.addLast(e);
-	};
+	}
 
-	
-	@Override
+
+    @Override
 	public void clear() {
 		activate(ActivationPurpose.WRITE);
 		super.clear();
@@ -175,9 +175,9 @@ public class ActivatableLinkedList<E> extends LinkedList<E> implements Activatab
 	public E set(int index, E element) {
 		activate(ActivationPurpose.WRITE);
 		return super.set(index, element);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public int size() {
 		activate(ActivationPurpose.READ);
 		return super.size();
@@ -199,9 +199,9 @@ public class ActivatableLinkedList<E> extends LinkedList<E> implements Activatab
 	public <T extends Object> T[] toArray(T[] a) {
 		activate(ActivationPurpose.READ);
 		return super.toArray(a);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public boolean removeAll(Collection<?> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.removeAll(c);

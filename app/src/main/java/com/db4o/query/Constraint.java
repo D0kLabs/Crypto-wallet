@@ -46,7 +46,7 @@ public interface Constraint {
      * @return a new {@link Constraint}, that can be used for further calls
 	 * to {@link #and(Constraint)} and {@link #or(Constraint)}
      */
-    public Constraint and (Constraint with);
+    Constraint and(Constraint with);
 
 
     /**
@@ -59,7 +59,7 @@ public interface Constraint {
      * @return a new {@link Constraint}, that can be used for further calls
      * to {@link #and(Constraint)} and {@link #or(Constraint)}
      */
-    public Constraint or (Constraint with);
+    Constraint or(Constraint with);
 
 
     /**
@@ -71,7 +71,7 @@ public interface Constraint {
 	 * will return all pilots with points &lt;= 101.<br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint equal ();
+    Constraint equal();
 
 
     /**
@@ -82,7 +82,7 @@ public interface Constraint {
 	 * will return all pilots with points &gt; 101.<br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint greater ();
+    Constraint greater();
 
     /**
      * sets the evaluation mode to <code>&lt;</code>.
@@ -92,7 +92,7 @@ public interface Constraint {
 	 * will return all pilots with points &lt; 101.<br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint smaller ();
+    Constraint smaller();
 
 
     /**
@@ -115,14 +115,14 @@ public interface Constraint {
 	 * <code>query.descend("_pilot").constrain(pilot).identity();</code><br><br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint identity ();
+    Constraint identity();
 	
     /**
      * set the evaluation mode to object comparison (query by example).
      * 
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-	public Constraint byExample();
+    Constraint byExample();
 	
     /**
      * sets the evaluation mode to "like" comparison. This mode will include 
@@ -136,7 +136,7 @@ public interface Constraint {
 	 * <code>query.descend("name").constrain("est").like();</code><br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint like ();
+    Constraint like();
 	
 	
     /**
@@ -152,7 +152,7 @@ public interface Constraint {
      * @see #like() like() for case insensitive string comparison
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint contains ();
+    Constraint contains();
 
     /**
      * sets the evaluation mode to string startsWith comparison.
@@ -165,7 +165,7 @@ public interface Constraint {
      * @param caseSensitive comparison will be case sensitive if true, case insensitive otherwise
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint startsWith(boolean caseSensitive);
+    Constraint startsWith(boolean caseSensitive);
 
     /**
      * sets the evaluation mode to string endsWith comparison.
@@ -178,7 +178,7 @@ public interface Constraint {
      * @param caseSensitive comparison will be case sensitive if true, case insensitive otherwise
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint endsWith(boolean caseSensitive);
+    Constraint endsWith(boolean caseSensitive);
 
 
     /**
@@ -191,7 +191,7 @@ public interface Constraint {
 	 * <code>query.descend("name").constrain("t0").endsWith(true).not();</code><br>
      * @return this {@link Constraint} to allow the chaining of method calls.
      */
-    public Constraint not ();
+    Constraint not();
     
     
     /**
@@ -199,6 +199,6 @@ public interface Constraint {
      * create this {@link Constraint}.
      * @return Object the constraining object.
      */
-    public Object getObject();
+    Object getObject();
 
 }

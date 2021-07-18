@@ -39,7 +39,7 @@ public interface ObjectField {
 	 * @see com.db4o.ObjectContainer#activate
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 */
-	public void cascadeOnActivate(boolean flag);
+    void cascadeOnActivate(boolean flag);
 	
 	
 	/**
@@ -65,7 +65,7 @@ public interface ObjectField {
 	 * @see com.db4o.ObjectContainer#delete
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 */
-	public void cascadeOnDelete(boolean flag);
+    void cascadeOnDelete(boolean flag);
 	
 	
 	/**
@@ -86,7 +86,7 @@ public interface ObjectField {
 	 * @see ObjectClass#updateDepth
 	 * @see com.db4o.ext.ObjectCallbacks Using callbacks
 	 */
-	public void cascadeOnUpdate(boolean flag);
+    void cascadeOnUpdate(boolean flag);
 	
 	
 	/**
@@ -106,7 +106,7 @@ public interface ObjectField {
 	 * @param flag specify <code>true</code> or <code>false</code> to turn indexing on for
 	 * this field
 	 */
-	public void indexed(boolean flag);
+    void indexed(boolean flag);
 	
 
     /**
@@ -118,6 +118,6 @@ public interface ObjectField {
      * This setting can NOT be applied to an open object container. <br/><br/>
      * @param newName the new field name.
      */
-    public void rename (String newName);
+    void rename(String newName);
 
 }

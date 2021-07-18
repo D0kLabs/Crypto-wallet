@@ -25,7 +25,7 @@ public interface Compare {
 	/**
 	 * return the Object to be compared during query evaluation.
 	 */
-	public Object compare();
+    Object compare();
 	
 }
 

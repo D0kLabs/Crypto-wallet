@@ -24,7 +24,7 @@ import com.db4o.cs.foundation.*;
 @decaf.Ignore
 public class SSLSocket4 extends NetworkSocketBase {
 
-	private SSLSocketFactory _factory;
+	private final SSLSocketFactory _factory;
 
 	public SSLSocket4(String hostName, int port, SSLSocketFactory factory) throws IOException {
 		super(factory.createSocket(hostName, port), hostName);

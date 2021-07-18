@@ -23,6 +23,6 @@ package com.db4o;
  */
 public interface BlobStatus {
 	
-	public double getStatus();
+	double getStatus();
 		
 }

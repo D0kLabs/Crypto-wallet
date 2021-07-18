@@ -21,7 +21,7 @@ import com.db4o.instrumentation.api.*;
 
 public class StaticFieldRoot extends ComparisonOperandRoot {
 	
-	private TypeRef _type;
+	private final TypeRef _type;
 	
 	public StaticFieldRoot(TypeRef type) {
 		if (null == type) {

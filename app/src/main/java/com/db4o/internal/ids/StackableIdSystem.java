@@ -20,8 +20,8 @@ package com.db4o.internal.ids;
  */
 public interface StackableIdSystem extends IdSystem {
 	
-	public int childId();
+	int childId();
 	
-	public void childId(int id);
+	void childId(int id);
 
 }

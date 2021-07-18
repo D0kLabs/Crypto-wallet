@@ -22,9 +22,9 @@ package com.db4o.reflect;
  */
 public interface ReflectField {
 	
-	public Object get(Object onObject);
+	Object get(Object onObject);
 	
-	public String getName();
+	String getName();
 	
 	/**
 	 * The ReflectClass returned by this method should have been
@@ -32,15 +32,15 @@ public interface ReflectField {
 	 * 
 	 * @return the ReflectClass representing the field type as provided by the parent reflector
 	 */
-	public ReflectClass getFieldType();
+    ReflectClass getFieldType();
 	
-	public boolean isPublic();
+	boolean isPublic();
 	
-	public boolean isStatic();
+	boolean isStatic();
 	
-	public boolean isTransient();
+	boolean isTransient();
 	
-	public void set(Object onObject, Object value);
+	void set(Object onObject, Object value);
 	
 	/**
 	 * The ReflectClass returned by this method should have been
@@ -48,7 +48,7 @@ public interface ReflectField {
 	 * 
 	 * @return the ReflectClass representing the index type as provided by the parent reflector
 	 */
-	public ReflectClass indexType();
+    ReflectClass indexType();
 	
-	public Object indexEntry(Object orig);
+	Object indexEntry(Object orig);
 }

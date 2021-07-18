@@ -28,7 +28,7 @@ import com.db4o.typehandlers.*;
 public class OpenTypeHandler implements ReferenceTypeHandler, ValueTypeHandler, BuiltinTypeHandler, CascadingTypeHandler, LinkLengthAware {
     
     private static final int HASHCODE = 1003303143;
-	private ObjectContainerBase _container;
+	private final ObjectContainerBase _container;
     
 	public OpenTypeHandler(ObjectContainerBase container){
 		_container = container;

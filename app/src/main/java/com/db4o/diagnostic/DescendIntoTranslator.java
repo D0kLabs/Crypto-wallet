@@ -20,8 +20,8 @@ package com.db4o.diagnostic;
  * (and thus cannot be descended into).
  */
 public class DescendIntoTranslator extends DiagnosticBase {
-	private String className;
-	private String fieldName;
+	private final String className;
+	private final String fieldName;
 	
 	public DescendIntoTranslator(String className_, String fieldName_) {
 		className = className_;

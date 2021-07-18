@@ -20,7 +20,7 @@ import com.db4o.reflect.*;
 
 public class ReflectorConfigurationImpl implements ReflectorConfiguration {
 
-	private Config4Impl _config;
+	private final Config4Impl _config;
 	
 	public ReflectorConfigurationImpl(Config4Impl config) {
 		_config = config;

@@ -27,12 +27,12 @@ public interface CancellableEventArgs  {
 	 * 
 	 * @sharpen.property
 	 */
-	public boolean isCancelled();
+    boolean isCancelled();
 
 	/**
 	 * Cancels the action related to this event.
 	 * Although the related action will be cancelled all the registered
 	 * listeners will still receive the event.
 	 */
-	public void cancel();
+    void cancel();
 }

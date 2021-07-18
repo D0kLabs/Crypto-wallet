@@ -79,8 +79,8 @@ public class HierarchyAnalyzer {
 		}
 	}
 
-	private ClassMetadata _storedClass;
-	private ReflectClass _runtimeClass;
+	private final ClassMetadata _storedClass;
+	private final ReflectClass _runtimeClass;
 	
 	private final ReflectClass _objectClass;
 

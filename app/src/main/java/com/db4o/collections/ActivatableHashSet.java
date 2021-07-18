@@ -57,9 +57,9 @@ public class ActivatableHashSet<E> extends HashSet<E> implements ActivatableSet<
 	public boolean add(E o) {
 		activate(ActivationPurpose.WRITE);
 		return super.add(o);
-	};
+	}
 
-	@Override
+    @Override
 	public boolean addAll(Collection<? extends E> c) {
 		activate(ActivationPurpose.WRITE);
 		return super.addAll(c);
@@ -141,9 +141,9 @@ public class ActivatableHashSet<E> extends HashSet<E> implements ActivatableSet<
 	public <T extends Object> T[] toArray(T[] a) {
 		activate(ActivationPurpose.READ);
 		return super.toArray(a);
-	};
-	
-	@Override
+	}
+
+    @Override
 	public Object clone() {
 		activate(ActivationPurpose.READ);
 		ActivatableHashSet<E> cloned = (ActivatableHashSet<E>) super.clone();

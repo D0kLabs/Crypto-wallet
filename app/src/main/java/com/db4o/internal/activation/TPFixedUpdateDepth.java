@@ -20,7 +20,7 @@ import com.db4o.ta.*;
 
 public class TPFixedUpdateDepth extends FixedUpdateDepth {
 
-	private ModifiedObjectQuery _query;
+	private final ModifiedObjectQuery _query;
 	
 	public TPFixedUpdateDepth(int depth, ModifiedObjectQuery query) {
 		super(depth);
