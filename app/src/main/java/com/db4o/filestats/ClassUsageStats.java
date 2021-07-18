@@ -22,7 +22,7 @@ import static com.db4o.filestats.FileUsageStatsUtil.*;
  * 
  * @exclude
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class ClassUsageStats {
 	private final String _className;
 	private final long _slotUsage;

@@ -15,16 +15,18 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.handlers.net;
 
-import java.util.*;
+import com.db4o.reflect.Reflector;
 
-import com.db4o.reflect.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @exclude
  * @sharpen.ignore
  */
 // TODO: Between .NET and Java there seems to be a difference of two days between era offsets?!?
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class NetDateTime extends NetSimpleTypeHandler{
 	private final static String ZEROES="0000"; //$NON-NLS-1$
 	

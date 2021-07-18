@@ -24,7 +24,7 @@ import com.db4o.internal.*;
 /**
  * publishes statistics about networking activities to JMX.
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class NetworkingMonitoringSupport implements ConfigurationItem {
 
 	public void apply(InternalObjectContainer container) {

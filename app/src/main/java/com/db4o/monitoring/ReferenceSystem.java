@@ -22,7 +22,7 @@ import com.db4o.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class ReferenceSystem extends MBeanRegistrationSupport implements ReferenceSystemMBean, ReferenceSystemListener {
 	
 	private int _objectReferenceCount;

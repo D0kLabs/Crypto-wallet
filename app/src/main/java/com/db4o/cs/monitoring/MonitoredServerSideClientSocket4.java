@@ -20,7 +20,7 @@ import com.db4o.cs.foundation.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class MonitoredServerSideClientSocket4 extends MonitoredSocket4Base {
 
 	public MonitoredServerSideClientSocket4(Socket4 socket, Networking bean) {

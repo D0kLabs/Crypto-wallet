@@ -15,22 +15,23 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.monitoring;
 
-import javax.management.*;
-
-import com.db4o.*;
-import com.db4o.cs.config.*;
-import com.db4o.cs.internal.*;
-import com.db4o.events.*;
-import com.db4o.ext.*;
+import com.db4o.ObjectServer;
+import com.db4o.cs.config.ServerConfiguration;
+import com.db4o.cs.config.ServerConfigurationItem;
+import com.db4o.cs.internal.ClientConnectionEventArgs;
+import com.db4o.cs.internal.ObjectServerEvents;
+import com.db4o.cs.internal.ServerClosedEventArgs;
+import com.db4o.events.Event4;
+import com.db4o.events.EventListener4;
+import com.db4o.events.StringEventArgs;
 
 /**
  * publishes the number of client connections to JMX.
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class ClientConnectionsMonitoringSupport implements ServerConfigurationItem {
 
 	public void apply(ObjectServer server) {
-		try {
 			final ClientConnections bean = Db4oClientServerMBeans.newClientConnectionsMBean(server);
 			bean.register();
 			((ObjectServerEvents)server).closed().addListener(new EventListener4<ServerClosedEventArgs>() {
@@ -46,10 +47,7 @@ public class ClientConnectionsMonitoringSupport implements ServerConfigurationIt
 			((ObjectServerEvents)server).clientDisconnected().addListener(new EventListener4<StringEventArgs>() { public void onEvent(Event4<StringEventArgs> e, StringEventArgs args) {
 				bean.notifyClientDisconnected();
 			}});
-		} 
-		catch (JMException exc) {
-			throw new Db4oException("Error setting up client connection monitoring support for " + server + ".", exc);
-		}
+
 	}
 
 	public void prepare(ServerConfiguration configuration) {

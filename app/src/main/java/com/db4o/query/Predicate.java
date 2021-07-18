@@ -152,13 +152,13 @@ public abstract class Predicate<ExtentType> implements Serializable{
      * 
      * @sharpen.ignore
      */
-	@decaf.Ignore(platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
+	//@decaf.Ignore(platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
     public abstract boolean match(ExtentType candidate);
 
 	/**
 	 * @sharpen.remove FilterParameterType()
 	 */
-	@decaf.ReplaceFirst(value = "return filterParameterType();", platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
+	//@decaf.ReplaceFirst(value = "return filterParameterType();", platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
 	private Class<? extends ExtentType> figureOutExtentType() {		
 		return extentTypeFromGenericParameter();
 	}
@@ -166,7 +166,7 @@ public abstract class Predicate<ExtentType> implements Serializable{
 	/**
 	 * @sharpen.ignore
 	 */
-	@decaf.Ignore(platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
+	//@decaf.Ignore(platforms = {decaf.Platform.JDK11, decaf.Platform.JDK12})
     private Class<? extends ExtentType> extentTypeFromGenericParameter() {
 		Class<? extends ExtentType> extentType=filterParameterType();
 		try {

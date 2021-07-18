@@ -26,7 +26,7 @@ import com.db4o.query.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class NativeQueries extends NotificationEmitterMBean implements NativeQueriesMBean {
 	
 	private final TimedReading _nativeQueries = TimedReading.newPerSecond();

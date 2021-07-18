@@ -15,16 +15,19 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.filestats;
 
-import java.util.*;
+import com.db4o.foundation.ByRef;
+import com.db4o.foundation.Tree;
+import com.db4o.foundation.Visitor4;
+import com.db4o.internal.TreeIntObject;
+import com.db4o.internal.slots.Slot;
 
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
-import com.db4o.internal.slots.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @exclude
 */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class SlotMapImpl implements SlotMap {
 
 	private TreeIntObject<Slot> _slots = null;

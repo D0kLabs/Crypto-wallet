@@ -28,7 +28,7 @@ import com.db4o.typehandlers.*;
 /**
  * @exclude
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class BigSetTypeHandler implements ReferenceTypeHandler, CascadingTypeHandler {
 
 	public void defragment(DefragmentContext context) {

@@ -20,7 +20,7 @@ import com.db4o.internal.*;
 /**
  * <p>Configures db4objects to work in Dalvik Virtual Machine.
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class AndroidSupport implements ConfigurationItem{
 
 	public void apply(InternalObjectContainer container) {

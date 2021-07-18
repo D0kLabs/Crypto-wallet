@@ -15,17 +15,22 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.filestats;
 
-import static com.db4o.filestats.FileUsageStatsUtil.*;
+import com.db4o.foundation.Iterators;
+import com.db4o.foundation.LongByRef;
+import com.db4o.foundation.Tree;
+import com.db4o.foundation.TreeNodeIterator;
+import com.db4o.foundation.TreeStringObject;
+import com.db4o.foundation.Visitor4;
+import com.db4o.internal.slots.Slot;
 
-import java.util.*;
+import java.util.Iterator;
 
-import com.db4o.foundation.*;
-import com.db4o.internal.slots.*;
+import static com.db4o.filestats.FileUsageStatsUtil.formatLine;
 
 /**
  * Byte usage statistics for a db4o database file
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class FileUsageStats {
 	private TreeStringObject<ClassUsageStats> _classUsageStats = null;
 	private final long _fileSize;

@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package  com.db4o.query;
 
-import java.util.*;
+import com.db4o.ObjectSet;
 
-import com.db4o.*;
+import java.util.Comparator;
 
 
 /**
@@ -141,7 +141,7 @@ public interface Query {
      * @return this {@link Query} object to allow the chaining of method calls.
      * @sharpen.ignore
      */
-    @decaf.Ignore(decaf.Platform.JDK11)
+    //@decaf.Ignore(decaf.Platform.JDK11)
     Query sortBy(Comparator comparator);
 }
 

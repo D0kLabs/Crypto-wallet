@@ -24,7 +24,7 @@ import com.db4o.monitoring.internal.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class Networking extends MBeanRegistrationSupport implements NetworkingMBean {
 
 	public Networking(ObjectContainer db, Class<?> type) throws JMException {

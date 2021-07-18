@@ -15,15 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.config;
 
-import java.util.*;
+import com.db4o.ObjectContainer;
 
-import com.db4o.*;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class TMap implements ObjectTranslator {
 	
 	public Object onStore(ObjectContainer con, Object object){

@@ -28,7 +28,7 @@ import com.db4o.events.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 class MonitoredServerSocket4 extends ServerSocket4Decorator {
 	public MonitoredServerSocket4(ServerSocket4 serverSocket) {
 		super(serverSocket);

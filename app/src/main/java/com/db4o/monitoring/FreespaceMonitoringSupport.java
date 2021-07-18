@@ -24,7 +24,7 @@ import com.db4o.internal.slots.*;
 /**
  * Publishes statistics about freespace to JMX.
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class FreespaceMonitoringSupport implements ConfigurationItem {
 
 	public void apply(InternalObjectContainer container) {

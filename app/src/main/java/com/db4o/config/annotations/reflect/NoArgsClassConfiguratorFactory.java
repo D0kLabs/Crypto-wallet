@@ -23,7 +23,7 @@ import java.lang.reflect.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class NoArgsClassConfiguratorFactory implements Db4oConfiguratorFactory {
 	private final Constructor _constructor;
 

@@ -15,12 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package  com.db4o;
 
-import android.bluetooth.BluetoothDevice;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oIOException;
+import com.db4o.ext.ExtObjectContainer;
+import com.db4o.ext.ObjectCallbacks;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+import com.db4o.query.QueryComparator;
 
-import java.util.*;
-
-import com.db4o.ext.*;
-import com.db4o.query.*;
+import java.util.Comparator;
 
 
 /**
@@ -193,7 +197,7 @@ public interface ObjectContainer {
 	 * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 */
-    <T> BluetoothDevice queryByExample(Object template) throws Db4oIOException, DatabaseClosedException;
+    <T> ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException;
     
     /**
      * creates a new S.O.D.A. {@link Query Query}.
@@ -303,7 +307,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @sharpen.ignore
      */
-    @decaf.Ignore(decaf.Platform.JDK11)
+    //@decaf.Ignore(decaf.Platform.JDK11)
     <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, Comparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
 
     /**

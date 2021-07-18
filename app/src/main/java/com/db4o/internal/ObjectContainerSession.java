@@ -15,26 +15,43 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import android.bluetooth.BluetoothDevice;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.config.Configuration;
+import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oDatabase;
+import com.db4o.ext.Db4oIOException;
+import com.db4o.ext.Db4oUUID;
+import com.db4o.ext.ExtObjectContainer;
+import com.db4o.ext.InvalidIDException;
+import com.db4o.ext.ObjectInfo;
+import com.db4o.ext.StoredClass;
+import com.db4o.ext.SystemInfo;
+import com.db4o.foundation.Closure4;
+import com.db4o.foundation.Iterator4;
+import com.db4o.foundation.NotSupportedException;
+import com.db4o.internal.activation.ActivationDepthProvider;
+import com.db4o.internal.activation.ActivationMode;
+import com.db4o.internal.activation.NullModifiedObjectQuery;
+import com.db4o.internal.activation.UpdateDepth;
+import com.db4o.internal.activation.UpdateDepthProvider;
+import com.db4o.internal.callbacks.Callbacks;
+import com.db4o.internal.events.EventRegistryImpl;
+import com.db4o.internal.qlin.QLinRoot;
+import com.db4o.internal.query.NativeQueryHandler;
+import com.db4o.io.Storage;
+import com.db4o.qlin.QLin;
+import com.db4o.query.JdkComparatorWrapper;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+import com.db4o.query.QueryComparator;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.generic.GenericReflector;
+import com.db4o.types.TransientClass;
 
-import java.util.*;
-
-import com.db4o.*;
-import com.db4o.config.*;
-import com.db4o.constraints.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.activation.*;
-import com.db4o.internal.callbacks.*;
-import com.db4o.internal.events.*;
-import com.db4o.internal.qlin.*;
-import com.db4o.internal.query.*;
-import com.db4o.io.*;
-import com.db4o.qlin.*;
-import com.db4o.query.*;
-import com.db4o.reflect.*;
-import com.db4o.reflect.generic.*;
-import com.db4o.types.*;
+import java.util.Comparator;
 
 /**
  * @exclude
@@ -325,7 +342,7 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         return (ExtObjectContainer)this;
     }
 
-	public BluetoothDevice queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
+	public ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
         synchronized(lock()){
             checkClosed();
             return _server.queryByExample(_transaction, template);
@@ -432,7 +449,7 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     /**
      * @sharpen.ignore
      */
-    @decaf.Ignore(decaf.Platform.JDK11)
+    //@decaf.Ignore(decaf.Platform.JDK11)
     public ObjectSet query(Predicate predicate, Comparator comparator) throws Db4oIOException,
         DatabaseClosedException {
         return _server.query(_transaction, predicate, new JdkComparatorWrapper(comparator)); 

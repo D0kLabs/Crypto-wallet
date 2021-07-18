@@ -15,14 +15,19 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.filestats;
 
-import java.util.*;
+import com.db4o.internal.ClassMetadata;
+import com.db4o.internal.ClassMetadataIterator;
+import com.db4o.internal.ClassMetadataRepository;
 
-import com.db4o.internal.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
 * @exclude
 */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class ClassNode {
 	
 	public static Set<ClassNode> buildHierarchy(ClassMetadataRepository repository) {

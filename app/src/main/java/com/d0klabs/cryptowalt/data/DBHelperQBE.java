@@ -26,7 +26,7 @@ public class DBHelperQBE {
     public BluetoothDevice getBluetoothAdapterObj (BluetoothDevice device){
         BluetoothDevice result = null;
         while (result.getAddress().equals(device.getAddress())){
-           result = db.queryByExample(device);
+           //result = db.queryByExample(device);
            if (result.getAddress() == device.getAddress()){
                result = device;
                break;

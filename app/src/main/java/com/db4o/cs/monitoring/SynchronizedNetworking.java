@@ -22,7 +22,7 @@ import com.db4o.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class SynchronizedNetworking extends Networking {
 
 	public SynchronizedNetworking(ObjectContainer db, Class<?> type) throws JMException {

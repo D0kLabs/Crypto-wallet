@@ -21,7 +21,7 @@ import com.db4o.config.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore
+//@decaf.Ignore
 public abstract class FieldConfigurator extends Db4oConfigurator {
 	private final String _className;
 	private final String _fieldName;

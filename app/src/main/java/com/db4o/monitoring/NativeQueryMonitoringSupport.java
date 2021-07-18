@@ -16,15 +16,16 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.monitoring;
 
 
-import com.db4o.config.*;
-import com.db4o.events.*;
+import com.db4o.config.Configuration;
+import com.db4o.config.ConfigurationItem;
 import com.db4o.internal.InternalObjectContainer;
-import com.db4o.internal.query.*;
+import com.db4o.internal.query.Db4oQueryExecutionListener;
+import com.db4o.internal.query.NQOptimizationInfo;
 
 /**
  * Publishes native query statistics to JMX.  
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class NativeQueryMonitoringSupport implements ConfigurationItem {
 
 	public void apply(InternalObjectContainer container) {	

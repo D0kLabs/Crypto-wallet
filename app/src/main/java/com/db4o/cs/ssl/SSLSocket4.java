@@ -15,13 +15,14 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.ssl;
 
-import java.io.*;
+import com.db4o.cs.foundation.NetworkSocketBase;
+import com.db4o.cs.foundation.Socket4;
+
+import java.io.IOException;
 
 import javax.net.ssl.SSLSocketFactory;
 
-import com.db4o.cs.foundation.*;
-
-@decaf.Ignore
+//@decaf.Ignore
 public class SSLSocket4 extends NetworkSocketBase {
 
 	private final SSLSocketFactory _factory;

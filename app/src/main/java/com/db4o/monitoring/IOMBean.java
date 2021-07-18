@@ -23,7 +23,7 @@ package com.db4o.monitoring;
  * 
  * @see MonitoredStorage
  */
-@decaf.Ignore
+//@decaf.Ignore
 public interface IOMBean {
 
 	double getBytesReadPerSecond();

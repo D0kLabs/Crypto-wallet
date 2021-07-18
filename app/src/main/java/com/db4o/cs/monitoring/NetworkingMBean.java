@@ -23,7 +23,7 @@ import com.db4o.monitoring.*;
  * 
  * @see MonitoredSocket4Factory
  */
-@decaf.Ignore
+//@decaf.Ignore
 public interface NetworkingMBean extends ResettableMBean {
 	
 	double getBytesSentPerSecond();

@@ -15,14 +15,15 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.monitoring;
 
-import java.io.*;
+import com.db4o.cs.foundation.Socket4;
+import com.db4o.cs.foundation.Socket4Decorator;
 
-import com.db4o.cs.foundation.*;
+import java.io.IOException;
 
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 abstract class MonitoredSocket4Base extends Socket4Decorator {
 	public MonitoredSocket4Base(Socket4 socket) {
 		super(socket);

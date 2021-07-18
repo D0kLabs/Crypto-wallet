@@ -18,7 +18,7 @@ package com.db4o.monitoring;
 /**
  * @since 7.12
  */ 
-@decaf.Ignore
+//@decaf.Ignore
 public interface ResettableMBean {
 	void resetCounters();
 }

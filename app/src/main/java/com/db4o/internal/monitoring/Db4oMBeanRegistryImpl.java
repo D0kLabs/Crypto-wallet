@@ -15,19 +15,24 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.monitoring;
 
-import java.util.*;
+import com.db4o.ObjectContainer;
+import com.db4o.events.Event4;
+import com.db4o.events.EventListener4;
+import com.db4o.events.EventRegistry;
+import com.db4o.events.EventRegistryFactory;
+import com.db4o.events.ObjectContainerEventArgs;
+import com.db4o.monitoring.Db4oMBean;
+import com.db4o.monitoring.Db4oMBeanRegistry;
 
-import javax.management.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.db4o.*;
-import com.db4o.events.*;
-import com.db4o.monitoring.*;
-import static com.db4o.foundation.Environments.*;
+import static com.db4o.foundation.Environments.my;
 
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class Db4oMBeanRegistryImpl implements Db4oMBeanRegistry {
 
 	private final Set<Db4oMBean> _beans = new HashSet<Db4oMBean>();
@@ -53,23 +58,13 @@ public class Db4oMBeanRegistryImpl implements Db4oMBeanRegistry {
 
 	public void register() {
 		for (Db4oMBean bean : _beans) {
-			try {
 				bean.register();
-			} 
-			catch (JMException exc) {
-				exc.printStackTrace();
-			}
 		}
 	}
 
 	public void unregister() {
 		for (Db4oMBean bean : _beans) {
-			try {
 				bean.unregister();
-			} 
-			catch (JMException exc) {
-				exc.printStackTrace();
-			}
 		}
 	}
 

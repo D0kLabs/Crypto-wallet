@@ -18,7 +18,7 @@ package com.db4o.monitoring;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public interface FreespaceMBean {
 	
 	int getSlotCount();

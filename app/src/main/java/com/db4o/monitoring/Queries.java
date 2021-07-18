@@ -24,7 +24,7 @@ import com.db4o.monitoring.internal.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 class Queries extends NotificationEmitterMBean implements QueriesMBean {
 
 	private final TimedReading _classIndexScans = TimedReading.newPerSecond();

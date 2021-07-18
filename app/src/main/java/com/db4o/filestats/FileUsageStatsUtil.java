@@ -18,7 +18,7 @@ package com.db4o.filestats;
 /**
 * @exclude
 */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public final class FileUsageStatsUtil {
 
 	private final static String PADDING = "                    ";

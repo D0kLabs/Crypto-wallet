@@ -24,7 +24,7 @@ import com.db4o.monitoring.internal.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class Freespace extends MBeanRegistrationSupport implements FreespaceMBean, FreespaceListener{
 	
 	private final TimedReading _reusedSlots = TimedReading.newPerSecond();

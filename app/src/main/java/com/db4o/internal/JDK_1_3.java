@@ -19,10 +19,10 @@ package com.db4o.internal;
 /**
  * @sharpen.ignore
  */
-@decaf.Remove(decaf.Platform.JDK11)
+//@decaf.Remove(decaf.Platform.JDK11)
 class JDK_1_3 extends JDK_1_2{
 	
-	@decaf.Remove(decaf.Platform.JDK11)
+	//@decaf.Remove(decaf.Platform.JDK11)
 	public final static class Factory implements JDKFactory {
 		public JDK tryToCreate() {
 	    	if(Reflection4.getMethod("java.lang.Runtime","addShutdownHook",

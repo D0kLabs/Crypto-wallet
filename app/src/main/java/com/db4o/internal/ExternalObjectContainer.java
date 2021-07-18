@@ -15,15 +15,25 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import android.bluetooth.BluetoothDevice;
-
-import com.db4o.*;
-import com.db4o.config.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.activation.*;
-import com.db4o.io.*;
-import com.db4o.query.*;
+import com.db4o.ObjectSet;
+import com.db4o.config.Configuration;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oDatabase;
+import com.db4o.ext.Db4oIOException;
+import com.db4o.ext.Db4oUUID;
+import com.db4o.ext.ExtObjectContainer;
+import com.db4o.ext.InvalidIDException;
+import com.db4o.ext.ObjectInfo;
+import com.db4o.ext.StoredClass;
+import com.db4o.foundation.NotSupportedException;
+import com.db4o.internal.activation.ActivationMode;
+import com.db4o.internal.activation.NullModifiedObjectQuery;
+import com.db4o.internal.activation.UpdateDepth;
+import com.db4o.io.Storage;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+import com.db4o.query.QueryComparator;
 
 /**
  * @exclude
@@ -70,7 +80,7 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
         return this;
     }
     
-	public final BluetoothDevice queryByExample(Object template) throws DatabaseClosedException {
+	public final ObjectSet queryByExample(Object template) throws DatabaseClosedException {
         return queryByExample(null, template);
     }
 

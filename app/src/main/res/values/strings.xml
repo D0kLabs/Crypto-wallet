@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Crypto-wallet</string>
     <string name="action_settings">Settings</string>
+    <string name="none_paired" />
+    <string name="none_found" />
 
 </resources>

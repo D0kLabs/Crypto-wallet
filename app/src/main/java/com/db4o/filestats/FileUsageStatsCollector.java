@@ -35,7 +35,7 @@ import com.db4o.internal.slots.*;
  * to the console.
  * @sharpen.partial
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class FileUsageStatsCollector {
 	
 	private final Map<String, MiscCollector> MISC_COLLECTORS;
@@ -43,7 +43,7 @@ public class FileUsageStatsCollector {
 	/**
 	 * @sharpen.ignore
 	 */
-	@decaf.RemoveFirst(decaf.Platform.JDK11)
+	//@decaf.RemoveFirst(decaf.Platform.JDK11)
 	private void registerBigSetCollector() {
 		MISC_COLLECTORS.put(BigSet.class.getName(), new BigSetMiscCollector());
 	}

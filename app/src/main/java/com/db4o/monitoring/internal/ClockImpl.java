@@ -18,7 +18,7 @@ package com.db4o.monitoring.internal;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class ClockImpl implements Clock {
 
 	public long currentTimeMillis() {

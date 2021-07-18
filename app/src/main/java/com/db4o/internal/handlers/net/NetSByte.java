@@ -21,7 +21,7 @@ import com.db4o.reflect.*;
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class NetSByte extends NetSimpleTypeHandler{
 
 	public NetSByte(Reflector reflector) {

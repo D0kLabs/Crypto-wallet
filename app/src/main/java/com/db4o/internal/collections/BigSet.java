@@ -15,19 +15,28 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.collections;
 
-import java.util.*;
+import com.db4o.foundation.Iterator4;
+import com.db4o.foundation.Iterator4JdkIterator;
+import com.db4o.foundation.MappingIterator;
+import com.db4o.foundation.SynchronizedIterator4;
+import com.db4o.internal.LocalObjectContainer;
+import com.db4o.internal.ObjectContainerBase;
+import com.db4o.internal.Transaction;
+import com.db4o.internal.activation.NullModifiedObjectQuery;
+import com.db4o.internal.btree.BTree;
+import com.db4o.internal.btree.BTreeRange;
+import com.db4o.marshall.ReadContext;
+import com.db4o.marshall.WriteContext;
 
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
-import com.db4o.internal.activation.*;
-import com.db4o.internal.btree.*;
-import com.db4o.marshall.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @exclude
  * @sharpen.partial
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class BigSet<E> implements Set<E>, BigSetPersistence {
 	
 	private BTree _bTree;

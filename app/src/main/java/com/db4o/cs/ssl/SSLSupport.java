@@ -15,13 +15,14 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.ssl;
 
-import javax.net.ssl.*;
+import com.db4o.config.Configuration;
+import com.db4o.config.ConfigurationItem;
+import com.db4o.cs.internal.config.Db4oClientServerLegacyConfigurationBridge;
+import com.db4o.internal.InternalObjectContainer;
 
-import com.db4o.config.*;
-import com.db4o.cs.internal.config.*;
-import com.db4o.internal.*;
+import javax.net.ssl.SSLContext;
 
-@decaf.Ignore
+//@decaf.Ignore
 public class SSLSupport implements ConfigurationItem {
 
 	private final SSLContext _context;

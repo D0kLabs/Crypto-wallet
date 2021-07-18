@@ -24,16 +24,16 @@ import com.db4o.types.*;
  */
 public class Collection4<T> implements Sequence4<T>, Iterable4<T>, DeepClone, Unversioned {
 	
-	@decaf.Public
+	//@decaf.Public
 	private List4<T> _first;
 
-	@decaf.Public
+	//@decaf.Public
 	private List4<T> _last;
 
-	@decaf.Public
+	//@decaf.Public
 	private int _size;
 
-	@decaf.Public
+	//@decaf.Public
 	private int _version;
 	
 	public Collection4() {
@@ -42,7 +42,7 @@ public class Collection4<T> implements Sequence4<T>, Iterable4<T>, DeepClone, Un
 	/**
 	 * For jdk11 compatibility only.
 	 */
-	@decaf.Ignore(except=decaf.Platform.JDK11)
+	//@decaf.Ignore(except=decaf.Platform.JDK11)
 	public Collection4(int initialLength) {
 	}
 	

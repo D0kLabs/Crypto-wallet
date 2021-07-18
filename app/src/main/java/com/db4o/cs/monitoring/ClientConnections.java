@@ -22,10 +22,10 @@ import com.db4o.monitoring.*;
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class ClientConnections extends MBeanRegistrationSupport implements ClientConnectionsMBean {
 
-	public ClientConnections(ObjectName name) throws JMException {
+	public ClientConnections(ObjectName name){
 		super(name);
 	}
 

@@ -15,16 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.config.annotations.reflect;
 
-import java.lang.annotation.*;
-import java.lang.reflect.*;
+import com.db4o.config.annotations.StoredTransientFields;
 
-import com.db4o.config.annotations.*;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 
 /**
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class StoredTransientFieldsFactory implements Db4oConfiguratorFactory {
 
 	public Db4oConfigurator configuratorFor(AnnotatedElement element,

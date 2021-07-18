@@ -22,7 +22,7 @@ import java.util.*;
  * @sharpen.ignore
  * @sharpen.rename System.Collections.IEnumerable
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public interface IterableBase {
 	
 	/**

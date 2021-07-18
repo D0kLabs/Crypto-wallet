@@ -15,15 +15,15 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.handlers.net;
 
-import java.math.*;
+import com.db4o.reflect.Reflector;
 
-import com.db4o.reflect.*;
+import java.math.BigInteger;
 
 /**
  * @exclude
  * @sharpen.ignore
  */
-@decaf.Ignore(decaf.Platform.JDK11)
+//@decaf.Ignore(decaf.Platform.JDK11)
 public class NetULong extends NetSimpleTypeHandler{
     
     private static final BigInteger ZERO = new BigInteger("0", 16); //$NON-NLS-1$

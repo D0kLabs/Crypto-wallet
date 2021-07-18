@@ -15,15 +15,15 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.monitoring;
 
-import static com.db4o.foundation.Environments.*;
+import com.db4o.ObjectContainer;
+import com.db4o.cs.foundation.Socket4;
 
-import com.db4o.*;
-import com.db4o.cs.foundation.*;
+import static com.db4o.foundation.Environments.my;
 
 /**
  * @exclude
  */
-@decaf.Ignore
+//@decaf.Ignore
 public class MonitoredClientSocket4 extends MonitoredSocket4Base {
 
 	protected MonitoredClientSocket4(Socket4 socket) {
