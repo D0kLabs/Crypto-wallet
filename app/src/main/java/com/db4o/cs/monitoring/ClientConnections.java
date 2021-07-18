@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.monitoring;
 
-import javax.management.*;
+import com.db4o.monitoring.MBeanRegistrationSupport;
 
-import com.db4o.monitoring.*;
+import com.d0klabs.cryptowalt.data.ObjectName;
 
 /**
  * @exclude
