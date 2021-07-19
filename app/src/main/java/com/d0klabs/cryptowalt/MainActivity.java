@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     // кодувати все в Ліс цим Base64
     //TODO: need IO impl
     //TODO: need Keygen impl
-    //TODO: need some stage for save 128bit ones
+    //TODO: need some packetSender
 
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
