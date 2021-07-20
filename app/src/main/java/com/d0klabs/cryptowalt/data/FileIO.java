@@ -1,6 +1,6 @@
 package com.d0klabs.cryptowalt.data;
 
-import android.os.Environment;
+import com.d0klabs.cryptowalt.Db4OGenericDao;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public interface FileIO {
-    public final static File FILE_NAME = new File(Environment.getExternalStorageDirectory().toString() + "/content");
+    public final static File FILE_NAME = new File(Db4OGenericDao.db4oDBFullPath(Db4OGenericDao.context) + "/" + "content");
     public class OOData {
         public static String sLine;
         public void setLastData(String bBase64encaps) throws IOException {

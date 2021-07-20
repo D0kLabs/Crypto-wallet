@@ -3,6 +3,7 @@ package com.d0klabs.cryptowalt;
 import android.content.Context;
 import android.util.Log;
 
+import com.d0klabs.cryptowalt.data.FileIO;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -20,9 +21,9 @@ import java.util.Comparator;
 public abstract class Db4OGenericDao<T> {
 
     private static ObjectContainer oc = null;
-    private Context context;
+    public static Context context;
 
-    private String DB_NAME="db_temp_2_";
+    private static String DB_NAME= FileIO.FILE_NAME.getName();
 
     /**
      * @param ctx
@@ -68,8 +69,8 @@ public abstract class Db4OGenericDao<T> {
      * Returns the path for the database location
      */
 
-    private String db4oDBFullPath(Context ctx) {
-        return ctx.getDir("data", 0) + "/" + DB_NAME +".DB4O";
+    public static String db4oDBFullPath(Context ctx) {
+        return ctx.getDir("data", 0) + "/" + DB_NAME;
     }
 
 

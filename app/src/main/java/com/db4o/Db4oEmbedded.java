@@ -53,7 +53,7 @@ public class Db4oEmbedded {
 	 * (one Java VM) at one time. All versions except for db4o mobile edition use an
 	 * internal mechanism to lock the database file for other processes. 
 	 * <br><br>
-	 * @param config a custom {@link Configuration Configuration} instance to be obtained via {@link newConfiguration}
+	 * @param config a custom {@link Configuration Configuration} instance to be obtained via {@link @newConfiguration}
 	 * @param databaseFileName an absolute or relative path to the database file
 	 * @return an open {@link ObjectContainer ObjectContainer}
 	 * @see Configuration#readOnly
