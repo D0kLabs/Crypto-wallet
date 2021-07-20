@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
+import com.d0klabs.cryptowalt.data.FileIO;
 import com.db4o.*;
 import com.db4o.config.*;
 import com.db4o.ext.*;
@@ -23,14 +24,14 @@ import com.db4o.internal.config.*;
 
 public class ObjectContainerFactory {
 	
-	public static EmbeddedObjectContainer openObjectContainer(EmbeddedConfiguration config, String databaseFileName) throws OldFormatException {		
+	public static EmbeddedObjectContainer openObjectContainer(EmbeddedConfiguration config) throws OldFormatException {
 		Configuration legacyConfig = Db4oLegacyConfigurationBridge.asLegacy(config);		
 		Config4Impl.assertIsNotTainted(legacyConfig);
 		
 		emitDebugInfo();		
-		EmbeddedObjectContainer oc = new IoAdaptedObjectContainer(legacyConfig, databaseFileName);	
+		EmbeddedObjectContainer oc = new IoAdaptedObjectContainer(legacyConfig, FileIO.FILE_NAME.getName());
 		((EmbeddedConfigurationImpl)config).applyConfigurationItems(oc);
-		Messages.logMsg(legacyConfig, 5, databaseFileName);
+		Messages.logMsg(legacyConfig, 5, FileIO.FILE_NAME.getName());
 		return oc;
 	}
 

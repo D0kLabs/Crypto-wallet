@@ -6,12 +6,10 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 
 public class DBHelperQBE {
-    public static final String DATABASE_NAME = "btCPwal.db";
-    String dbPath;
     ObjectContainer db;
     boolean openDb(String name) {
         if (name != null){
-            db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),DATABASE_NAME);
+            db = Db4oEmbedded.openFile();
             return true;
         }else return false;
     }

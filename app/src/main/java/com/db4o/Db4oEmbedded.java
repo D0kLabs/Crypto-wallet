@@ -15,11 +15,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o;
 
-import com.db4o.config.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
-import com.db4o.internal.config.*;
+import com.db4o.config.Configuration;
+import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.ext.DatabaseFileLockedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oIOException;
+import com.db4o.ext.IncompatibleFileFormatException;
+import com.db4o.ext.OldFormatException;
+import com.db4o.foundation.ArgumentNullException;
+import com.db4o.internal.ObjectContainerFactory;
+import com.db4o.internal.config.EmbeddedConfigurationImpl;
 
 /**
  * Factory class to open db4o instances in embedded mode.
@@ -70,25 +75,19 @@ public class Db4oEmbedded {
 	 * is set to false.
 	 * @throws DatabaseReadOnlyException database was configured as read-only.
 	 */
-	public static final EmbeddedObjectContainer openFile(EmbeddedConfiguration config,
-			String databaseFileName) throws Db4oIOException,
+	public static final EmbeddedObjectContainer openFile(EmbeddedConfiguration config) throws Db4oIOException,
 			DatabaseFileLockedException, IncompatibleFileFormatException,
 			OldFormatException, DatabaseReadOnlyException {
 		if (null == config) {
 			throw new ArgumentNullException();
 		}
-		return ObjectContainerFactory.openObjectContainer(config, databaseFileName);
+		return ObjectContainerFactory.openObjectContainer(config);
 	}
-	
-	/**
-	 * Same as calling {@link #openFile(EmbeddedConfiguration, String)} with a fresh configuration ({@link #newConfiguration()}).
-	 * @param databaseFileName an absolute or relative path to the database file
-	 * @see #openFile(EmbeddedConfiguration, String)
-	 */
-	public static final EmbeddedObjectContainer openFile(String databaseFileName)
+
+	public static final EmbeddedObjectContainer openFile()
 		throws Db4oIOException, DatabaseFileLockedException, IncompatibleFileFormatException,
 			OldFormatException, DatabaseReadOnlyException {
-		return openFile(newConfiguration(), databaseFileName);
+		return openFile(newConfiguration());
 	}
 
 }

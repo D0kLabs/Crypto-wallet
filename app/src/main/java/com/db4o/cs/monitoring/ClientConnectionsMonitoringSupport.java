@@ -16,8 +16,6 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.monitoring;
 
 import com.db4o.ObjectServer;
-import com.db4o.cs.config.ServerConfiguration;
-import com.db4o.cs.config.ServerConfigurationItem;
 import com.db4o.cs.internal.ClientConnectionEventArgs;
 import com.db4o.cs.internal.ObjectServerEvents;
 import com.db4o.cs.internal.ServerClosedEventArgs;
