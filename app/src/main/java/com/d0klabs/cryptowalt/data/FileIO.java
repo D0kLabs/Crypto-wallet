@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
 
 public interface FileIO {
     public final static File FILE_NAME = new File(Environment.getExternalStorageDirectory().toString() + "/content");
@@ -41,10 +40,6 @@ public interface FileIO {
                FILE_NAME.createNewFile();
            }
             return sLine;
-        }
-
-        public void setLastData(ByteBuffer inputBytes) {
-
         }
     };
 }
