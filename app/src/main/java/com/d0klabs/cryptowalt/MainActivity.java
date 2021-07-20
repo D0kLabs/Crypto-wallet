@@ -32,6 +32,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.d0klabs.cryptowalt.data.DBHelperQBE;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -105,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
         }
     });
     private ArrayAdapter<String> discoveredDevicesAdapter;
+
+    public MainActivity() throws IOException {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
