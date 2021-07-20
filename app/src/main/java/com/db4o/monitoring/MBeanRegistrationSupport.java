@@ -15,18 +15,12 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.monitoring;
 
+import com.d0klabs.cryptowalt.data.ObjectName;
+import com.db4o.ObjectContainer;
+
 import static com.db4o.foundation.Environments.my;
+// This is 4`n #!
 
-import java.lang.management.*;
-
-import javax.management.*;
-
-import com.db4o.*;
-
-/**
- * @exclude
- */
-@decaf.Ignore
 public class MBeanRegistrationSupport implements Db4oMBean {
 
 	private ObjectContainer _db;
@@ -39,7 +33,7 @@ public class MBeanRegistrationSupport implements Db4oMBean {
 		beanRegistry().add(this);
 	}
 
-	public MBeanRegistrationSupport(ObjectName objectName) throws JMException {
+	public MBeanRegistrationSupport(ObjectName objectName) {
 		_objectName = objectName;
 	}
 
@@ -50,8 +44,6 @@ public class MBeanRegistrationSupport implements Db4oMBean {
 		
 		try {
 			platformMBeanServer().unregisterMBean(objectName());
-		} catch (JMException e) {
-			e.printStackTrace();
 		} finally {
 			_db = null;
 			_objectName = null;
@@ -59,7 +51,7 @@ public class MBeanRegistrationSupport implements Db4oMBean {
 	}
 
 	// FIXME
-	public void register() throws JMException {
+	public void register() {
 		if(platformMBeanServer().isRegistered(objectName())) {
 			return;
 		}

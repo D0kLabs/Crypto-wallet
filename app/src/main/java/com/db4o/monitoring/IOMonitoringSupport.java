@@ -21,7 +21,6 @@ import com.db4o.internal.*;
 /**
  * publishes statistics about file IO to JMX.
  */
-@decaf.Ignore
 public class IOMonitoringSupport implements ConfigurationItem{
 
 	public void apply(InternalObjectContainer container) {

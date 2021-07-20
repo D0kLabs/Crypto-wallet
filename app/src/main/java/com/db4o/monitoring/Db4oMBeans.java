@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.monitoring;
 
-import javax.management.*;
-
-import com.db4o.*;
-import com.db4o.ext.*;
-import com.db4o.internal.*;
+import com.d0klabs.cryptowalt.data.ObjectName;
+import com.db4o.ObjectContainer;
+import com.db4o.ext.Db4oException;
+import com.db4o.ext.Db4oIllegalStateException;
+import com.db4o.internal.InternalObjectContainer;
 
 /**
  * @exclude
@@ -36,11 +36,7 @@ public class Db4oMBeans {
 	public static ObjectName mBeanNameFor(Class<?> mbeanInterface, String name) {
 		name = name.replaceAll("[:\\?\\*=,\"]", " ");
 		final String nameSpec = MONITORING_DOMAIN_NAME + ":name=" + name + ",mbean=" + displayName(mbeanInterface);
-		try {
-			return new ObjectName(nameSpec);
-		} catch (MalformedObjectNameException e) {
-			throw new IllegalStateException("'" + nameSpec + "' is not a valid name.", e);
-		}
+		return new ObjectName(nameSpec);
 	}
 
 	private static String displayName(Class<?> mbeanInterface) {
@@ -52,50 +48,27 @@ public class Db4oMBeans {
 	}
 	
 	static IO newIOStatsMBean(ObjectContainer container) {
-		try {
-			return new IO(container, IOMBean.class);
-		} catch (JMException e) {
-			throw new Db4oException(e);
-		}
+		return new IO(container, IOMBean.class);
 	}
 
 	public static Queries newQueriesMBean(InternalObjectContainer container) {
-		try {
-			return new Queries(container, QueriesMBean.class);
-		} catch (JMException e) {
-			throw new Db4oIllegalStateException(e);
-		}
+		return new Queries(container, QueriesMBean.class);
 	}
 
 	public static com.db4o.monitoring.ReferenceSystem newReferenceSystemMBean(InternalObjectContainer container) {
-		try {
-			return new com.db4o.monitoring.ReferenceSystem(container, ReferenceSystemMBean.class);
-		} catch (JMException e) {
-			throw new Db4oIllegalStateException(e);
-		}
+		return new com.db4o.monitoring.ReferenceSystem(container, ReferenceSystemMBean.class);
 	}
 
 	public static NativeQueries newNativeQueriesMBean(InternalObjectContainer container) {
-		try {
-			return new NativeQueries(container, NativeQueriesMBean.class);
-		} catch (JMException e) {
-			throw new Db4oIllegalStateException(e);
-		}
+		return new NativeQueries(container, NativeQueriesMBean.class);
 	}
 
 	public static Freespace newFreespaceMBean(InternalObjectContainer container) {
-		try {
 			return new Freespace(container, FreespaceMBean.class);
-		} catch (JMException e) {
-			throw new Db4oIllegalStateException(e);
-		}
 	}
 
 	public static ObjectLifecycle newObjectLifecycleMBean(ObjectContainer container) {
-		try {
 			return new ObjectLifecycle(container, ObjectLifecycleMBean.class);
-		} catch (JMException e) {
-			throw new Db4oIllegalStateException(e);
-		}
+
 	}
 }
