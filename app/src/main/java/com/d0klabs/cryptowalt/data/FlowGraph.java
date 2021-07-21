@@ -2354,3 +2354,44 @@ public class Subroutine {
         return "sub " + this.entry;
     }
 }
+class LocalVariable {
+    private String name;
+    private Type type;
+    private int index;
+
+    public LocalVariable(int index) {
+        this.name = null;
+        this.type = null;
+        this.index = index;
+    }
+
+    public LocalVariable(String name, Type type, int index) {
+        this.name = name;
+        this.type = type;
+        this.index = index;
+    }
+
+    public int hashCode() {
+        return this.index;
+    }
+
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof LocalVariable && ((LocalVariable)obj).index == this.index;
+    }
+
+    public String name() {
+        return this.name;
+    }
+
+    public Type type() {
+        return this.type;
+    }
+
+    public int index() {
+        return this.index;
+    }
+
+    public String toString() {
+        return this.name == null ? "Local$" + this.index : this.name + "$" + this.index;
+    }
+}

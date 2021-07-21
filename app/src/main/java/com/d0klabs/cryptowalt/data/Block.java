@@ -11,12 +11,15 @@ import com.d0klabs.cryptowalt.data.LeafExpr.Stmt;
 import com.d0klabs.cryptowalt.data.LeafExpr.Tree;
 import com.d0klabs.cryptowalt.data.LeafExpr.TreeVisitor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -337,17 +340,12 @@ public class StackOptimizer {
         int toReturn = 0;
         UseInformation UI = (UseInformation)this.useInfoMap.get(expr);
         if (UI == null) {
-            if (DEBUG) {
-                System.err.println("Error in StackOptimizer.dup_x1s: parameter not found in useInfoMap");
-            }
-
             return toReturn;
         } else {
             int toReturn = toReturn + UI.type0_x1s;
             if (expr.isDef() && !this.shouldStore(expr) || !expr.isDef() && !this.shouldStore((LocalExpr)expr.def())) {
                 toReturn += UI.type1_x1s;
             }
-
             return toReturn;
         }
     }
@@ -356,9 +354,6 @@ public class StackOptimizer {
         int toReturn = 0;
         UseInformation UI = (UseInformation)this.useInfoMap.get(expr);
         if (UI == null) {
-            if (DEBUG) {
-                System.err.println("Error in StackOptimizer.dup_x2s: parameter not found in useInfoMap");
-            }
 
             return toReturn;
         } else {
@@ -377,9 +372,6 @@ public class StackOptimizer {
         } else {
             UseInformation UI = (UseInformation)this.useInfoMap.get(expr);
             if (UI == null) {
-                if (DEBUG) {
-                    System.err.println("Error in StackOptimizer.onStack: parameter not found in useInfoMap");
-                }
 
                 return false;
             } else if (UI.type == 0) {
@@ -412,36 +404,6 @@ public class StackOptimizer {
             System.err.println(expr.parent().parent().parent().toString() + "-" + expr.parent().parent().parent().parent().toString());
         }
 
-        if (DI == null) {
-            System.err.println("not a definition");
-            if (expr.def() == null) {
-                System.err.println("has no definition (is parameter?)");
-            } else {
-                System.err.println("has definition " + expr.def());
-            }
-        } else {
-            System.err.println("a definition with " + DI.type1s + " type1s total");
-            System.err.println("uses: " + DI.uses);
-            System.err.println("uses found: " + DI.usesFound);
-            if (this.shouldStore(expr)) {
-                System.err.println("should store");
-            }
-        }
-
-        if (UI == null) {
-            System.err.println("No use information entry. trouble");
-        } else {
-            if (DI == null) {
-                System.err.println("type on stack: " + UI.type);
-            }
-
-            System.err.println("type0s for this instance: " + UI.type0s);
-            System.err.println("of above, number of x1s: " + UI.type0_x1s);
-            System.err.println("of above, number of x2s: " + UI.type0_x2s);
-            System.err.println("type1s for this instance: " + UI.type1s);
-            System.err.println("of above, number of x1s: " + UI.type1_x1s);
-            System.err.println("of above, number of x2s: " + UI.type1_x2s);
-        }
 
     }
 }
@@ -1925,6 +1887,1082 @@ class Type1DownVisitor extends DescendVisitor {
 
     }
 }
+class ConstantExpr extends Expr implements LeafExpr {
+    Object value;
+
+    public ConstantExpr(Object value, Type type) {
+        super(type);
+        this.value = value;
+    }
+
+    public Object value() {
+        return this.value;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitConstantExpr(this);
+    }
+
+    public int exprHashCode() {
+        return this.value != null ? 10 + this.value.hashCode() : 10;
+    }
+
+    public boolean equalsExpr(Expr other) {
+        if (!(other instanceof ConstantExpr)) {
+            return false;
+        } else if (this.value == null) {
+            return ((ConstantExpr)other).value == null;
+        } else {
+            return ((ConstantExpr)other).value == null ? false : ((ConstantExpr)other).value.equals(this.value);
+        }
+    }
+
+    public Object clone() {
+        return this.copyInto(new ConstantExpr(this.value, this.type));
+    }
+}
+class CastExpr extends Expr {
+    Expr expr;
+    Type castType;
+
+    public CastExpr(Expr expr, Type type) {
+        this(expr, type, type);
+    }
+
+    public CastExpr(Expr expr, Type castType, Type type) {
+        super(type);
+        this.expr = expr;
+        this.castType = castType;
+        expr.setParent(this);
+    }
+
+    public Expr expr() {
+        return this.expr;
+    }
+
+    public Type castType() {
+        return this.castType;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.expr.visit(visitor);
+        } else {
+            this.expr.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitCastExpr(this);
+    }
+
+    public int exprHashCode() {
+        return 7 + this.expr.exprHashCode();
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return other != null && other instanceof CastExpr && ((CastExpr)other).castType.equals(this.castType) && ((CastExpr)other).expr.equalsExpr(this.expr);
+    }
+
+    public Object clone() {
+        return this.copyInto(new CastExpr((Expr)this.expr.clone(), this.castType, this.type));
+    }
+}
+class CallStaticExpr extends CallExpr {
+    public CallStaticExpr(Expr[] params, MemberRef method, Type type) {
+        super(params, method, type);
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        int i;
+        if (visitor.reverse()) {
+            for(i = this.params.length - 1; i >= 0; --i) {
+                this.params[i].visit(visitor);
+            }
+        } else {
+            for(i = 0; i < this.params.length; ++i) {
+                this.params[i].visit(visitor);
+            }
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitCallStaticExpr(this);
+    }
+
+    public int exprHashCode() {
+        int v = 6;
+
+        for(int i = 0; i < this.params.length; ++i) {
+            v ^= this.params[i].exprHashCode();
+        }
+
+        return v;
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return false;
+    }
+
+    public Object clone() {
+        Expr[] p = new Expr[this.params.length];
+
+        for(int i = 0; i < this.params.length; ++i) {
+            p[i] = (Expr)this.params[i].clone();
+        }
+
+        return this.copyInto(new CallStaticExpr(p, this.method, this.type));
+    }
+}
+abstract class CallExpr extends Expr {
+    Expr[] params;
+    MemberRef method;
+    public int voltaPos;
+
+    public CallExpr(Expr[] params, MemberRef method, Type type) {
+        super(type);
+        this.params = params;
+        this.method = method;
+
+        for(int i = 0; i < params.length; ++i) {
+            params[i].setParent(this);
+        }
+
+    }
+
+    public MemberRef method() {
+        return this.method;
+    }
+
+    public Expr[] params() {
+        return this.params;
+    }
+}
+class CallMethodExpr extends CallExpr {
+    public static final int VIRTUAL = 0;
+    public static final int NONVIRTUAL = 1;
+    public static final int INTERFACE = 2;
+    Expr receiver;
+    int kind;
+
+    public CallMethodExpr(int kind, Expr receiver, Expr[] params, MemberRef method, Type type) {
+        super(params, method, type);
+        this.receiver = receiver;
+        this.kind = kind;
+        receiver.setParent(this);
+    }
+
+    public int kind() {
+        return this.kind;
+    }
+
+    public Expr receiver() {
+        return this.receiver;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        int i;
+        if (visitor.reverse()) {
+            for(i = this.params.length - 1; i >= 0; --i) {
+                this.params[i].visit(visitor);
+            }
+
+            this.receiver.visit(visitor);
+        } else {
+            this.receiver.visit(visitor);
+
+            for(i = 0; i < this.params.length; ++i) {
+                this.params[i].visit(visitor);
+            }
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitCallMethodExpr(this);
+    }
+
+    public int exprHashCode() {
+        int v = 5 + this.kind ^ this.receiver.exprHashCode();
+
+        for(int i = 0; i < this.params.length; ++i) {
+            v ^= this.params[i].exprHashCode();
+        }
+
+        return v;
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return false;
+    }
+
+    public Object clone() {
+        Expr[] p = new Expr[this.params.length];
+
+        for(int i = 0; i < this.params.length; ++i) {
+            p[i] = (Expr)this.params[i].clone();
+        }
+
+        return this.copyInto(new CallMethodExpr(this.kind, (Expr)this.receiver.clone(), p, this.method, this.type));
+    }
+}
+class ArrayRefExpr extends MemRefExpr {
+    Expr array;
+    Expr index;
+    Type elementType;
+
+    public ArrayRefExpr(Expr array, Expr index, Type elementType, Type type) {
+        super(type);
+        this.array = array;
+        this.index = index;
+        this.elementType = elementType;
+        array.setParent(this);
+        index.setParent(this);
+    }
+
+    public Expr array() {
+        return this.array;
+    }
+
+    public Expr index() {
+        return this.index;
+    }
+
+    public Type elementType() {
+        return this.elementType;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.index.visit(visitor);
+            this.array.visit(visitor);
+        } else {
+            this.array.visit(visitor);
+            this.index.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitArrayRefExpr(this);
+    }
+
+    public int exprHashCode() {
+        return 4 + this.array.exprHashCode() ^ this.index.exprHashCode();
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return other != null && other instanceof ArrayRefExpr && ((ArrayRefExpr)other).array.equalsExpr(this.array) && ((ArrayRefExpr)other).index.equalsExpr(this.index);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ArrayRefExpr((Expr)this.array.clone(), (Expr)this.index.clone(), this.elementType, this.type));
+    }
+}
+class ArrayLengthExpr extends Expr {
+    Expr array;
+
+    public ArrayLengthExpr(Expr array, Type type) {
+        super(type);
+        this.array = array;
+        array.setParent(this);
+    }
+
+    public Expr array() {
+        return this.array;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.array.visit(visitor);
+        } else {
+            this.array.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitArrayLengthExpr(this);
+    }
+
+    public int exprHashCode() {
+        return 3 + this.array.exprHashCode() ^ this.type.simple().hashCode();
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return other != null && other instanceof ArrayLengthExpr && ((ArrayLengthExpr)other).array.equalsExpr(this.array);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ArrayLengthExpr((Expr)this.array.clone(), this.type));
+    }
+}
+class ArithExpr extends Expr {
+    char operation;
+    Expr left;
+    Expr right;
+    public static final char ADD = '+';
+    public static final char SUB = '-';
+    public static final char DIV = '/';
+    public static final char MUL = '*';
+    public static final char REM = '%';
+    public static final char AND = '&';
+    public static final char IOR = '|';
+    public static final char XOR = '^';
+    public static final char CMP = '?';
+    public static final char CMPL = '<';
+    public static final char CMPG = '>';
+
+    public ArithExpr(char operation, Expr left, Expr right, Type type) {
+        super(type);
+        this.operation = operation;
+        this.left = left;
+        this.right = right;
+        left.setParent(this);
+        right.setParent(this);
+    }
+
+    public int operation() {
+        return this.operation;
+    }
+
+    public Expr left() {
+        return this.left;
+    }
+
+    public Expr right() {
+        return this.right;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.right.visit(visitor);
+            this.left.visit(visitor);
+        } else {
+            this.left.visit(visitor);
+            this.right.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitArithExpr(this);
+    }
+
+    public int exprHashCode() {
+        return 1 + this.operation ^ this.left.exprHashCode() ^ this.right.exprHashCode();
+    }
+
+    public boolean equalsExpr(Expr other) {
+        return other != null && other instanceof ArithExpr && ((ArithExpr)other).operation == this.operation && ((ArithExpr)other).left.equalsExpr(this.left) && ((ArithExpr)other).right.equalsExpr(this.right);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ArithExpr(this.operation, (Expr)this.left.clone(), (Expr)this.right.clone(), this.type));
+    }
+}
+class SRStmt extends Stmt {
+    Expr array;
+    Expr start;
+    Expr end;
+
+    public SRStmt(Expr a, Expr s, Expr t) {
+        this.array = a;
+        this.start = s;
+        this.end = t;
+        this.array.setParent(this);
+        this.start.setParent(this);
+        this.end.setParent(this);
+    }
+
+    public Expr array() {
+        return this.array;
+    }
+
+    public Expr start() {
+        return this.start;
+    }
+
+    public Expr end() {
+        return this.end;
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitSRStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new SRStmt((Expr)this.array.clone(), (Expr)this.start.clone(), (Expr)this.end.clone()));
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.end.visit(visitor);
+            this.start.visit(visitor);
+            this.array.visit(visitor);
+        } else {
+            this.array.visit(visitor);
+            this.start.visit(visitor);
+            this.end.visit(visitor);
+        }
+
+    }
+}
+class SCStmt extends Stmt {
+    Expr array;
+    Expr index;
+    boolean redundant;
+
+    public SCStmt(Expr a, Expr i) {
+        this.array = a;
+        this.index = i;
+        this.redundant = false;
+        this.array.setParent(this);
+        this.index.setParent(this);
+    }
+
+    public Expr array() {
+        return this.array;
+    }
+
+    public Expr index() {
+        return this.index;
+    }
+
+    public boolean redundant() {
+        return this.redundant;
+    }
+
+    public void set_redundant(boolean val) {
+        this.redundant = val;
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitSCStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new SCStmt((Expr)this.array.clone(), (Expr)this.index.clone()));
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.index.visit(visitor);
+            this.array.visit(visitor);
+        } else {
+            this.array.visit(visitor);
+            this.index.visit(visitor);
+        }
+
+    }
+}
+class ThrowStmt extends JumpStmt {
+    Expr expr;
+
+    public ThrowStmt(Expr expr) {
+        this.expr = expr;
+        expr.setParent(this);
+    }
+
+    public Expr expr() {
+        return this.expr;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        this.expr.visit(visitor);
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitThrowStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ThrowStmt((Expr)this.expr.clone()));
+    }
+}
+abstract class JumpStmt extends Stmt {
+    Set catchTargets = new HashSet();
+
+    public JumpStmt() {
+    }
+
+    public Collection catchTargets() {
+        return this.catchTargets;
+    }
+
+    protected Node copyInto(Node node) {
+        ((JumpStmt)node).catchTargets.addAll(this.catchTargets);
+        return super.copyInto(node);
+    }
+}
+class SwitchStmt extends JumpStmt {
+    Expr index;
+    Block defaultTarget;
+    Block[] targets;
+    int[] values;
+
+    public SwitchStmt(Expr index, Block defaultTarget, Block[] targets, int[] values) {
+        this.index = index;
+        this.defaultTarget = defaultTarget;
+        this.targets = targets;
+        this.values = values;
+        index.setParent(this);
+    }
+
+    public Expr index() {
+        return this.index;
+    }
+
+    public void setDefaultTarget(Block block) {
+        this.defaultTarget = block;
+    }
+
+    public Block defaultTarget() {
+        return this.defaultTarget;
+    }
+
+    public Block[] targets() {
+        return this.targets;
+    }
+
+    public int[] values() {
+        return this.values;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        this.index.visit(visitor);
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitSwitchStmt(this);
+    }
+
+    public Object clone() {
+        Block[] t = new Block[this.targets.length];
+        System.arraycopy(this.targets, 0, t, 0, this.targets.length);
+        int[] v = new int[this.values.length];
+        System.arraycopy(this.values, 0, v, 0, this.values.length);
+        return this.copyInto(new SwitchStmt((Expr)this.index.clone(), this.defaultTarget, t, v));
+    }
+}
+class JsrStmt extends JumpStmt {
+    Subroutine sub;
+    Block follow;
+
+    public JsrStmt(Subroutine sub, Block follow) {
+        this.sub = sub;
+        this.follow = follow;
+    }
+
+    public void setFollow(Block follow) {
+        this.follow = follow;
+    }
+
+    public Block follow() {
+        return this.follow;
+    }
+
+    public Subroutine sub() {
+        return this.sub;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitJsrStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new JsrStmt(this.sub, this.follow));
+    }
+}
+class AddressStoreStmt extends Stmt {
+    Subroutine sub;
+
+    public AddressStoreStmt(Subroutine sub) {
+        this.sub = sub;
+    }
+
+    public Subroutine sub() {
+        return this.sub;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitAddressStoreStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new AddressStoreStmt(this.sub));
+    }
+}
+class ReturnStmt extends JumpStmt {
+    public ReturnStmt() {
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitReturnStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ReturnStmt());
+    }
+}
+class ReturnExprStmt extends JumpStmt {
+    Expr expr;
+
+    public ReturnExprStmt(Expr expr) {
+        this.expr = expr;
+        expr.setParent(this);
+    }
+
+    public Expr expr() {
+        return this.expr;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        this.expr.visit(visitor);
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitReturnExprStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new ReturnExprStmt((Expr)this.expr.clone()));
+    }
+}
+class RetStmt extends JumpStmt {
+    Subroutine sub;
+
+    public RetStmt(Subroutine sub) {
+        this.sub = sub;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitRetStmt(this);
+    }
+
+    public Subroutine sub() {
+        return this.sub;
+    }
+
+    public Object clone() {
+        return this.copyInto(new RetStmt(this.sub));
+    }
+}
+class PhiJoinStmt extends PhiStmt {
+    Map operands;
+    Block block;
+
+    public PhiJoinStmt(VarExpr target, Block block) {
+        super(target);
+        this.block = block;
+        this.operands = new HashMap();
+        Iterator preds = block.graph().preds(block).iterator();
+
+        while(preds.hasNext()) {
+            Block pred = (Block)preds.next();
+            VarExpr operand = (VarExpr)target.clone();
+            this.operands.put(pred, operand);
+            operand.setParent(this);
+            operand.setDef((DefExpr)null);
+        }
+
+    }
+
+    public void setOperandAt(Block block, Expr expr) {
+        Expr operand = (Expr)this.operands.get(block);
+        if (operand != null) {
+            operand.cleanup();
+        }
+
+        if (expr != null) {
+            this.operands.put(block, expr);
+            expr.setParent(this);
+        } else {
+            this.operands.remove(block);
+        }
+
+    }
+
+    public Expr operandAt(Block block) {
+        return (Expr)this.operands.get(block);
+    }
+
+    public int numOperands() {
+        return this.block.graph().preds(this.block).size();
+    }
+
+    public Collection preds() {
+        return this.block.graph().preds(this.block);
+    }
+
+    public Collection operands() {
+        if (this.operands != null) {
+            this.operands.keySet().retainAll(this.preds());
+            return this.operands.values();
+        } else {
+            return new ArrayList();
+        }
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.target.visit(visitor);
+        }
+
+        Iterator e = this.operands().iterator();
+
+        while(e.hasNext()) {
+            Expr operand = (Expr)e.next();
+            operand.visit(visitor);
+        }
+
+        if (!visitor.reverse()) {
+            this.target.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitPhiJoinStmt(this);
+    }
+}
+class PhiCatchStmt extends PhiStmt {
+    ArrayList operands = new ArrayList();
+
+    public PhiCatchStmt(LocalExpr target) {
+        super(target);
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.target.visit(visitor);
+        }
+
+        for(int i = 0; i < this.operands.size(); ++i) {
+            LocalExpr expr = (LocalExpr)this.operands.get(i);
+            expr.visit(visitor);
+        }
+
+        if (!visitor.reverse()) {
+            this.target.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitPhiCatchStmt(this);
+    }
+
+    public boolean hasOperandDef(LocalExpr def) {
+        for(int i = 0; i < this.operands.size(); ++i) {
+            LocalExpr expr = (LocalExpr)this.operands.get(i);
+            if (expr.def() == def) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void addOperand(LocalExpr operand) {
+        for(int i = 0; i < this.operands.size(); ++i) {
+            LocalExpr expr = (LocalExpr)this.operands.get(i);
+            Assert.isTrue(expr.def() != operand.def());
+        }
+
+        this.operands.add(operand);
+        operand.setParent(this);
+    }
+
+    public Collection operands() {
+        if (this.operands == null) {
+            return new ArrayList();
+        } else {
+            for(int i = 0; i < this.operands.size(); ++i) {
+                LocalExpr ei = (LocalExpr)this.operands.get(i);
+
+                for(int j = this.operands.size() - 1; j > i; --j) {
+                    LocalExpr ej = (LocalExpr)this.operands.get(j);
+                    if (ei.def() == ej.def()) {
+                        ej.cleanup();
+                        this.operands.remove(j);
+                    }
+                }
+            }
+
+            return this.operands;
+        }
+    }
+
+    public int numOperands() {
+        return this.operands.size();
+    }
+
+    public void setOperandAt(int i, Expr expr) {
+        Expr old = (Expr)this.operands.get(i);
+        old.cleanup();
+        this.operands.set(i, expr);
+        expr.setParent(this);
+    }
+
+    public Expr operandAt(int i) {
+        return (Expr)this.operands.get(i);
+    }
+}
+class StackManipStmt extends Stmt {
+    StackExpr[] target;
+    StackExpr[] source;
+    int kind;
+    public static final int SWAP = 0;
+    public static final int DUP = 1;
+    public static final int DUP_X1 = 2;
+    public static final int DUP_X2 = 3;
+    public static final int DUP2 = 4;
+    public static final int DUP2_X1 = 5;
+    public static final int DUP2_X2 = 6;
+
+    public StackManipStmt(StackExpr[] target, StackExpr[] source, int kind) {
+        this.kind = kind;
+        this.target = target;
+
+        int i;
+        for(i = 0; i < target.length; ++i) {
+            this.target[i].setParent(this);
+        }
+
+        this.source = source;
+
+        for(i = 0; i < source.length; ++i) {
+            this.source[i].setParent(this);
+        }
+
+    }
+
+    public DefExpr[] defs() {
+        return this.target;
+    }
+
+    public StackExpr[] target() {
+        return this.target;
+    }
+
+    public StackExpr[] source() {
+        return this.source;
+    }
+
+    public int kind() {
+        return this.kind;
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitStackManipStmt(this);
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        int i;
+        if (visitor.reverse()) {
+            for(i = this.target.length - 1; i >= 0; --i) {
+                this.target[i].visit(visitor);
+            }
+
+            for(i = this.source.length - 1; i >= 0; --i) {
+                this.source[i].visit(visitor);
+            }
+        } else {
+            for(i = 0; i < this.source.length; ++i) {
+                this.source[i].visit(visitor);
+            }
+
+            for(i = 0; i < this.target.length; ++i) {
+                this.target[i].visit(visitor);
+            }
+        }
+
+    }
+
+    public Object clone() {
+        StackExpr[] t = new StackExpr[this.target.length];
+
+        for(int i = 0; i < this.target.length; ++i) {
+            t[i] = (StackExpr)this.target[i].clone();
+        }
+
+        StackExpr[] s = new StackExpr[this.source.length];
+
+        for(int i = 0; i < this.source.length; ++i) {
+            s[i] = (StackExpr)this.source[i].clone();
+        }
+
+        return this.copyInto(new StackManipStmt(t, s, this.kind));
+    }
+}
+class CatchExpr extends Expr {
+    Type catchType;
+
+    public CatchExpr(Type catchType, Type type) {
+        super(type);
+        this.catchType = catchType;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitCatchExpr(this);
+    }
+
+    public Type catchType() {
+        return this.catchType;
+    }
+
+    public int exprHashCode() {
+        return 8 + this.type.simple().hashCode() ^ this.catchType.hashCode();
+    }
+
+    public boolean equalsExpr(Expr other) {
+        if (other instanceof CatchExpr) {
+            CatchExpr c = (CatchExpr)other;
+            if (this.catchType != null) {
+                return this.catchType.equals(c.catchType);
+            } else {
+                return c.catchType == null;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public Object clone() {
+        return this.copyInto(new CatchExpr(this.catchType, this.type));
+    }
+}
+abstract class PhiStmt extends Stmt {
+    VarExpr target;
+
+    public PhiStmt(VarExpr target) {
+        this.target = target;
+        target.setParent(this);
+    }
+
+    public VarExpr target() {
+        return this.target;
+    }
+
+    public DefExpr[] defs() {
+        return new DefExpr[]{this.target};
+    }
+
+    public abstract Collection operands();
+
+    public Object clone() {
+        throw new RuntimeException();
+    }
+}
+class IfCmpStmt extends LeafExpr.IfStmt {
+    Expr left;
+    Expr right;
+
+    public IfCmpStmt(int comparison, Expr left, Expr right, Block trueTarget, Block falseTarget) {
+        super(comparison, trueTarget, falseTarget);
+        this.left = left;
+        this.right = right;
+        left.setParent(this);
+        right.setParent(this);
+    }
+
+    public Expr left() {
+        return this.left;
+    }
+
+    public Expr right() {
+        return this.right;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        if (visitor.reverse()) {
+            this.right.visit(visitor);
+            this.left.visit(visitor);
+        } else {
+            this.left.visit(visitor);
+            this.right.visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitIfCmpStmt(this);
+    }
+
+    public Object clone() {
+        return this.copyInto(new IfCmpStmt(this.comparison, (Expr)this.left.clone(), (Expr)this.right.clone(), this.trueTarget, this.falseTarget));
+    }
+}
+class InitStmt extends Stmt {
+    LocalExpr[] targets;
+
+    public InitStmt(LocalExpr[] targets) {
+        this.targets = new LocalExpr[targets.length];
+
+        for(int i = 0; i < targets.length; ++i) {
+            this.targets[i] = targets[i];
+            this.targets[i].setParent(this);
+        }
+
+    }
+
+    public LocalExpr[] targets() {
+        return this.targets;
+    }
+
+    public DefExpr[] defs() {
+        return this.targets;
+    }
+
+    public void visitForceChildren(TreeVisitor visitor) {
+        for(int i = 0; i < this.targets.length; ++i) {
+            this.targets[i].visit(visitor);
+        }
+
+    }
+
+    public void visit(TreeVisitor visitor) {
+        visitor.visitInitStmt(this);
+    }
+
+    public Object clone() {
+        LocalExpr[] t = new LocalExpr[this.targets.length];
+
+        for(int i = 0; i < this.targets.length; ++i) {
+            t[i] = (LocalExpr)this.targets[i].clone();
+        }
+
+        return this.copyInto(new InitStmt(t));
+    }
+}
+
+
+
+
+
+
+
 
 
 
