@@ -19,6 +19,6 @@ package com.db4o.ext;
  * A previous IO exception has switched the database file
  * to read-only mode for controlled shutdown.
  */
-public class EmergencyShutdownReadOnlyException extends Db4oIOException{
+public class EmergencyShutdownReadOnlyException extends Db4oFatalException {
 
 }

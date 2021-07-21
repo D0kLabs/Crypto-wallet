@@ -10,7 +10,6 @@ import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.DatabaseReadOnlyException;
-import com.db4o.ext.Db4oIOException;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;

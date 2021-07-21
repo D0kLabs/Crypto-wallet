@@ -23,11 +23,8 @@ import com.db4o.internal.*;
 public class ClientTransactionPool {
 
 	private final Hashtable4 _transaction2Container; // Transaction -> ContainerCount
-	
 	private final Hashtable4 _fileName2Container; // String -> ContainerCount
-	
 	private final LocalObjectContainer _mainContainer;
-	
 	private boolean _closed;
 		
 	public ClientTransactionPool(LocalObjectContainer mainContainer) {
@@ -46,7 +43,7 @@ public class ClientTransactionPool {
 		synchronized(_mainContainer.lock()) {
 			ContainerCount entry = (ContainerCount) _fileName2Container.get(fileName);
 			if (entry == null) {
-				LocalObjectContainer container = (LocalObjectContainer) Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), fileName);
+				LocalObjectContainer container = (LocalObjectContainer) Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration());
 		        container.configImpl().setMessageRecipient(_mainContainer.configImpl().messageRecipient());
 				entry = new ContainerCount(container);
 				_fileName2Container.put(fileName, entry);

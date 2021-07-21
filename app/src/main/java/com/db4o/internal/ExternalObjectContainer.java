@@ -20,7 +20,6 @@ import com.db4o.config.Configuration;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.DatabaseReadOnlyException;
 import com.db4o.ext.Db4oDatabase;
-import com.db4o.ext.Db4oIOException;
 import com.db4o.ext.Db4oUUID;
 import com.db4o.ext.ExtObjectContainer;
 import com.db4o.ext.InvalidIDException;
