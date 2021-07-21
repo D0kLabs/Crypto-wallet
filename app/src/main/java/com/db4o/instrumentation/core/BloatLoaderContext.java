@@ -15,13 +15,11 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.instrumentation.core;
 
-import com.EDU.purdue.cs.bloat.cfg.*;
-import com.EDU.purdue.cs.bloat.context.*;
-import com.EDU.purdue.cs.bloat.editor.*;
-import com.EDU.purdue.cs.bloat.reflect.*;
 import com.d0klabs.cryptowalt.data.ClassEditor;
 import com.d0klabs.cryptowalt.data.ClassInfoLoader;
 import com.d0klabs.cryptowalt.data.EditorContext;
+import com.d0klabs.cryptowalt.data.FieldInfo;
+import com.d0klabs.cryptowalt.data.FlowGraph;
 import com.d0klabs.cryptowalt.data.MethodEditor;
 import com.d0klabs.cryptowalt.data.MethodInfo;
 import com.d0klabs.cryptowalt.data.Type;
@@ -87,7 +85,7 @@ public class BloatLoaderContext {
 			FieldInfo[] fields = clazz.fields();
 			for (int fieldIdx = 0; fieldIdx < fields.length; fieldIdx++) {
 				FieldInfo fieldInfo=fields[fieldIdx];
-				FieldEditor fieldEdit = context.editField(fieldInfo);
+				EditorContext.FieldEditor fieldEdit = context.editField(fieldInfo);
 				if (fieldEdit.name().equals(fieldName)&&fieldType.equals(fieldEdit.type())) {
 					return fieldEdit;
 				}

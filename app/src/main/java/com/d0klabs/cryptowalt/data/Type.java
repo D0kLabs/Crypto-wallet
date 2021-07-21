@@ -594,7 +594,7 @@ public class Type {
 
     }
 }
-public class LocalExpr extends VarExpr implements LeafExpr {
+class LocalExpr extends VarExpr implements LeafExpr {
     boolean fromStack;
 
     public LocalExpr(int index, boolean fromStack, Type type) {
@@ -633,7 +633,7 @@ public class LocalExpr extends VarExpr implements LeafExpr {
         return this.copyInto(new LocalExpr(this.index, this.fromStack, this.type));
     }
 }
-public abstract class VarExpr extends MemExpr {
+abstract class VarExpr extends LeafExpr.MemExpr {
     int index;
 
     public VarExpr(int index, Type type) {
@@ -649,8 +649,8 @@ public abstract class VarExpr extends MemExpr {
         return this.index;
     }
 
-    public DefExpr def() {
-        return (DefExpr)(this.isDef() ? this : super.def());
+    public LeafExpr.DefExpr def() {
+        return (LeafExpr.DefExpr)(this.isDef() ? this : super.def());
     }
 }
 

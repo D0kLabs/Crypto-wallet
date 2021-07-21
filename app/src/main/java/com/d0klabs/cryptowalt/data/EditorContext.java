@@ -325,7 +325,6 @@ public interface EditorContext {
                             if (!this.closure) {
                                 this.context.release(c.classInfo());
                             } else {
-                                Type t;
                                 int typeIndex;
                                 String desc;
                                 for(i = 0; i < c.methods().length; ++i) {
@@ -351,8 +350,8 @@ public interface EditorContext {
                                             t = (Type)c.constants().constantAt(i);
                                             this.addType(t);
                                         } else if (tag == 12) {
-                                            NameAndType t = (NameAndType)c.constants().constantAt(i);
-                                            this.addType(t.type());
+                                            NameAndType p = (NameAndType)c.constants().constantAt(i);
+                                            this.addType(p.type());
                                         }
                                     } else {
                                         ++i;
@@ -1169,3 +1168,16 @@ public interface EditorContext {
         }
     }
 }
+interface EditorVisitor {
+    void visitClassEditor(ClassEditor var1);
+
+    void visitMethodEditor(MethodEditor var1);
+
+    void visitFieldEditor(EditorContext.FieldEditor var1);
+}
+class ClassFormatException extends RuntimeException {
+    public ClassFormatException(String msg) {
+        super(msg);
+    }
+}
+

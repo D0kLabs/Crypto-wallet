@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.d0klabs.cryptowalt.data.Block.*;
 
 public interface InstructionVisitor {
     void visit_nop(Instruction var1);
@@ -315,7 +316,6 @@ public interface InstructionVisitor {
 
         public Instruction(byte[] code, int index, int[] targets, int[] lookups, LocalVariable[] locals, ConstantPool constants) {
             int opc;
-            super();
             this.useSlow = false;
             opc = toUByte(code[index]);
             int i;
@@ -678,7 +678,7 @@ public interface InstructionVisitor {
                             break label208;
                         case 132:
                             i = toUShort(code[index + 2], code[index + 3]);
-                            int incr = toShort(code[index + 4], code[index + 5]);
+                            incr = toShort(code[index + 4], code[index + 5]);
                             this.operand = new IncOperand(i < locals.length && locals[i] != null ? locals[i] : new LocalVariable(i), incr);
                         default:
                             break label208;
@@ -1668,7 +1668,6 @@ public interface InstructionVisitor {
             } else {
                 ClassInfo.Constant c;
                 int[] v;
-                int index;
                 switch(tag) {
                     case 1:
                         String s = (String)value;
@@ -1683,7 +1682,7 @@ public interface InstructionVisitor {
                         c = new ClassInfo.Constant(tag, value);
                         break;
                     case 7:
-                        index = this.addConstant(1, ((Type)value).className());
+                        int index = this.addConstant(1, ((Type) value).className());
                         c = new ClassInfo.Constant(7, new Integer(index));
                         break;
                     case 8:

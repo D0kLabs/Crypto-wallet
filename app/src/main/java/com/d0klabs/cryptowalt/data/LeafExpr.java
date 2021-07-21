@@ -221,7 +221,6 @@ public interface LeafExpr {
 
         public void addStmtBeforeJump(Stmt stmt) {
             Stmt last = this.lastStmt();
-            Assert.isTrue(last instanceof JumpStmt, "Last statement of " + this.block + " is " + last + ", not a jump");
             this.addStmtBefore(stmt, last);
         }
 
@@ -231,20 +230,16 @@ public interface LeafExpr {
         }
 
         public void addInstruction(Instruction inst, Block next) {
-            Assert.isTrue(inst.isJsr() || inst.isConditionalJump(), "Wrong addInstruction called with " + inst);
-            Assert.isTrue(next != null, "Null next block for " + inst);
             this.next = next;
             this.addInst(inst);
         }
 
         public void addInstruction(Instruction inst) {
-            Assert.isTrue(!inst.isJsr() && !inst.isConditionalJump(), "Wrong addInstruction called with " + inst);
             this.next = null;
             this.addInst(inst);
         }
 
         public void addInstruction(Instruction inst, Subroutine sub) {
-            Assert.isTrue(inst.isRet() || inst.opcodeClass() == 58, "Wrong addInstruction called with " + inst);
             this.sub = sub;
             this.next = null;
             this.addInst(inst);
@@ -369,7 +364,6 @@ public interface LeafExpr {
                 }
             }
 
-            Assert.isTrue(this.last == null || this.last == inst);
             if (inst.isJump() || inst.isSwitch() || inst.isThrow() || inst.isReturn() || inst.isJsr() || inst.isRet()) {
                 this.addInst(inst, false);
                 this.last = null;
@@ -442,31 +436,156 @@ public interface LeafExpr {
 
         public void visit_iload(Instruction inst) {
             LocalVariable operand = (LocalVariable)inst.operand();
-            Expr top = new LocalExpr(operand.index(), Type.INTEGER);
+            Expr top = new Expr(operand.index(), Type.INTEGER) {
+                @Override
+                public void visitForceChildren(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public void visit(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public int exprHashCode() {
+                    return 0;
+                }
+
+                @Override
+                public boolean equalsExpr(Expr var1) {
+                    return false;
+                }
+
+                @Override
+                public Object clone() {
+                    return null;
+                }
+            };
             this.stack.push(top);
         }
 
         public void visit_lload(Instruction inst) {
             LocalVariable operand = (LocalVariable)inst.operand();
-            Expr top = new LocalExpr(operand.index(), Type.LONG);
+            Expr top = new Expr(operand.index(), Type.LONG) {
+                @Override
+                public void visitForceChildren(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public void visit(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public int exprHashCode() {
+                    return 0;
+                }
+
+                @Override
+                public boolean equalsExpr(Expr var1) {
+                    return false;
+                }
+
+                @Override
+                public Object clone() {
+                    return null;
+                }
+            };
             this.stack.push(top);
         }
 
         public void visit_fload(Instruction inst) {
             LocalVariable operand = (LocalVariable)inst.operand();
-            Expr top = new LocalExpr(operand.index(), Type.FLOAT);
+            Expr top = new Expr(operand.index(), Type.FLOAT) {
+                @Override
+                public void visitForceChildren(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public void visit(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public int exprHashCode() {
+                    return 0;
+                }
+
+                @Override
+                public boolean equalsExpr(Expr var1) {
+                    return false;
+                }
+
+                @Override
+                public Object clone() {
+                    return null;
+                }
+            };
             this.stack.push(top);
         }
 
         public void visit_dload(Instruction inst) {
             LocalVariable operand = (LocalVariable)inst.operand();
-            Expr top = new LocalExpr(operand.index(), Type.DOUBLE);
+            Expr top = new Expr(operand.index(), Type.DOUBLE) {
+                @Override
+                public void visitForceChildren(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public void visit(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public int exprHashCode() {
+                    return 0;
+                }
+
+                @Override
+                public boolean equalsExpr(Expr var1) {
+                    return false;
+                }
+
+                @Override
+                public Object clone() {
+                    return null;
+                }
+            };
             this.stack.push(top);
         }
 
         public void visit_aload(Instruction inst) {
             LocalVariable operand = (LocalVariable)inst.operand();
-            Expr top = new LocalExpr(operand.index(), Type.OBJECT);
+            Expr top = new Expr(operand.index(), Type.OBJECT) {
+                @Override
+                public void visitForceChildren(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public void visit(TreeVisitor var1) {
+
+                }
+
+                @Override
+                public int exprHashCode() {
+                    return 0;
+                }
+
+                @Override
+                public boolean equalsExpr(Expr var1) {
+                    return false;
+                }
+
+                @Override
+                public Object clone() {
+                    return null;
+                }
+            };
             this.stack.push(top);
             this.db("      aload: " + top);
         }
@@ -568,8 +687,6 @@ public interface LeafExpr {
             LocalVariable operand = (LocalVariable)inst.operand();
             Expr expr = this.stack.peek();
             if (expr.type().isAddress()) {
-                Assert.isTrue(this.sub != null);
-                Assert.isTrue(!this.saveValue);
                 expr = this.stack.pop(Type.ADDRESS);
                 this.sub.setReturnAddress(operand);
                 this.addStmt(new AddressStoreStmt(this.sub));
@@ -812,7 +929,6 @@ public interface LeafExpr {
                     s = new StackExpr[]{(StackExpr)s01[0]};
                     this.manip(s, new int[2], 4);
                 } else {
-                    Assert.isTrue(s01.length == 2);
                     s = new StackExpr[]{(StackExpr)s01[0], (StackExpr)s01[1]};
                     this.manip(s, new int[]{0, 1, 0, 1}, 4);
                 }
@@ -1119,7 +1235,6 @@ public interface LeafExpr {
         }
 
         private void manip(StackExpr[] source, int[] s, int kind) {
-            Assert.isTrue(USE_STACK);
             int height = 0;
 
             for(int i = 0; i < this.stack.size(); ++i) {
@@ -1545,42 +1660,36 @@ public interface LeafExpr {
         public void visit_ifeq(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(0, left, t, this.next));
         }
 
         public void visit_ifne(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(1, left, t, this.next));
         }
 
         public void visit_iflt(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(4, left, t, this.next));
         }
 
         public void visit_ifge(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(3, left, t, this.next));
         }
 
         public void visit_ifgt(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(2, left, t, this.next));
         }
 
         public void visit_ifle(Instruction inst) {
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(5, left, t, this.next));
         }
 
@@ -1588,7 +1697,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(0, left, right, t, this.next));
         }
 
@@ -1596,7 +1704,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(1, left, right, t, this.next));
         }
 
@@ -1604,7 +1711,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(4, left, right, t, this.next));
         }
 
@@ -1612,7 +1718,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(3, left, right, t, this.next));
         }
 
@@ -1620,7 +1725,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(2, left, right, t, this.next));
         }
 
@@ -1628,7 +1732,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.INTEGER);
             Expr left = this.stack.pop(Type.INTEGER);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(5, left, right, t, this.next));
         }
 
@@ -1636,7 +1739,6 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.OBJECT);
             Expr left = this.stack.pop(Type.OBJECT);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(0, left, right, t, this.next));
         }
 
@@ -1644,13 +1746,11 @@ public interface LeafExpr {
             Expr right = this.stack.pop(Type.OBJECT);
             Expr left = this.stack.pop(Type.OBJECT);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfCmpStmt(1, left, right, t, this.next));
         }
 
         public void visit_goto(Instruction inst) {
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new GotoStmt(t));
         }
 
@@ -1661,7 +1761,6 @@ public interface LeafExpr {
         }
 
         public void visit_ret(Instruction inst) {
-            Assert.isTrue(this.sub != null);
             this.addStmt(new RetStmt(this.sub));
         }
 
@@ -1669,12 +1768,10 @@ public interface LeafExpr {
             Expr index = this.stack.pop(Type.INTEGER);
             Switch sw = (Switch)inst.operand();
             Block defaultTarget = (Block)this.block.graph().getNode(sw.defaultTarget());
-            Assert.isTrue(defaultTarget != null, "No block for " + inst);
             Block[] targets = new Block[sw.targets().length];
 
             for(int i = 0; i < targets.length; ++i) {
                 targets[i] = (Block)this.block.graph().getNode(sw.targets()[i]);
-                Assert.isTrue(targets[i] != null, "No block for " + inst);
             }
 
             this.addStmt(new SwitchStmt(index, defaultTarget, targets, sw.values()));
@@ -1715,7 +1812,7 @@ public interface LeafExpr {
 
             try {
                 EditorContext context = this.block.graph().method().declaringClass().context();
-                FieldEditor e = context.editField(field);
+                EditorContext.FieldEditor e = context.editField(field);
                 if (e.isFinal() && e.constantValue() != null) {
                     Expr top = new ConstantExpr(e.constantValue(), type);
                     this.stack.push(top);
@@ -1884,14 +1981,12 @@ public interface LeafExpr {
         public void visit_ifnull(Instruction inst) {
             Expr left = this.stack.pop(Type.OBJECT);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(0, left, t, this.next));
         }
 
         public void visit_ifnonnull(Instruction inst) {
             Expr left = this.stack.pop(Type.OBJECT);
             Block t = (Block)this.block.graph().getNode(inst.operand());
-            Assert.isTrue(t != null, "No block for " + inst);
             this.addStmt(new IfZeroStmt(1, left, t, this.next));
         }
 
@@ -2080,7 +2175,6 @@ public interface LeafExpr {
                     }
 
                     public void add(Object obj) {
-                        Assert.isTrue(obj instanceof Stmt);
                         ((Stmt)obj).setParent(Tree.this);
                         this.last = null;
                         iter.add(obj);
@@ -2090,7 +2184,6 @@ public interface LeafExpr {
                         if (this.last == null) {
                             throw new NoSuchElementException();
                         } else {
-                            Assert.isTrue(obj instanceof Stmt);
                             ((Stmt)obj).setParent(Tree.this);
                             ((Stmt)this.last).cleanup();
                             this.last = null;
@@ -2400,7 +2493,7 @@ public interface LeafExpr {
         private DefExpr def = null;
         private Object comparator = new Expr.ExprComparator((Expr.ExprComparator)null);
 
-        public Expr(Type type) {
+        public Expr(int index, Type type) {
             this.type = type;
         }
 
@@ -2620,7 +2713,7 @@ public interface LeafExpr {
         static int next = 0;
 
         public DefExpr(Type type) {
-            super(type);
+            super(operand.index(), type);
             this.version = next++;
         }
 
@@ -2642,8 +2735,7 @@ public interface LeafExpr {
         }
 
         public boolean isDef() {
-            if (this.parent instanceof Assign) {
-                DefExpr[] defs = ((Assign)this.parent).defs();
+                DefExpr[] defs = this.parent.defs(); //&?
                 if (defs != null) {
                     for(int i = 0; i < defs.length; ++i) {
                         if (defs[i] == this) {
@@ -2651,8 +2743,6 @@ public interface LeafExpr {
                         }
                     }
                 }
-            }
-
             return false;
         }
 
@@ -3618,6 +3708,110 @@ public interface LeafExpr {
         protected Node copyInto(Node node) {
             ((JumpStmt)node).catchTargets.addAll(this.catchTargets);
             return super.copyInto(node);
+        }
+    }
+    class LabelStmt extends Stmt {
+        Label label;
+
+        public LabelStmt(Label label) {
+            this.label = label;
+        }
+
+        public Label label() {
+            return this.label;
+        }
+
+        public void visitForceChildren(TreeVisitor visitor) {
+        }
+
+        public void visit(TreeVisitor visitor) {
+            visitor.visitLabelStmt(this);
+        }
+
+        public Object clone() {
+            return this.copyInto(new LabelStmt(this.label));
+        }
+    }
+    class StackExpr extends VarExpr {
+        public StackExpr(int index, Type type) {
+            super(index, type);
+        }
+
+        public void visitForceChildren(TreeVisitor visitor) {
+        }
+
+        public void visit(TreeVisitor visitor) {
+            visitor.visitStackExpr(this);
+        }
+
+        public int exprHashCode() {
+            return 20 + this.index + this.type.simple().hashCode();
+        }
+
+        public boolean equalsExpr(Expr other) {
+            return other instanceof StackExpr && ((StackExpr)other).type.simple().equals(this.type.simple()) && ((StackExpr)other).index == this.index;
+        }
+
+        public Object clone() {
+            return this.copyInto(new StackExpr(this.index, this.type));
+        }
+    }
+    class MonitorStmt extends Stmt {
+        public static final int ENTER = 0;
+        public static final int EXIT = 1;
+        int kind;
+        Expr object;
+
+        public MonitorStmt(int kind, Expr object) {
+            this.kind = kind;
+            this.object = object;
+            object.setParent(this);
+        }
+
+        public Expr object() {
+            return this.object;
+        }
+
+        public int kind() {
+            return this.kind;
+        }
+
+        public void visitForceChildren(TreeVisitor visitor) {
+            this.object.visit(visitor);
+        }
+
+        public void visit(TreeVisitor visitor) {
+            visitor.visitMonitorStmt(this);
+        }
+
+        public Object clone() {
+            return this.copyInto(new MonitorStmt(this.kind, (Expr)this.object.clone()));
+        }
+    }
+    class GotoStmt extends JumpStmt {
+        Block target;
+
+        public GotoStmt(Block target) {
+            this.target = target;
+        }
+
+        public void setTarget(Block target) {
+            this.target = target;
+        }
+
+        public Block target() {
+            return this.target;
+        }
+
+        public void visitForceChildren(TreeVisitor visitor) {
+        }
+
+        public void visit(TreeVisitor visitor) {
+            visitor.visitGotoStmt(this);
+        }
+
+        public Object clone() {
+            return this.copyInto(new GotoStmt(this.target));
         }
     }
 

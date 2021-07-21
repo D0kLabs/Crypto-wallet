@@ -10,6 +10,7 @@ import com.d0klabs.cryptowalt.data.LeafExpr.StaticFieldExpr;
 import com.d0klabs.cryptowalt.data.LeafExpr.Stmt;
 import com.d0klabs.cryptowalt.data.LeafExpr.Tree;
 import com.d0klabs.cryptowalt.data.LeafExpr.TreeVisitor;
+import com.d0klabs.cryptowalt.data.Handler.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -207,49 +208,7 @@ public class Block extends GraphNode {
         return this.pdomFrontier;
     }
 }
-class Label {
-    public static boolean TRACE = false;
-    private int index;
-    private boolean startsBlock;
-    private String comment;
 
-    public Label(int index) {
-        this(index, false);
-    }
-
-    public Label(int index, boolean startsBlock) {
-        this.index = index;
-        this.startsBlock = startsBlock;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public void setStartsBlock(boolean startsBlock) {
-        this.startsBlock = startsBlock;
-    }
-
-    public boolean startsBlock() {
-        return this.startsBlock;
-    }
-
-    public int index() {
-        return this.index;
-    }
-
-    public int hashCode() {
-        return this.index;
-    }
-
-    public boolean equals(Object obj) {
-        return obj instanceof Label && ((Label)obj).index == this.index;
-    }
-
-    public String toString() {
-        return this.comment != null ? "label_" + this.index + " (" + this.comment + ")" : "label_" + this.index;
-    }
-}
 public class StackOptimizer {
     static boolean DEBUG = false;
     Hashtable defInfoMap;
@@ -327,7 +286,7 @@ public class StackOptimizer {
         if (UI == null) {
             return toReturn;
         } else {
-            int toReturn = toReturn + (UI.type0s - UI.type0_x1s - UI.type0_x2s);
+            toReturn = toReturn + (UI.type0s - UI.type0_x1s - UI.type0_x2s);
             if (expr.isDef() && !this.shouldStore(expr) || !expr.isDef() && !this.shouldStore((LocalExpr)expr.def())) {
                 toReturn += UI.type1s - UI.type1_x1s - UI.type1_x2s;
             }
@@ -342,7 +301,7 @@ public class StackOptimizer {
         if (UI == null) {
             return toReturn;
         } else {
-            int toReturn = toReturn + UI.type0_x1s;
+            toReturn = toReturn + UI.type0_x1s;
             if (expr.isDef() && !this.shouldStore(expr) || !expr.isDef() && !this.shouldStore((LocalExpr)expr.def())) {
                 toReturn += UI.type1_x1s;
             }
@@ -357,7 +316,7 @@ public class StackOptimizer {
 
             return toReturn;
         } else {
-            int toReturn = toReturn + UI.type0_x2s;
+            toReturn = toReturn + UI.type0_x2s;
             if (expr.isDef() && !this.shouldStore(expr) || !expr.isDef() && !this.shouldStore((LocalExpr)expr.def())) {
                 toReturn += UI.type1_x2s;
             }
@@ -398,8 +357,6 @@ public class StackOptimizer {
     public void infoDisplay(LocalExpr expr) {
         UseInformation UI = (UseInformation)this.useInfoMap.get(expr);
         DefInformation DI = (DefInformation)this.defInfoMap.get(expr);
-        System.err.println(expr.toString());
-        System.err.println(expr.parent().toString() + "-" + expr.parent().parent().toString());
         if (expr.parent().parent().parent() != null && expr.parent().parent().parent().parent() != null) {
             System.err.println(expr.parent().parent().parent().toString() + "-" + expr.parent().parent().parent().parent().toString());
         }
@@ -468,7 +425,7 @@ class Type0DownVisitor extends DescendVisitor {
 
     }
 }
-public abstract class DescendVisitor extends TreeVisitor {
+abstract class DescendVisitor extends TreeVisitor {
     Hashtable useInfoMap;
     Hashtable defInfoMap;
     boolean found;
@@ -525,13 +482,13 @@ public abstract class DescendVisitor extends TreeVisitor {
     public void visitInitStmt(InitStmt stmt) {
     }
 
-    public void visitGotoStmt(GotoStmt stmt) {
+    public void visitGotoStmt(LeafExpr.GotoStmt stmt) {
     }
 
-    public void visitLabelStmt(LabelStmt stmt) {
+    public void visitLabelStmt(LeafExpr.LabelStmt stmt) {
     }
 
-    public void visitMonitorStmt(MonitorStmt stmt) {
+    public void visitMonitorStmt(LeafExpr.MonitorStmt stmt) {
     }
 
     public void visitPhiStmt(PhiStmt stmt) {
@@ -768,7 +725,7 @@ public abstract class DescendVisitor extends TreeVisitor {
     public void visitExpr(LeafExpr.Expr expr) {
     }
 }
-public class Type0Visitor extends AscendVisitor {
+class Type0Visitor extends AscendVisitor {
     boolean found;
     static boolean DEBUG = false;
 
@@ -809,7 +766,7 @@ public class Type0Visitor extends AscendVisitor {
 
     }
 }
-public abstract class AscendVisitor extends TreeVisitor {
+abstract class AscendVisitor extends TreeVisitor {
     Hashtable defInfoMap;
     Hashtable useInfoMap;
     LocalExpr start;
@@ -868,13 +825,13 @@ public abstract class AscendVisitor extends TreeVisitor {
 
     }
 
-    public void visitGotoStmt(GotoStmt stmt) {
+    public void visitGotoStmt(LeafExpr.GotoStmt stmt) {
     }
 
-    public void visitLabelStmt(LabelStmt stmt) {
+    public void visitLabelStmt(LeafExpr.LabelStmt stmt) {
     }
 
-    public void visitMonitorStmt(MonitorStmt stmt) {
+    public void visitMonitorStmt(LeafExpr.MonitorStmt stmt) {
         this.previous = stmt;
         stmt.parent().visit(this);
     }
@@ -1210,7 +1167,7 @@ class ShiftExpr extends Expr {
     public static final int UNSIGNED_RIGHT = 2;
 
     public ShiftExpr(int dir, Expr expr, Expr bits, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.dir = dir;
         this.expr = expr;
         this.bits = bits;
@@ -1259,7 +1216,7 @@ class ShiftExpr extends Expr {
 }
 class ReturnAddressExpr extends Expr {
     public ReturnAddressExpr(Type type) {
-        super(type);
+        super(operand.index(), type);
     }
 
     public void visitForceChildren(TreeVisitor visitor) {
@@ -1311,7 +1268,7 @@ abstract class CheckExpr extends Expr {
     Expr expr;
 
     public CheckExpr(Expr expr, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.expr = expr;
         expr.setParent(this);
     }
@@ -1376,7 +1333,7 @@ public class NewMultiArrayExpr extends Expr {
     Type elementType;
 
     public NewMultiArrayExpr(Expr[] dimensions, Type elementType, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.elementType = elementType;
         this.dimensions = dimensions;
 
@@ -1440,7 +1397,7 @@ class NewExpr extends Expr {
     Type objectType;
 
     public NewExpr(Type objectType, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.objectType = objectType;
     }
 
@@ -1472,7 +1429,7 @@ class NewArrayExpr extends Expr {
     Type elementType;
 
     public NewArrayExpr(Expr size, Type elementType, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.size = size;
         this.elementType = elementType;
         size.setParent(this);
@@ -1515,7 +1472,7 @@ class NegExpr extends Expr {
     Expr expr;
 
     public NegExpr(Expr expr, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.expr = expr;
         expr.setParent(this);
     }
@@ -1595,7 +1552,7 @@ class InstanceOfExpr extends CondExpr {
 }
 abstract class CondExpr extends Expr {
     public CondExpr(Type type) {
-        super(type);
+        super(operand.index(), type);
     }
 }
 class FieldExpr extends MemRefExpr {
@@ -1776,7 +1733,7 @@ class StoreExpr extends Expr {
     Expr expr;
 
     public StoreExpr(MemExpr target, Expr expr, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.target = target;
         this.expr = expr;
         target.setParent(this);
@@ -1891,7 +1848,7 @@ class ConstantExpr extends Expr implements LeafExpr {
     Object value;
 
     public ConstantExpr(Object value, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.value = value;
     }
 
@@ -1933,7 +1890,7 @@ class CastExpr extends Expr {
     }
 
     public CastExpr(Expr expr, Type castType, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.expr = expr;
         this.castType = castType;
         expr.setParent(this);
@@ -2025,7 +1982,7 @@ abstract class CallExpr extends Expr {
     public int voltaPos;
 
     public CallExpr(Expr[] params, MemberRef method, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.params = params;
         this.method = method;
 
@@ -2168,7 +2125,7 @@ class ArrayLengthExpr extends Expr {
     Expr array;
 
     public ArrayLengthExpr(Expr array, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.array = array;
         array.setParent(this);
     }
@@ -2219,7 +2176,7 @@ class ArithExpr extends Expr {
     public static final char CMPG = '>';
 
     public ArithExpr(char operation, Expr left, Expr right, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.operation = operation;
         this.left = left;
         this.right = right;
@@ -2684,7 +2641,6 @@ class PhiCatchStmt extends PhiStmt {
     public void addOperand(LocalExpr operand) {
         for(int i = 0; i < this.operands.size(); ++i) {
             LocalExpr expr = (LocalExpr)this.operands.get(i);
-            Assert.isTrue(expr.def() != operand.def());
         }
 
         this.operands.add(operand);
@@ -2817,7 +2773,7 @@ class CatchExpr extends Expr {
     Type catchType;
 
     public CatchExpr(Type catchType, Type type) {
-        super(type);
+        super(operand.index(), type);
         this.catchType = catchType;
     }
 

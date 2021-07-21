@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
+import com.d0klabs.cryptowalt.data.LeafExpr.*;
+import com.d0klabs.cryptowalt.data.*;
 
 public class FlowGraph extends Graph {
     public static final int PEEL_NO_LOOPS = 0;
@@ -246,7 +248,7 @@ public class FlowGraph extends Graph {
             }
         }
 
-        Instruction lastInst = null;
+        InstructionVisitor.Instruction lastInst = null;
         Block currBlock = this.iniBlock;
         Block firstBlock = null;
         int i = 0;
@@ -272,11 +274,11 @@ public class FlowGraph extends Graph {
                     }
                 }
             } else {
-                if (!(curr instanceof Instruction)) {
+                if (!(curr instanceof InstructionVisitor.Instruction)) {
                     throw new IllegalArgumentException();
                 }
 
-                Instruction currInst = (Instruction)curr;
+                InstructionVisitor.Instruction currInst = (InstructionVisitor.Instruction)curr;
                 lastInst = currInst;
                 if (currInst.isJsr()) {
                     Label label = (Label)currInst.operand();
@@ -316,10 +318,10 @@ public class FlowGraph extends Graph {
             StackExpr lhs = new StackExpr(0, Type.THROWABLE);
             CatchExpr rhs = new CatchExpr(type, Type.THROWABLE);
             StoreExpr store = new StoreExpr(lhs, rhs, Type.THROWABLE);
-            Tree tree = new Tree(catchBlock, new OperandStack());
+            LeafExpr.Tree tree = new LeafExpr.Tree(catchBlock, new LeafExpr.OperandStack());
             catchBlock.setTree(tree);
             tree.addStmt(new ExprStmt(store));
-            tree.addStmt(new GotoStmt(catchBody));
+            tree.addStmt(new LeafExpr.GotoStmt(catchBody));
             Integer start = (Integer)labelPos.get(tc.start());
             Integer end = (Integer)labelPos.get(tc.end());
             Handler handler = new Handler(catchBlock, type);
@@ -380,8 +382,8 @@ public class FlowGraph extends Graph {
                                         continue label113;
                                     }
 
-                                    if (last instanceof IfZeroStmt) {
-                                        IfZeroStmt stmt = (IfZeroStmt)last;
+                                    if (last instanceof LeafExpr.IfZeroStmt) {
+                                        LeafExpr.IfZeroStmt stmt = (LeafExpr.IfZeroStmt)last;
                                         target = null;
                                         if (stmt.trueTarget() != stmt.falseTarget()) {
                                             if (stmt.comparison() == 0) {
@@ -392,41 +394,39 @@ public class FlowGraph extends Graph {
 
                                             if (target != null) {
                                                 left = stmt.expr();
-                                                if (!((Expr)left).type().isReference()) {
+                                                if (!((LeafExpr.Expr)left).type().isReference()) {
                                                     if (!(left instanceof LeafExpr)) {
-                                                        LocalVariable v = this.method.newLocal(((Expr)left).type());
-                                                        tmp = new LocalExpr(v.index(), ((Expr)left).type());
-                                                        copy = (Expr)((Expr)left).clone();
-                                                        copy.setDef((DefExpr)null);
-                                                        ((Expr)left).replaceWith(new StoreExpr(tmp, copy, ((Expr)left).type()));
+                                                        LocalVariable v = this.method.newLocal(((LeafExpr.Expr)left).type());
+                                                        tmp = new LocalExpr(v.index(), ((LeafExpr.Expr)left).type());
+                                                        copy = (LocalExpr)((LeafExpr.Expr)left).clone();
+                                                        copy.setDef((LeafExpr.DefExpr)null);
+                                                        ((LeafExpr.Expr)left).replaceWith(new StoreExpr(tmp, copy, ((LeafExpr.Expr)left).type()));
                                                         left = tmp;
                                                     }
 
                                                     Object value = null;
-                                                    Type type = ((Expr)left).type();
-                                                    if (((Expr)left).type().isIntegral()) {
+                                                    Type type = ((LeafExpr.Expr)left).type();
+                                                    if (((LeafExpr.Expr)left).type().isIntegral()) {
                                                         value = new Integer(0);
                                                     } else {
-                                                        Assert.isTrue(((Expr)left).type().isReference());
                                                     }
 
                                                     if (left instanceof LocalExpr) {
-                                                        copy = (LocalExpr)((Expr)left).clone();
-                                                        copy.setDef((DefExpr)null);
-                                                        insert = new ExprStmt(new StoreExpr(copy, new ConstantExpr(value, type), ((Expr)left).type()));
+                                                        copy = (LocalExpr)((LeafExpr.Expr)left).clone();
+                                                        copy.setDef((LeafExpr.DefExpr)null);
+                                                        insert = new ExprStmt(new StoreExpr(copy, new ConstantExpr(value, type), ((LeafExpr.Expr)left).type()));
                                                         target.tree().prependStmt(insert);
                                                     } else {
-                                                        Assert.isTrue(left instanceof ConstantExpr);
                                                     }
                                                 }
                                             }
                                         }
                                     } else if (last instanceof SwitchStmt) {
                                         SwitchStmt stmt = (SwitchStmt)last;
-                                        Expr index = stmt.index();
+                                        LeafExpr.Expr index = stmt.index();
                                         if (!(index instanceof LeafExpr)) {
-                                            LocalVariable v = this.method.newLocal(((Expr)index).type());
-                                            LocalExpr tmp = new LocalExpr(v.index(), ((Expr)index).type());
+                                            LocalVariable v = this.method.newLocal(((LeafExpr.Expr)index).type());
+                                            LocalExpr tmp = new LocalExpr(v.index(), ((LeafExpr.Expr)index).type());
                                             Expr copy = (Expr)((Expr)index).clone();
                                             copy.setDef((DefExpr)null);
                                             ((Expr)index).replaceWith(new StoreExpr(tmp, copy, ((Expr)index).type()));
