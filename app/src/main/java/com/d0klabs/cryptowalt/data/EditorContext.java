@@ -170,7 +170,6 @@ public interface EditorContext {
         }
 
         public boolean subclassOf(Type a, Type b) {
-            Assert.isTrue(a.isReference() && b.isReference(), "Cannot compare " + a + " and " + b);
             if (a.equals(b)) {
                 return true;
             } else if (b.equals(Type.OBJECT)) {
@@ -197,7 +196,6 @@ public interface EditorContext {
         }
 
         public Collection classes() {
-            Assert.isTrue(this.classes != null);
             return this.classes;
         }
 
@@ -394,7 +392,6 @@ public interface EditorContext {
         }
 
         public Type intersectType(Type a, Type b) {
-            Assert.isTrue(a.isReference() && b.isReference(), "Cannot intersect " + a + " and " + b);
             if (a.equals(b)) {
                 return a;
             } else if (!a.isNull() && !b.isNull()) {
@@ -461,7 +458,6 @@ public interface EditorContext {
                 } else if (b.isNull()) {
                     return a;
                 } else if (!a.isIntegral() && !a.equals(POS_BYTE) && !a.equals(POS_SHORT) || !b.isIntegral() && !b.equals(POS_BYTE) && !b.equals(POS_SHORT)) {
-                    Assert.isTrue(a.isReference() && b.isReference(), "Cannot union " + a + " and " + b);
                     if (a.isArray()) {
                         if (b.isArray()) {
                             if (a.elementType().isReference() && b.elementType().isReference()) {
