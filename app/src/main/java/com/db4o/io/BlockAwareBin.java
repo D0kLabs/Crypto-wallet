@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.io;
 
-import static com.db4o.foundation.Environments.*;
+import com.db4o.DTrace;
+import com.db4o.ext.EmergencyShutdownReadOnlyException;
 
-import com.db4o.*;
-import com.db4o.ext.*;
+import static com.db4o.foundation.Environments.my;
 
 /**
  * @exclude
@@ -49,7 +49,7 @@ public class BlockAwareBin extends BinDecorator {
 	 * copies a block within a file in block mode
 	 */
 	public void blockCopy(int oldAddress, int oldAddressOffset, int newAddress,
-			int newAddressOffset, int length) throws Db4oIOException {
+			int newAddressOffset, int length) {
 		copy(
 			regularAddress(oldAddress, oldAddressOffset),
 			regularAddress(newAddress, newAddressOffset),
@@ -59,8 +59,7 @@ public class BlockAwareBin extends BinDecorator {
 	/**
 	 * copies a block within a file in absolute mode
 	 */
-	public void copy(long oldAddress, long newAddress, int length)
-			throws Db4oIOException {
+	public void copy(long oldAddress, long newAddress, int length) {
 
 		if (DTrace.enabled) {
 			DTrace.IO_COPY.logLength(newAddress, length);
@@ -81,8 +80,7 @@ public class BlockAwareBin extends BinDecorator {
 		copy(new byte[length], oldAddress, newAddress);
 	}
 
-	private void copy(byte[] buffer, long oldAddress, long newAddress)
-			throws Db4oIOException {
+	private void copy(byte[] buffer, long oldAddress, long newAddress) {
 		read(oldAddress, buffer);
 		write(oldAddress, buffer);
 	}
@@ -92,14 +90,14 @@ public class BlockAwareBin extends BinDecorator {
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public int blockRead(int address, int offset, byte[] buffer) throws Db4oIOException {
+	public int blockRead(int address, int offset, byte[] buffer) {
 		return blockRead(address, offset, buffer, buffer.length);
 	}
 
 	/**
 	 * implement to read a buffer at the seeked address
 	 */
-	public int blockRead(int address, int offset, byte[] bytes, int length) throws Db4oIOException {
+	public int blockRead(int address, int offset, byte[] bytes, int length) {
 		return read(regularAddress(address, offset), bytes, length);
 	}
 	
@@ -108,14 +106,14 @@ public class BlockAwareBin extends BinDecorator {
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public int blockRead(int address, byte[] buffer) throws Db4oIOException {
+	public int blockRead(int address, byte[] buffer) {
 		return blockRead(address, 0, buffer, buffer.length);
 	}
 
 	/**
 	 * implement to read a buffer at the seeked address
 	 */
-	public int blockRead(int address, byte[] bytes, int length) throws Db4oIOException {
+	public int blockRead(int address, byte[] bytes, int length) {
 		return blockRead(address, 0, bytes, length);
 	}
 	
@@ -124,7 +122,7 @@ public class BlockAwareBin extends BinDecorator {
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public int read(long pos, byte[] buffer) throws Db4oIOException {
+	public int read(long pos, byte[] buffer) {
 		return read(pos, buffer, buffer.length);
 	}
 	
@@ -133,14 +131,14 @@ public class BlockAwareBin extends BinDecorator {
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public void blockWrite(int address, int offset, byte[] buffer) throws Db4oIOException {
+	public void blockWrite(int address, int offset, byte[] buffer) {
 		blockWrite(address, offset, buffer, buffer.length);
 	}
 
 	/**
 	 * implement to read a buffer at the seeked address
 	 */
-	public void blockWrite(int address, int offset, byte[] bytes, int length) throws Db4oIOException {
+	public void blockWrite(int address, int offset, byte[] bytes, int length) {
 		write(regularAddress(address, offset), bytes, length);
 	}
 	
@@ -149,50 +147,35 @@ public class BlockAwareBin extends BinDecorator {
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public void blockWrite(int address, byte[] buffer) throws Db4oIOException {
+	public void blockWrite(int address, byte[] buffer) {
 		blockWrite(address, 0, buffer, buffer.length);
 	}
 
 	/**
 	 * implement to read a buffer at the seeked address
 	 */
-	public void blockWrite(int address, byte[] bytes, int length) throws Db4oIOException {
+	public void blockWrite(int address, byte[] bytes, int length) {
 		blockWrite(address, 0, bytes, length);
 	}
 	
 	@Override
 	public void sync() {
 		validateReadOnly();
-		try{
 			super.sync();
-		} catch(Db4oIOException e){
-			_readOnly = true;
-			throw e;
-		}
 	}
 	
 	@Override
 	public void sync(Runnable runnable) {
 		validateReadOnly();
-		try{
-			super.sync(runnable);
-		} catch(Db4oIOException e){
-			_readOnly = true;
-			throw e;
-		}
+		super.sync(runnable);
 	}
 
 	/**
 	 * writes a buffer to the seeked address
 	 */
-	public void write(long pos, byte[] bytes) throws Db4oIOException {
+	public void write(long pos, byte[] bytes) {
 		validateReadOnly();
-		try{
 			write(pos, bytes, bytes.length);
-		} catch(Db4oIOException e){
-			_readOnly = true;
-			throw e;
-		}
 	}
 
 	private void validateReadOnly() {

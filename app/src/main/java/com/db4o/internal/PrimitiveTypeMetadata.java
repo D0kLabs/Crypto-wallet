@@ -15,15 +15,21 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.delete.*;
-import com.db4o.internal.handlers.array.*;
-import com.db4o.internal.marshall.*;
-import com.db4o.internal.metadata.*;
-import com.db4o.marshall.*;
-import com.db4o.reflect.*;
-import com.db4o.typehandlers.*;
+import com.db4o.foundation.Collection4;
+import com.db4o.foundation.NotImplementedException;
+import com.db4o.foundation.PreparedComparison;
+import com.db4o.internal.delete.DeleteContext;
+import com.db4o.internal.delete.DeleteContextImpl;
+import com.db4o.internal.handlers.array.ArrayHandler;
+import com.db4o.internal.handlers.array.MultidimensionalArrayHandler;
+import com.db4o.internal.marshall.QueryingReadContext;
+import com.db4o.internal.marshall.UnmarshallingContext;
+import com.db4o.internal.metadata.AspectTraversalStrategy;
+import com.db4o.internal.metadata.TraverseAspectCommand;
+import com.db4o.marshall.Context;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.typehandlers.ActivationContext;
+import com.db4o.typehandlers.TypeHandler4;
 
 
 /**
@@ -73,7 +79,7 @@ public class PrimitiveTypeMetadata extends ClassMetadata {
     }
 
     @Override
-    public void delete(DeleteContext context) throws Db4oIOException {
+    public void delete(DeleteContext context) {
     	if(context.isLegacyHandlerVersion()){
     		context.readInt();
     		context.defragmentRecommended();

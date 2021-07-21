@@ -15,15 +15,30 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.handlers;
 
-import com.db4o.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
-import com.db4o.internal.delete.*;
-import com.db4o.internal.marshall.*;
-import com.db4o.marshall.*;
-import com.db4o.reflect.*;
-import com.db4o.typehandlers.*;
+import com.db4o.CorruptionException;
+import com.db4o.foundation.No4;
+import com.db4o.foundation.NotImplementedException;
+import com.db4o.foundation.PreparedComparison;
+import com.db4o.internal.BuiltinTypeHandler;
+import com.db4o.internal.ByteArrayBuffer;
+import com.db4o.internal.DefragmentContext;
+import com.db4o.internal.DefragmentContextImpl;
+import com.db4o.internal.Exceptions4;
+import com.db4o.internal.IndexableTypeHandler;
+import com.db4o.internal.Null;
+import com.db4o.internal.Platform4;
+import com.db4o.internal.StatefulBuffer;
+import com.db4o.internal.delete.DeleteContext;
+import com.db4o.internal.marshall.MarshallerFamily;
+import com.db4o.internal.marshall.ObjectIdContext;
+import com.db4o.internal.marshall.PrimitiveMarshaller;
+import com.db4o.marshall.Context;
+import com.db4o.marshall.ReadContext;
+import com.db4o.marshall.WriteContext;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.Reflector;
+import com.db4o.typehandlers.QueryableTypeHandler;
+import com.db4o.typehandlers.ValueTypeHandler;
 
 
 /**
@@ -104,7 +119,7 @@ public abstract class PrimitiveHandler implements ValueTypeHandler, IndexableTyp
         return read(mf, statefulBuffer, true);
     }
     
-    public Object readIndexEntry(ObjectIdContext context) throws CorruptionException, Db4oIOException{
+    public Object readIndexEntry(ObjectIdContext context) throws CorruptionException {
         return read(context);
     }
     

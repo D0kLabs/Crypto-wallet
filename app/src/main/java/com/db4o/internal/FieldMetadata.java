@@ -147,7 +147,7 @@ public class FieldMetadata extends ClassAspect implements StoredField {
         return true;
     }
     
-    public final Object readIndexEntry(ObjectIdContext context) throws CorruptionException, Db4oIOException {
+    public final Object readIndexEntry(ObjectIdContext context) throws CorruptionException {
         IndexableTypeHandler indexableTypeHandler = (IndexableTypeHandler) HandlerRegistry.correctHandlerVersion(context, getHandler());
         return indexableTypeHandler.readIndexEntry(context);
     }
@@ -462,7 +462,7 @@ public class FieldMetadata extends ClassAspect implements StoredField {
         }
     }
 
-    private final void removeIndexEntry(DeleteContextImpl context) throws CorruptionException, Db4oIOException {
+    private final void removeIndexEntry(DeleteContextImpl context) throws CorruptionException {
         if(! hasIndex()){
             return;
         }

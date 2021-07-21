@@ -161,7 +161,7 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
         return storedClasses(null);
     }
     
-    public abstract void backup(Storage targetStorage, String path) throws Db4oIOException, DatabaseClosedException,
+    public abstract void backup(Storage targetStorage, String path) throws DatabaseClosedException,
     	NotSupportedException;
 
     public abstract Db4oDatabase identity();

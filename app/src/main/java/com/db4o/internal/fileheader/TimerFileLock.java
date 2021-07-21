@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.fileheader;
 
-import com.db4o.ext.*;
-import com.db4o.internal.*;
+import com.db4o.internal.IoAdaptedObjectContainer;
+import com.db4o.internal.LocalObjectContainer;
 
 
 /**
@@ -46,14 +46,13 @@ public abstract class TimerFileLock implements Runnable{
 
     public abstract void setAddresses(int baseAddress, int openTimeOffset, int accessTimeOffset);
 
-    public abstract void start() throws Db4oIOException;
+    public abstract void start();
 
     public abstract void writeHeaderLock();
 
     public abstract void writeOpenTime();
 
-    public abstract void close() throws Db4oIOException;
-
+    public abstract void close();
     public abstract void checkIfOtherSessionAlive(LocalObjectContainer container, int address,
-		int offset, long lastAccessTime) throws Db4oIOException;
+		int offset, long lastAccessTime);
 }

@@ -74,7 +74,7 @@ public interface ObjectContainer {
      *  @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 *  @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    void activate(Object obj, int depth) throws Db4oIOException, DatabaseClosedException;
+    void activate(Object obj, int depth) throws DatabaseClosedException;
     
     /**
      * closes the <code>ObjectContainer</code>.
@@ -87,7 +87,7 @@ public interface ObjectContainer {
      * and the database file were closed.
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    boolean close() throws Db4oIOException;
+    boolean close();
 
     /**
      * commits the running transaction.
@@ -97,7 +97,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    void commit() throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void commit() throws DatabaseClosedException, DatabaseReadOnlyException;
     
 
     /**
@@ -145,7 +145,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    void delete(Object obj) throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void delete(Object obj) throws DatabaseClosedException, DatabaseReadOnlyException;
     
     /**
      * returns an ObjectContainer with extended functionality.
@@ -196,7 +196,7 @@ public interface ObjectContainer {
 	 * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 */
-    <T> ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException;
+    <T> ObjectSet queryByExample(Object template) throws DatabaseClosedException;
     
     /**
      * creates a new S.O.D.A. {@link Query Query}.
@@ -217,7 +217,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    <TargetType> ObjectSet <TargetType> query(Class<TargetType> clazz) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Class<TargetType> clazz) throws DatabaseClosedException;
 
     
     /**
@@ -281,7 +281,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate) throws DatabaseClosedException;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},
@@ -293,7 +293,7 @@ public interface ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, QueryComparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, QueryComparator<TargetType> comparator) throws DatabaseClosedException;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},
@@ -307,7 +307,7 @@ public interface ObjectContainer {
      * @sharpen.ignore
      */
     //@decaf.Ignore(decaf.Platform.JDK11)
-    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, Comparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
+    <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate, Comparator<TargetType> comparator) throws DatabaseClosedException;
 
     /**
      * rolls back the running transaction.
@@ -318,7 +318,7 @@ public interface ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      * @throws DatabaseReadOnlyException database was configured as read-only.
      */
-    void rollback() throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException;
+    void rollback() throws DatabaseClosedException, DatabaseReadOnlyException;
    
 
 	/**

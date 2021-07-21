@@ -30,7 +30,6 @@ public interface LegacyClientServerFactory {
             String user,
             String password)
 			    throws 
-			     Db4oIOException, 
 			     OldFormatException,
 			     InvalidPasswordException ;
 			 
@@ -40,8 +39,7 @@ public interface LegacyClientServerFactory {
                      String databaseFileName,
                      int port)
 			    throws 
-			     Db4oIOException,
-			     IncompatibleFileFormatException, 
+			     IncompatibleFileFormatException,
 			     OldFormatException,
 			     DatabaseFileLockedException, 
 			     DatabaseReadOnlyException;

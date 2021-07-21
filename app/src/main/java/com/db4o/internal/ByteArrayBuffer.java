@@ -15,11 +15,13 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import com.db4o.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.encoding.*;
-import com.db4o.internal.handlers.*;
+import com.db4o.Debug4;
+import com.db4o.Deploy;
+import com.db4o.foundation.Arrays4;
+import com.db4o.foundation.BitMap4;
+import com.db4o.internal.encoding.LatinStringIO;
+import com.db4o.internal.handlers.IntHandler;
+import com.db4o.internal.handlers.LongHandler;
 
 /**
  * 
@@ -118,7 +120,7 @@ public class ByteArrayBuffer implements ReadWriteBuffer {
 	    _offset += length;
 	}
     
-	public final ByteArrayBuffer readEmbeddedObject(Transaction trans) throws Db4oIOException {
+	public final ByteArrayBuffer readEmbeddedObject(Transaction trans){
 	    int address = readInt();
 	    int length = readInt();
 	    if(address == 0){
@@ -127,7 +129,7 @@ public class ByteArrayBuffer implements ReadWriteBuffer {
 		return trans.container().decryptedBufferByAddress(address, length);
 	}
 	
-	public void readEncrypt(ObjectContainerBase stream, int address) throws Db4oIOException {
+	public void readEncrypt(ObjectContainerBase stream, int address) {
 		stream.readBytes(_buffer, address, length());
 		stream._handlers.decrypt(this);
 	}

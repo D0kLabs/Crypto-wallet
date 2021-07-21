@@ -41,7 +41,6 @@ public interface EmbeddedObjectContainer extends ObjectContainer{
      * configuration/environment
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    void backup(String path) throws Db4oIOException,
-			DatabaseClosedException, NotSupportedException;
+    void backup(String path) throws DatabaseClosedException, NotSupportedException;
 
 }

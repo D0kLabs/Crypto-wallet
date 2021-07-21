@@ -15,9 +15,10 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import com.db4o.*;
-import com.db4o.ext.*;
-import com.db4o.internal.slots.*;
+import com.db4o.Debug4;
+import com.db4o.Deploy;
+import com.db4o.internal.slots.Pointer4;
+import com.db4o.internal.slots.Slot;
 
 /**
  * public for .NET conversion reasons
@@ -102,7 +103,7 @@ public final class StatefulBuffer extends ByteArrayBuffer {
         return bytes;
     }
     
-    public void read() throws Db4oIOException {
+    public void read(){
         container().readBytes(_buffer, _address,_addressOffset, _length);
     }
 

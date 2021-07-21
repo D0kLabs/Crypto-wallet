@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation;
 
-import com.EDU.purdue.cs.bloat.editor.ClassEditor;
+import com.d0klabs.cryptowalt.data.ClassEditor;
 import com.EDU.purdue.cs.bloat.editor.EditorVisitor;
 import com.EDU.purdue.cs.bloat.editor.FieldEditor;
 import com.EDU.purdue.cs.bloat.editor.Instruction;

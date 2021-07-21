@@ -45,15 +45,14 @@ public class Db4o {
 	}
 
 	public static final ObjectContainer openFile(String databaseFileName)
-			throws Db4oIOException, DatabaseFileLockedException,
+			throws DatabaseFileLockedException,
 			IncompatibleFileFormatException, OldFormatException, DatabaseReadOnlyException {
 		return Db4o.openFile(cloneConfiguration(),databaseFileName);
 	}
 
 
 	public static final ObjectContainer openFile(Configuration config,
-			String databaseFileName) throws Db4oIOException,
-			DatabaseFileLockedException, IncompatibleFileFormatException,
+			String databaseFileName) throws DatabaseFileLockedException, IncompatibleFileFormatException,
 			OldFormatException, DatabaseReadOnlyException {
 
 		return ObjectContainerFactory.openObjectContainer(Db4oLegacyConfigurationBridge.asEmbeddedConfiguration(config));

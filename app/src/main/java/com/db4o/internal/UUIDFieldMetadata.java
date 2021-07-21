@@ -87,7 +87,7 @@ public class UUIDFieldMetadata extends VirtualFieldMetadata {
 		}
     }
 
-   private DatabaseIdentityIDAndUUID readDatabaseIdentityIDAndUUID(ObjectContainerBase container, ClassMetadata classMetadata, Slot oldSlot, boolean checkClass) throws Db4oIOException {
+   private DatabaseIdentityIDAndUUID readDatabaseIdentityIDAndUUID(ObjectContainerBase container, ClassMetadata classMetadata, Slot oldSlot, boolean checkClass) {
         if(DTrace.enabled){
             DTrace.REREAD_OLD_UUID.logLength(oldSlot.address(), oldSlot.length());
         }

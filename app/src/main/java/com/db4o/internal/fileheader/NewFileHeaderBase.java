@@ -15,8 +15,11 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.fileheader;
 
-import com.db4o.ext.*;
-import com.db4o.internal.*;
+import com.db4o.internal.ByteArrayBuffer;
+import com.db4o.internal.Const4;
+import com.db4o.internal.LocalObjectContainer;
+import com.db4o.internal.LocalTransaction;
+import com.db4o.internal.SystemData;
 
 /**
  * @exclude
@@ -36,7 +39,7 @@ public abstract class NewFileHeaderBase extends FileHeader {
 	
 	protected FileHeaderVariablePart _variablePart;
 
-	public void close() throws Db4oIOException {
+	public void close() {
 		if(_timerFileLock == null){
 			return;
 		}
@@ -52,7 +55,7 @@ public abstract class NewFileHeaderBase extends FileHeader {
 	
     protected abstract byte version();
 
-	public final void initNew(LocalObjectContainer file) throws Db4oIOException {
+	public final void initNew(LocalObjectContainer file) {
 	    newTimerFileLock(file);
 		oldEncryptionOff(file);
 	    _variablePart = createVariablePart(file);

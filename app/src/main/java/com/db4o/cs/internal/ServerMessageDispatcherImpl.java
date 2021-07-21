@@ -15,16 +15,26 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.cs.internal;
 
-import java.io.*;
-
-import com.db4o.*;
-import com.db4o.cs.foundation.*;
-import com.db4o.cs.internal.messages.*;
+import com.db4o.Debug4;
+import com.db4o.cs.foundation.Socket4;
+import com.db4o.cs.internal.messages.MSwitchToFile;
+import com.db4o.cs.internal.messages.MUseTransaction;
+import com.db4o.cs.internal.messages.Message;
+import com.db4o.cs.internal.messages.MessageWithResponse;
+import com.db4o.cs.internal.messages.Msg;
+import com.db4o.cs.internal.messages.ServerSideMessage;
 import com.db4o.events.Event4;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
+import com.db4o.ext.Db4oException;
+import com.db4o.ext.Db4oRecoverableException;
+import com.db4o.foundation.Hashtable4;
+import com.db4o.internal.CallbackObjectInfoCollections;
+import com.db4o.internal.Config4Impl;
+import com.db4o.internal.Transaction;
 import com.db4o.internal.events.Event4Impl;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public final class ServerMessageDispatcherImpl implements ServerMessageDispatcher, Runnable {
 
@@ -143,15 +153,9 @@ public final class ServerMessageDispatcherImpl implements ServerMessageDispatche
 	}
 
 	private void closeSocket() {
-		try {
 			if(_socket != null) {
 				_socket.close();
 			}
-        } catch (Db4oIOException e) {
-            if (Debug4.atHome) {
-                e.printStackTrace();
-            }
-        }
 	}
 
 	public Transaction transaction() {
@@ -173,20 +177,13 @@ public final class ServerMessageDispatcherImpl implements ServerMessageDispatche
     
     private void messageLoop(){
         while (isMessageDispatcherAlive()) {
-            try {
                 if(! messageProcessor()){
                     return;
                 }
-            } catch (Db4oIOException e) {
-            	if(DTrace.enabled){
-            		DTrace.ADD_TO_CLASS_INDEX.log(e.toString());
-            	}
-                return;
-            }
         }
     }
     
-    private boolean messageProcessor() throws Db4oIOException{
+    private boolean messageProcessor() {
         Msg message = Msg.readMessage(this, transaction(), _socket);
         if(message == null){
             return true;

@@ -89,19 +89,19 @@ public abstract class Db4OGenericDao<T> {
 
     }
 
-    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate) throws Db4oIOException, DatabaseClosedException {
+    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate) throws DatabaseClosedException {
         ObjectContainer oc=db();
         return oc.query(targetTypePredicate);
     }
 
-    public  <T> ObjectSet<T> queryByExample(T o) throws Db4oIOException, DatabaseClosedException {
+    public  <T> ObjectSet<T> queryByExample(T o) throws DatabaseClosedException {
         ObjectContainer oc=db();
         return oc.queryByExample(o);
     }
 
 
 
-    public <TargetType> ObjectSet<TargetType> query(Class<TargetType> targetTypeClass) throws Db4oIOException, DatabaseClosedException {
+    public <TargetType> ObjectSet<TargetType> query(Class<TargetType> targetTypeClass) throws DatabaseClosedException {
         ObjectContainer oc=db();
         return oc.query(targetTypeClass);
     }
@@ -111,20 +111,20 @@ public abstract class Db4OGenericDao<T> {
         return oc.query();
     }
 
-    public  void delete(T o) throws Db4oIOException, DatabaseClosedException, DatabaseReadOnlyException {
+    public  void delete(T o) throws DatabaseClosedException, DatabaseReadOnlyException {
         ObjectContainer oc=db();
         oc.delete(o);
         oc.commit();
     }
 
-    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate, Comparator<TargetType> targetTypeComparator) throws Db4oIOException, DatabaseClosedException {
+    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate, Comparator<TargetType> targetTypeComparator) throws DatabaseClosedException {
         ObjectContainer oc=db();
         return oc.query(targetTypePredicate, targetTypeComparator);
     }
 
 
 
-    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate, QueryComparator<TargetType> targetTypeQueryComparator) throws Db4oIOException, DatabaseClosedException {
+    public  <TargetType> ObjectSet<TargetType> query(Predicate<TargetType> targetTypePredicate, QueryComparator<TargetType> targetTypeQueryComparator) throws DatabaseClosedException {
         ObjectContainer oc=db();
         return oc.query(targetTypePredicate, targetTypeQueryComparator);
     }

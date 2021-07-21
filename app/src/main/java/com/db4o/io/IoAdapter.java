@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.io;
 
-import com.db4o.*;
-import com.db4o.ext.*;
+import com.db4o.DTrace;
 
 /**
  * Base class for database file adapters, both for file and memory databases.
@@ -45,7 +44,7 @@ public abstract class IoAdapter {
 	 * copies a block within a file in block mode
 	 */
 	public void blockCopy(int oldAddress, int oldAddressOffset, int newAddress,
-			int newAddressOffset, int length) throws Db4oIOException {
+			int newAddressOffset, int length) {
 		copy(
 			regularAddress(oldAddress, oldAddressOffset),
 			regularAddress(newAddress, newAddressOffset),
@@ -55,14 +54,14 @@ public abstract class IoAdapter {
 	/**
 	 * sets the read/write pointer in the file using block mode
 	 */
-	public void blockSeek(int address) throws Db4oIOException {
+	public void blockSeek(int address) {
 		blockSeek(address, 0);
 	}
 
 	/**
 	 * sets the read/write pointer in the file using block mode
 	 */
-	public void blockSeek(int address, int offset) throws Db4oIOException {
+	public void blockSeek(int address, int offset) {
 		seek(regularAddress(address, offset));
 	}
 
@@ -79,13 +78,12 @@ public abstract class IoAdapter {
 	/**
 	 * implement to close the adapter
 	 */
-	public abstract void close() throws Db4oIOException;
+	public abstract void close();
 
 	/**
 	 * copies a block within a file in absolute mode
 	 */
-	public void copy(long oldAddress, long newAddress, int length)
-			throws Db4oIOException {
+	public void copy(long oldAddress, long newAddress, int length) {
 
 		if (DTrace.enabled) {
 			DTrace.IO_COPY.logLength(newAddress, length);
@@ -106,8 +104,7 @@ public abstract class IoAdapter {
 		copy(new byte[length], oldAddress, newAddress);
 	}
 
-	private void copy(byte[] buffer, long oldAddress, long newAddress)
-			throws Db4oIOException {
+	private void copy(byte[] buffer, long oldAddress, long newAddress) {
 		seek(oldAddress);
 		read(buffer);
 		seek(newAddress);
@@ -127,50 +124,49 @@ public abstract class IoAdapter {
 	/**
 	 * implement to return the absolute length of the file
 	 */
-	public abstract long getLength() throws Db4oIOException;
+	public abstract long getLength();
 
 	/**
 	 * implement to open the file
 	 */
 	public abstract IoAdapter open(String path, boolean lockFile,
-			long initialLength, boolean readOnly) throws Db4oIOException;
+			long initialLength, boolean readOnly);
 
 	/**
 	 * reads a buffer at the seeked address
 	 * 
 	 * @return the number of bytes read and returned
 	 */
-	public int read(byte[] buffer) throws Db4oIOException {
+	public int read(byte[] buffer) {
 		return read(buffer, buffer.length);
 	}
 
 	/**
 	 * implement to read a buffer at the seeked address
 	 */
-	public abstract int read(byte[] bytes, int length) throws Db4oIOException;
+	public abstract int read(byte[] bytes, int length);
 
 	/**
 	 * implement to set the read/write pointer in the file, absolute mode
 	 */
-	public abstract void seek(long pos) throws Db4oIOException;
+	public abstract void seek(long pos);
 
 	/**
 	 * implement to flush the file contents to storage
 	 */
-	public abstract void sync() throws Db4oIOException;
+	public abstract void sync();
 
 	/**
 	 * writes a buffer to the seeked address
 	 */
-	public void write(byte[] bytes) throws Db4oIOException {
+	public void write(byte[] bytes) {
 		write(bytes, bytes.length);
 	}
 
 	/**
 	 * implement to write a buffer at the seeked address
 	 */
-	public abstract void write(byte[] buffer, int length)
-			throws Db4oIOException;
+	public abstract void write(byte[] buffer, int length);
 
 	/**
 	 * returns the block size currently used

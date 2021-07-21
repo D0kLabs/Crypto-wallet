@@ -15,34 +15,89 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import static com.db4o.foundation.Environments.*;
+import com.db4o.DTrace;
+import com.db4o.Debug4;
+import com.db4o.Deploy;
+import com.db4o.Internal4;
+import com.db4o.ObjectSet;
+import com.db4o.Rename;
+import com.db4o.config.Configuration;
+import com.db4o.config.Entry;
+import com.db4o.config.QueryEvaluationMode;
+import com.db4o.ext.CompositeDb4oException;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oDatabase;
+import com.db4o.ext.Db4oException;
+import com.db4o.ext.Db4oRecoverableException;
+import com.db4o.ext.Db4oUUID;
+import com.db4o.ext.InvalidIDException;
+import com.db4o.ext.InvalidSlotException;
+import com.db4o.ext.ObjectInfo;
+import com.db4o.ext.ObjectNotStorableException;
+import com.db4o.ext.OldFormatException;
+import com.db4o.ext.StoredClass;
+import com.db4o.ext.SystemInfo;
+import com.db4o.foundation.ArgumentNullException;
+import com.db4o.foundation.ByRef;
+import com.db4o.foundation.Closure4;
+import com.db4o.foundation.Environment;
+import com.db4o.foundation.Environments;
+import com.db4o.foundation.Function4;
+import com.db4o.foundation.IntIdGenerator;
+import com.db4o.foundation.Iterator4;
+import com.db4o.foundation.Iterator4Impl;
+import com.db4o.foundation.List4;
+import com.db4o.foundation.NotSupportedException;
+import com.db4o.foundation.TimeStampIdGenerator;
+import com.db4o.foundation.Tree;
+import com.db4o.internal.activation.ActivationContext4;
+import com.db4o.internal.activation.ActivationDepth;
+import com.db4o.internal.activation.ActivationDepthProvider;
+import com.db4o.internal.activation.ActivationMode;
+import com.db4o.internal.activation.FixedActivationDepth;
+import com.db4o.internal.activation.LegacyActivationDepth;
+import com.db4o.internal.activation.NullModifiedObjectQuery;
+import com.db4o.internal.activation.TransparentActivationDepthProvider;
+import com.db4o.internal.activation.UnknownActivationDepth;
+import com.db4o.internal.activation.UpdateDepth;
+import com.db4o.internal.activation.UpdateDepthProvider;
+import com.db4o.internal.callbacks.Callbacks;
+import com.db4o.internal.encoding.BuiltInStringEncoding;
+import com.db4o.internal.encoding.LatinStringIO;
+import com.db4o.internal.handlers.array.ArrayHandler;
+import com.db4o.internal.marshall.UnmarshallingContext;
+import com.db4o.internal.metadata.TraverseFieldCommand;
+import com.db4o.internal.query.NativeQueryHandler;
+import com.db4o.internal.query.ObjectSetFacade;
+import com.db4o.internal.query.processor.QQuery;
+import com.db4o.internal.query.processor.QQueryBase;
+import com.db4o.internal.query.result.AbstractQueryResult;
+import com.db4o.internal.query.result.QueryResult;
+import com.db4o.internal.references.ReferenceSystem;
+import com.db4o.internal.references.ReferenceSystemFactory;
+import com.db4o.internal.references.ReferenceSystemRegistry;
+import com.db4o.internal.replication.Db4oReplicationReferenceProvider;
+import com.db4o.internal.slots.Pointer4;
+import com.db4o.internal.threading.ThreadPool4;
+import com.db4o.internal.weakref.WeakReferenceSupport;
+import com.db4o.internal.weakref.WeakReferenceSupportFactory;
+import com.db4o.query.JdkComparatorWrapper;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+import com.db4o.query.QueryComparator;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.core.ReflectorUtils;
+import com.db4o.reflect.generic.GenericReflector;
+import com.db4o.typehandlers.ActivationContext;
+import com.db4o.typehandlers.TypeHandler4;
+import com.db4o.types.Db4oType;
+import com.db4o.types.TransientClass;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-import com.db4o.*;
-import com.db4o.config.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.activation.*;
-import com.db4o.internal.callbacks.*;
-import com.db4o.internal.encoding.*;
-import com.db4o.internal.handlers.array.*;
-import com.db4o.internal.marshall.*;
-import com.db4o.internal.metadata.*;
-import com.db4o.internal.query.*;
-import com.db4o.internal.query.processor.*;
-import com.db4o.internal.query.result.*;
-import com.db4o.internal.references.*;
-import com.db4o.internal.replication.*;
-import com.db4o.internal.slots.*;
-import com.db4o.internal.threading.*;
-import com.db4o.internal.weakref.*;
-import com.db4o.query.*;
-import com.db4o.reflect.*;
-import com.db4o.reflect.core.*;
-import com.db4o.reflect.generic.*;
-import com.db4o.typehandlers.*;
-import com.db4o.types.*;
+import static com.db4o.foundation.Environments.runWith;
 /**
  * @exclude
  * @sharpen.extends System.IDisposable
@@ -174,7 +229,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 		runWith(_environment, runnable);
 	}
 
-	protected abstract void openImpl() throws Db4oIOException;
+	protected abstract void openImpl();
     
 	public ActivationDepth defaultActivationDepth(ClassMetadata classMetadata) {
 		return activationDepthProvider().activationDepthFor(classMetadata, ActivationMode.ACTIVATE);
@@ -242,7 +297,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
         }
     }
 
-	public void backup(String path) throws DatabaseClosedException, Db4oIOException {
+	public void backup(String path) throws DatabaseClosedException {
     	backup(configImpl().storage(), path);
     }
 
@@ -1382,13 +1437,12 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 
     public abstract void raiseCommitTimestamp(long minimumTimestamp);
 
-    public abstract void readBytes(byte[] a_bytes, int a_address, int a_length) throws Db4oIOException;
+    public abstract void readBytes(byte[] a_bytes, int a_address, int a_length);
 
-    public abstract void readBytes(byte[] bytes, int address, int addressOffset, int length) throws Db4oIOException;
+    public abstract void readBytes(byte[] bytes, int address, int addressOffset, int length);
     
 
-    public final ByteArrayBuffer decryptedBufferByAddress(int address, int length)
-			throws Db4oIOException {
+    public final ByteArrayBuffer decryptedBufferByAddress(int address, int length) {
 		ByteArrayBuffer reader = rawBufferByAddress(address, length);
 		_handlers.decrypt(reader);
 		return reader;
@@ -1409,7 +1463,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 	}
 
     public final StatefulBuffer readWriterByAddress(Transaction a_trans,
-        int address, int length) throws Db4oIOException {
+        int address, int length){
     	checkAddress(address);
         StatefulBuffer reader = createStatefulBuffer(a_trans, address, length);
         reader.readEncrypt(this, address);
@@ -1729,7 +1783,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 
 	private void assertNotInCallback() {
 	    if(InCallback.value()) {
-	    	throw new Db4oIllegalStateException("Objects must not be updated in callback");
+	    	//throw new Db4oIllegalStateException("Objects must not be updated in callback");
 	    }
     }
 
@@ -2098,10 +2152,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
     	}
     }
 	
-	/**
-     * @sharpen.ignore
-     */
-    @decaf.Ignore(decaf.Platform.JDK11)
+
     public ObjectSet query(Predicate predicate,Comparator comparator) {
 		return query(null, predicate,new JdkComparatorWrapper(comparator));
 	}

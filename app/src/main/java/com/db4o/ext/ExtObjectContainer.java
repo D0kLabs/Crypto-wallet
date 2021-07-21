@@ -49,7 +49,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * {@link Activatable} will also be activated. Any {@link Activatable} objects 
      * along the referenced graph will break cascading activation.
      */
-    void activate(Object obj)throws Db4oIOException, DatabaseClosedException;
+    void activate(Object obj)throws DatabaseClosedException;
 
     /**
      * deactivates an object. 
@@ -74,8 +74,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * configuration/environment
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    void backup(String path) throws Db4oIOException,
-			DatabaseClosedException, NotSupportedException;
+    void backup(String path) throws DatabaseClosedException, NotSupportedException;
 
 
     /**
@@ -94,8 +93,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * configuration/environment
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-    void backup(Storage targetStorage, String path) throws Db4oIOException,
-			DatabaseClosedException, NotSupportedException;
+    void backup(Storage targetStorage, String path) throws DatabaseClosedException, NotSupportedException;
     
     /**
      * binds an object to an internal object ID.
@@ -180,7 +178,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
-    <T> T getByUUID(Db4oUUID uuid) throws DatabaseClosedException, Db4oIOException;
+    <T> T getByUUID(Db4oUUID uuid) throws DatabaseClosedException;
 
     /**
      * returns the internal unique object ID.

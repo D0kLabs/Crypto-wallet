@@ -15,17 +15,34 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal.handlers;
 
-import com.db4o.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.*;
-import com.db4o.internal.delete.*;
-import com.db4o.internal.encoding.*;
-import com.db4o.internal.marshall.*;
-import com.db4o.internal.slots.*;
-import com.db4o.marshall.*;
-import com.db4o.reflect.*;
-import com.db4o.typehandlers.*;
+import com.db4o.CorruptionException;
+import com.db4o.Debug4;
+import com.db4o.Deploy;
+import com.db4o.foundation.PreparedComparison;
+import com.db4o.internal.BuiltinTypeHandler;
+import com.db4o.internal.ByteArrayBuffer;
+import com.db4o.internal.Const4;
+import com.db4o.internal.DefragmentContext;
+import com.db4o.internal.DefragmentContextImpl;
+import com.db4o.internal.IndexableTypeHandler;
+import com.db4o.internal.InternalObjectContainer;
+import com.db4o.internal.ObjectContainerBase;
+import com.db4o.internal.StatefulBuffer;
+import com.db4o.internal.Transaction;
+import com.db4o.internal.delete.DeleteContext;
+import com.db4o.internal.encoding.LatinStringIO;
+import com.db4o.internal.marshall.MarshallerFamily;
+import com.db4o.internal.marshall.ObjectIdContext;
+import com.db4o.internal.slots.Slot;
+import com.db4o.marshall.Context;
+import com.db4o.marshall.ReadBuffer;
+import com.db4o.marshall.ReadContext;
+import com.db4o.marshall.WriteBuffer;
+import com.db4o.marshall.WriteContext;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.Reflector;
+import com.db4o.typehandlers.QueryableTypeHandler;
+import com.db4o.typehandlers.ValueTypeHandler;
 
 /**
  * @exclude
@@ -62,7 +79,7 @@ public class StringHandler implements ValueTypeHandler, IndexableTypeHandler, Bu
     /**
      * This readIndexEntry method reads from the parent slot.
      */
-    public Object readIndexEntryFromObjectSlot(MarshallerFamily mf, StatefulBuffer buffer) throws CorruptionException, Db4oIOException {
+    public Object readIndexEntryFromObjectSlot(MarshallerFamily mf, StatefulBuffer buffer) throws CorruptionException {
         int payLoadOffSet = buffer.readInt();
         int length = buffer.readInt();
         if(payLoadOffSet == 0){
@@ -71,7 +88,7 @@ public class StringHandler implements ValueTypeHandler, IndexableTypeHandler, Bu
         return buffer.readPayloadWriter(payLoadOffSet, length);
     }
     
-    public Object readIndexEntry(ObjectIdContext context) throws CorruptionException, Db4oIOException{
+    public Object readIndexEntry(ObjectIdContext context) throws CorruptionException {
         int payLoadOffSet = context.readInt();
         int length = context.readInt();
         if(payLoadOffSet == 0){

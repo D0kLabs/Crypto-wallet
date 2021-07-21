@@ -15,11 +15,10 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.typehandlers;
 
-import com.db4o.config.*;
-import com.db4o.ext.*;
-import com.db4o.internal.*;
-import com.db4o.internal.delete.*;
-import com.db4o.marshall.*;
+import com.db4o.config.Configuration;
+import com.db4o.internal.DefragmentContext;
+import com.db4o.internal.delete.DeleteContext;
+import com.db4o.marshall.WriteContext;
 
 
 /**
@@ -36,7 +35,7 @@ public interface TypeHandler4 {
 	 * @param context 
 	 * @throws Db4oIOException
 	 */
-	void delete(DeleteContext context) throws Db4oIOException;
+	void delete(DeleteContext context);
 	
 	/**
 	 * gets called when an object gets defragmented.

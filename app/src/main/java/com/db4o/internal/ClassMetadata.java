@@ -15,30 +15,82 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.internal;
 
-import java.util.*;
+import com.db4o.DTrace;
+import com.db4o.Debug4;
+import com.db4o.ObjectSet;
+import com.db4o.StaticClass;
+import com.db4o.StaticField;
+import com.db4o.TransactionAware;
+import com.db4o.config.ConfigScope;
+import com.db4o.config.ObjectTranslator;
+import com.db4o.ext.ObjectInfo;
+import com.db4o.ext.StoredClass;
+import com.db4o.ext.StoredField;
+import com.db4o.foundation.ArgumentNullException;
+import com.db4o.foundation.Arrays4;
+import com.db4o.foundation.BooleanByRef;
+import com.db4o.foundation.ByRef;
+import com.db4o.foundation.Closure4;
+import com.db4o.foundation.Collection4;
+import com.db4o.foundation.Function4;
+import com.db4o.foundation.Hashtable4;
+import com.db4o.foundation.Iterator4;
+import com.db4o.foundation.Iterators;
+import com.db4o.foundation.Predicate4;
+import com.db4o.foundation.PreparedComparison;
+import com.db4o.foundation.Procedure4;
+import com.db4o.foundation.TernaryBool;
+import com.db4o.foundation.Visitor4;
+import com.db4o.internal.activation.ActivationContext4;
+import com.db4o.internal.activation.ActivationDepth;
+import com.db4o.internal.activation.ActivationMode;
+import com.db4o.internal.activation.FixedActivationDepth;
+import com.db4o.internal.activation.UpdateDepth;
+import com.db4o.internal.classindex.BTreeClassIndexStrategy;
+import com.db4o.internal.classindex.ClassIndexStrategy;
+import com.db4o.internal.delete.DeleteContext;
+import com.db4o.internal.delete.DeleteContextImpl;
+import com.db4o.internal.diagnostic.DiagnosticProcessor;
+import com.db4o.internal.encoding.LatinStringIO;
+import com.db4o.internal.handlers.HandlerVersion;
+import com.db4o.internal.handlers.StandardReferenceTypeHandler;
+import com.db4o.internal.handlers.array.ArrayHandler;
+import com.db4o.internal.marshall.AspectVersionContextImpl;
+import com.db4o.internal.marshall.ClassMarshaller;
+import com.db4o.internal.marshall.CollectIdContext;
+import com.db4o.internal.marshall.ContextState;
+import com.db4o.internal.marshall.HandlerVersionContext;
+import com.db4o.internal.marshall.MarshallerFamily;
+import com.db4o.internal.marshall.ObjectHeader;
+import com.db4o.internal.marshall.ObjectHeaderContext;
+import com.db4o.internal.marshall.ObjectIdContextImpl;
+import com.db4o.internal.marshall.ObjectReferenceContext;
+import com.db4o.internal.marshall.QueryingReadContext;
+import com.db4o.internal.marshall.UnmarshallingContext;
+import com.db4o.internal.metadata.AspectTraversalStrategy;
+import com.db4o.internal.metadata.HierarchyAnalyzer;
+import com.db4o.internal.metadata.HierarchyAnalyzer.Diff;
+import com.db4o.internal.metadata.ModifiedAspectTraversalStrategy;
+import com.db4o.internal.metadata.StandardAspectTraversalStrategy;
+import com.db4o.internal.metadata.TraverseAspectCommand;
+import com.db4o.internal.metadata.TraverseFieldCommand;
+import com.db4o.internal.query.processor.QConObject;
+import com.db4o.internal.reflect.FieldAccessor;
+import com.db4o.internal.reflect.LenientFieldAccessor;
+import com.db4o.internal.reflect.StrictFieldAccessor;
+import com.db4o.marshall.Context;
+import com.db4o.marshall.ReadBuffer;
+import com.db4o.query.Query;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.ReflectField;
+import com.db4o.reflect.core.ReflectorUtils;
+import com.db4o.reflect.generic.GenericReflector;
+import com.db4o.typehandlers.ActivationContext;
+import com.db4o.typehandlers.CascadingTypeHandler;
+import com.db4o.typehandlers.InstantiatingTypeHandler;
+import com.db4o.typehandlers.TypeHandler4;
 
-import com.db4o.*;
-import com.db4o.config.*;
-import com.db4o.ext.*;
-import com.db4o.foundation.*;
-import com.db4o.internal.activation.*;
-import com.db4o.internal.classindex.*;
-import com.db4o.internal.delete.*;
-import com.db4o.internal.diagnostic.*;
-import com.db4o.internal.encoding.*;
-import com.db4o.internal.handlers.*;
-import com.db4o.internal.handlers.array.*;
-import com.db4o.internal.marshall.*;
-import com.db4o.internal.metadata.*;
-import com.db4o.internal.metadata.HierarchyAnalyzer.*;
-import com.db4o.internal.query.processor.*;
-import com.db4o.internal.reflect.*;
-import com.db4o.marshall.*;
-import com.db4o.query.*;
-import com.db4o.reflect.*;
-import com.db4o.reflect.core.*;
-import com.db4o.reflect.generic.*;
-import com.db4o.typehandlers.*;
+import java.util.List;
 
 
 /**
@@ -747,7 +799,7 @@ public class ClassMetadata extends PersistentBase implements StoredClass {
 	    return buffer.transaction().container()._handlers.arrayType(obj);
     }
 
-    public void delete(DeleteContext context) throws Db4oIOException {
+    public void delete(DeleteContext context) {
         correctHandlerVersion(context).delete(context);
     }
     

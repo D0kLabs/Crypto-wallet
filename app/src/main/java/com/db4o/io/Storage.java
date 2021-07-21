@@ -15,10 +15,9 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.io;
 
-import java.io.*;
+import com.db4o.config.FileConfiguration;
 
-import com.db4o.config.*;
-import com.db4o.ext.*;
+import java.io.IOException;
 
 /**
  * Base interface for Storage adapters that open a {@link Bin}
@@ -30,7 +29,7 @@ public interface Storage {
 	/**
 	 * opens a {@link Bin} to store db4o database data. 
 	 */
-	Bin open(BinConfiguration config) throws Db4oIOException;
+	Bin open(BinConfiguration config);
 
 	/**
 	 * returns true if a Bin (file or memory) exists with the passed name. 

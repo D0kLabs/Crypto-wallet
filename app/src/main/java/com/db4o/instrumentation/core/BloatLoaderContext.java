@@ -15,15 +15,21 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.instrumentation.core;
 
-import java.util.*;
-
 import com.EDU.purdue.cs.bloat.cfg.*;
 import com.EDU.purdue.cs.bloat.context.*;
 import com.EDU.purdue.cs.bloat.editor.*;
 import com.EDU.purdue.cs.bloat.reflect.*;
+import com.d0klabs.cryptowalt.data.ClassEditor;
+import com.d0klabs.cryptowalt.data.ClassInfoLoader;
+import com.d0klabs.cryptowalt.data.EditorContext;
+import com.d0klabs.cryptowalt.data.MethodEditor;
+import com.d0klabs.cryptowalt.data.MethodInfo;
+import com.d0klabs.cryptowalt.data.Type;
+import com.db4o.instrumentation.bloat.BloatReferenceProvider;
+import com.db4o.instrumentation.util.BloatUtil;
 
-import com.db4o.instrumentation.bloat.*;
-import com.db4o.instrumentation.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.LinkedList;
 
 /**
  * @exclude
@@ -75,7 +81,7 @@ public class BloatLoaderContext {
 		return null;
 	}
 
-	public FieldEditor field(ClassEditor classEdit, String fieldName,Type fieldType) throws ClassNotFoundException {
+	public EditorContext.FieldEditor field(ClassEditor classEdit, String fieldName, Type fieldType) throws ClassNotFoundException {
 		ClassEditor clazz = classEdit;
 		while(clazz != null) {
 			FieldInfo[] fields = clazz.fields();
