@@ -20,16 +20,6 @@ import com.db4o.foundation.ArgumentNullException;
 import com.db4o.internal.ObjectContainerFactory;
 import com.db4o.internal.config.EmbeddedConfigurationImpl;
 
-/**
- * Factory class to open db4o instances in embedded mode.
- * 
- * <br><br>
- * @see com.db4o.cs.Db4oClientServer class in
- * db4o-[version]-cs-java[java-version].jar
- * for methods to open db4o servers and db4o clients.
- * @since 7.5
- * 
- */
 public class Db4oEmbedded {
 
 	public static EmbeddedConfiguration newConfiguration() {
