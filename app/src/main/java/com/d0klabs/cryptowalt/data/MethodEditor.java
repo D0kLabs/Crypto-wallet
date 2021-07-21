@@ -3003,7 +3003,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
         this.addShort(index);
         MemberRef method = (MemberRef)inst.operand();
         Type type = method.nameAndType().type();
-        Assert.isTrue(type.isMethod(), "Trying to invoke a type that is not a method: " + method);
         this.stackHeight += type.returnType().stackHeight() - type.stackHeight();
     }
 
