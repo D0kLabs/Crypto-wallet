@@ -1,5 +1,7 @@
 package com.d0klabs.cryptowalt.data;
 
+import android.widget.Switch;
+
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1398,9 +1400,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
 
                                 if (inst.isSwitch()) {
                                     heights[i] += diff;
-                                    if (ClassEditor.DEBUG || DEBUG) {
-                                        System.out.println("  " + heights[i] + ") " + inst);
-                                    }
 
                                     Switch sw = (Switch)inst.operand();
                                     label = sw.defaultTarget();
@@ -1428,15 +1427,8 @@ public class CodeArray implements InstructionVisitor, Opcode {
                                 }
 
                                 heights[i] += diff;
-                                if (ClassEditor.DEBUG || DEBUG) {
-                                    System.out.println("  " + heights[i] + ") " + inst);
-                                }
                             } else {
                                 heights[i] += diff;
-                                if (ClassEditor.DEBUG || DEBUG) {
-                                    System.out.println("  " + heights[i] + ") " + inst);
-                                }
-
                                 label = (Label)inst.operand();
                                 if (diff > 0 || !visited.contains(label)) {
                                     visited.add(label);
@@ -1449,10 +1441,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
                             if (diff > 0 || !visited.contains(label)) {
                                 visited.add(label);
                                 heights[i] = heights[i - 1];
-                            }
-
-                            if (ClassEditor.DEBUG || DEBUG) {
-                                System.out.println("  " + heights[i] + ") " + label);
                             }
                         }
                     }
@@ -1518,9 +1506,7 @@ public class CodeArray implements InstructionVisitor, Opcode {
             instIndex = inst;
             label = (Label)this.branches.get(branch);
             target = (Integer)this.labels.get(label);
-            Assert.isTrue(target != null, "Index of " + label + " not found");
             diff = target - instIndex;
-            Assert.isTrue(-diff < 65536 && diff < 65536, "Branch offset too large: " + diff);
             c[branchIndex] = (byte)(diff >>> 8 & 255);
         }
 
@@ -1541,18 +1527,10 @@ public class CodeArray implements InstructionVisitor, Opcode {
     }
 
     public void addLabel(Label label) {
-        if (ClassEditor.DEBUG || DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "label " + label);
-        }
-
         this.labels.put(label, new Integer(this.codeLength));
     }
 
     public void addLongBranch(Label label) {
-        if (ClassEditor.DEBUG || DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "long branch to " + label);
-        }
-
         this.branchInsts.put(new Integer(this.codeLength), new Integer(this.lastInst));
         this.longBranches.put(new Integer(this.codeLength), label);
         this.addByte(0);
@@ -1562,10 +1540,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
     }
 
     public void addBranch(Label label) {
-        if (ClassEditor.DEBUG || DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "branch to " + label);
-        }
-
         this.branchInsts.put(new Integer(this.codeLength), new Integer(this.lastInst));
         this.branches.put(new Integer(this.codeLength), label);
         this.addByte(0);
@@ -1573,10 +1547,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
     }
 
     public void addOpcode(int opcode) {
-        if (ClassEditor.DEBUG || DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "opcode " + Opcode.opcNames[opcode]);
-        }
-
         this.lastInst = this.codeLength;
         this.addByte(opcode);
         if (opcode == 170 || opcode == 171) {
@@ -1588,10 +1558,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
     }
 
     public void addByte(int i) {
-        if (ClassEditor.DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "byte " + i);
-        }
-
         CodeArray.ByteCell p = new CodeArray.ByteCell();
         p.value = (byte)(i & 255);
         p.prev = this.codeTail;
@@ -1600,19 +1566,11 @@ public class CodeArray implements InstructionVisitor, Opcode {
     }
 
     public void addShort(int i) {
-        if (ClassEditor.DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "short " + i);
-        }
-
         this.addByte(i >>> 8);
         this.addByte(i);
     }
 
     public void addInt(int i) {
-        if (ClassEditor.DEBUG) {
-            System.out.println("    " + this.codeLength + ": " + "int " + i);
-        }
-
         this.addByte(i >>> 24);
         this.addByte(i >>> 16);
         this.addByte(i >>> 8);
@@ -1630,7 +1588,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
             this.addOpcode(1);
             ++this.stackHeight;
         } else {
-            int index;
             int index;
             if (operand instanceof Integer) {
                 index = (Integer)operand;

@@ -47,10 +47,6 @@ public class ClassEditor {
                 interfaces = new Type[0];
             }
 
-            if (DEBUG) {
-                System.out.println("Creating new class " + className + " extends " + superType.className());
-            }
-
             this.context = context;
             this.superclass = superType;
             this.interfaces = interfaces;
@@ -532,8 +528,8 @@ public class ConstantPool {
                     c = new ClassInfo.Constant(tag, v);
             }
 
-            Integer index = (Integer)this.constantIndices.get(c);
-            if (index == null) {
+            index = (Integer)this.constantIndices.get(c);
+            if (((Integer) index) == null) {
                 index = new Integer(this.constants.size());
                 this.constantIndices.put(c, index);
                 this.constants.add(c);
