@@ -1,7 +1,5 @@
 package com.d0klabs.cryptowalt.data;
 
-import android.widget.Switch;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1654,7 +1652,6 @@ public class CodeArray implements InstructionVisitor, Opcode {
 
                 ++this.stackHeight;
             } else {
-                int index;
                 if (operand instanceof Long) {
                     long v = (Long)operand;
                     if (v == 0L) {
@@ -3164,4 +3161,5 @@ public class CodeArray implements InstructionVisitor, Opcode {
         }
     }
 }
+
 

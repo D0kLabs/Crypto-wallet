@@ -1175,7 +1175,7 @@ interface EditorVisitor {
 
     void visitFieldEditor(EditorContext.FieldEditor var1);
 }
-class ClassFormatException extends RuntimeException {
+public class ClassFormatException extends RuntimeException {
     public ClassFormatException(String msg) {
         super(msg);
     }

@@ -10,7 +10,6 @@ import com.d0klabs.cryptowalt.data.LeafExpr.StaticFieldExpr;
 import com.d0klabs.cryptowalt.data.LeafExpr.Stmt;
 import com.d0klabs.cryptowalt.data.LeafExpr.Tree;
 import com.d0klabs.cryptowalt.data.LeafExpr.TreeVisitor;
-import com.d0klabs.cryptowalt.data.Handler.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -209,7 +208,7 @@ public class Block extends GraphNode {
     }
 }
 
-public class StackOptimizer {
+class StackOptimizer {
     static boolean DEBUG = false;
     Hashtable defInfoMap;
     Hashtable useInfoMap;
@@ -1599,7 +1598,7 @@ class FieldExpr extends MemRefExpr {
         return this.copyInto(new FieldExpr((Expr)this.object.clone(), this.field, this.type));
     }
 }
-class MemberRef {
+public class MemberRef {
     private Type declaringClass;
     private NameAndType nameAndType;
 
@@ -1637,7 +1636,7 @@ class MemberRef {
         return this.declaringClass.hashCode() ^ this.nameAndType.hashCode();
     }
 }
-class NameAndType {
+public class NameAndType {
     private String name;
     private Type type;
 

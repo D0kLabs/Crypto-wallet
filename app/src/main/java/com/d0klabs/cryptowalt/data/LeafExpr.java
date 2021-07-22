@@ -1,6 +1,5 @@
 package com.d0klabs.cryptowalt.data;
 
-import android.widget.Switch;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
