@@ -40,7 +40,7 @@ public abstract class Db4OGenericDao<T> {
             synchronized (this){
                 try {
                     if (oc == null || oc.ext().isClosed()) {
-                        oc = Db4oEmbedded.openFile(dbConfig(), db4oDBFullPath(context));
+                        oc = Db4oEmbedded.openFile(dbConfig());
                     }
 
                     return oc;
