@@ -1081,7 +1081,7 @@ public interface LeafExpr {
                     t0 = this.newStackLocal(this.stack.height(), s01[0].type());
                     t2 = this.newStackLocal(this.stack.height() + 1, s01[1].type());
                     t3 = this.newStackLocal(this.stack.height() + 2, s23[0].type());
-                    LocalExpr t3 = this.newStackLocal(this.stack.height() + 3, s23[1].type());
+                    t3 = this.newStackLocal(this.stack.height() + 3, s23[1].type());
                     if (!t0.equalsExpr(s01[0])) {
                         this.addStore(t0, s01[0]);
                     }
@@ -1188,7 +1188,7 @@ public interface LeafExpr {
                             this.addStore(t2, s23[0]);
                         }
 
-                        Expr copy = (Expr)t2.clone();
+                        copy = (Expr)t2.clone();
                         copy.setDef((DefExpr)null);
                         this.stack.push(copy);
                         copy = (Expr)t0.clone();
