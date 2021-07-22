@@ -1598,73 +1598,7 @@ class FieldExpr extends MemRefExpr {
         return this.copyInto(new FieldExpr((Expr)this.object.clone(), this.field, this.type));
     }
 }
-public class MemberRef {
-    private Type declaringClass;
-    private NameAndType nameAndType;
 
-    public MemberRef(Type declaringClass, NameAndType nameAndType) {
-        this.declaringClass = declaringClass;
-        this.nameAndType = nameAndType;
-    }
-
-    public Type declaringClass() {
-        return this.declaringClass;
-    }
-
-    public String name() {
-        return this.nameAndType.name();
-    }
-
-    public Type type() {
-        return this.nameAndType.type();
-    }
-
-    public NameAndType nameAndType() {
-        return this.nameAndType;
-    }
-
-    public String toString() {
-        String className = this.declaringClass.toString();
-        return "<" + (this.type().isMethod() ? "Method" : "Field") + " " + className + "." + this.name() + " " + this.type() + ">";
-    }
-
-    public boolean equals(Object obj) {
-        return obj instanceof MemberRef && ((MemberRef)obj).declaringClass.equals(this.declaringClass) && ((MemberRef)obj).nameAndType.equals(this.nameAndType);
-    }
-
-    public int hashCode() {
-        return this.declaringClass.hashCode() ^ this.nameAndType.hashCode();
-    }
-}
-public class NameAndType {
-    private String name;
-    private Type type;
-
-    public NameAndType(String name, Type type) {
-        this.name = name;
-        this.type = type;
-    }
-
-    public String name() {
-        return this.name;
-    }
-
-    public Type type() {
-        return this.type;
-    }
-
-    public String toString() {
-        return "<NameandType " + this.name + " " + this.type + ">";
-    }
-
-    public boolean equals(Object obj) {
-        return obj instanceof NameAndType && ((NameAndType)obj).name.equals(this.name) && ((NameAndType)obj).type.equals(this.type);
-    }
-
-    public int hashCode() {
-        return this.name.hashCode() ^ this.type.hashCode();
-    }
-}
 class ExprStmt extends Stmt {
     Expr expr;
 
@@ -1689,44 +1623,7 @@ class ExprStmt extends Stmt {
         return this.copyInto(new ExprStmt((Expr)this.expr.clone()));
     }
 }
-public class Type1Visitor extends AscendVisitor {
-    Node turningPoint;
-    boolean found;
 
-    public Type1Visitor(Hashtable defInfoMap, Hashtable useInfoMap) {
-        super(defInfoMap, useInfoMap);
-    }
-
-    public void search(LocalExpr start) {
-        this.start = start;
-        this.previous = this.start;
-        this.found = false;
-        start.parent().visit(this);
-        if (!this.found) {
-            if (this.turningPoint != null) {
-                (new Type1UpVisitor(this.defInfoMap, this.useInfoMap)).search(this.turningPoint, start);
-            } else {
-                DefInformation var10000 = (DefInformation)this.defInfoMap.get(start.def());
-                var10000.type1s += 3;
-            }
-        }
-
-    }
-
-    public void check(Node node) {
-        if (node instanceof Expr && ((Expr)node).type().isWide()) {
-            this.turningPoint = null;
-        } else {
-            this.turningPoint = node;
-            if (node instanceof StoreExpr) {
-                this.check(((StoreExpr)node).expr());
-            } else if (!(node instanceof LocalExpr) && node instanceof Expr) {
-                this.found = (new Type1DownVisitor(this.useInfoMap, this.defInfoMap)).search(node, this.start);
-            }
-
-        }
-    }
-}
 class StoreExpr extends Expr {
     MemExpr target;
     Expr expr;

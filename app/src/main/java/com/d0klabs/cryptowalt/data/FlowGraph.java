@@ -787,7 +787,7 @@ public class FlowGraph extends Graph {
                             catchBlock.setBlockType(1);
                         }
 
-                        Block h = catchBlock.header();
+                        h = catchBlock.header();
                         if (h != null) {
                             h.setBlockType(1);
                         }
@@ -819,7 +819,7 @@ public class FlowGraph extends Graph {
             LinkedList worklist = new LinkedList(body);
 
             while(!worklist.isEmpty()) {
-                Block x = (Block)worklist.removeFirst();
+                x = (Block)worklist.removeFirst();
                 int xn = this.preOrderIndex(x);
                 Iterator e = nonBackPreds[xn].iterator();
 
@@ -1109,8 +1109,6 @@ public class FlowGraph extends Graph {
             }
 
             Set copySet = new HashSet();
-            Block block;
-            Block copy;
             Block copy;
             if (canPeel) {
                 Set exits = new HashSet();
