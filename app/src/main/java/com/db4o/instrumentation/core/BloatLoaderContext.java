@@ -1012,7 +1012,7 @@ abstract class BloatContext implements InlineContext {
 
 	}
 }
-public class ClassFileLoader implements ClassInfoLoader {
+class ClassFileLoader implements ClassInfoLoader {
 	public static boolean DEBUG = false;
 	public static boolean USE_SYSTEM_CLASSES = true;
 	private File outputDir;
