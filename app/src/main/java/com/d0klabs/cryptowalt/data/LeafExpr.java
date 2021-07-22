@@ -2490,7 +2490,7 @@ public interface LeafExpr {
     public abstract class Expr extends Node implements Cloneable {
         protected Type type;
         private DefExpr def = null;
-        private Object comparator = new Expr.ExprComparator((Expr.ExprComparator)null);
+        private Object comparator = new Expr.ExprComparator();
 
         public Expr(int index, Type type) {
             this.type = type;
@@ -3099,7 +3099,7 @@ public interface LeafExpr {
 
         public void visitStackManipStmt(StackManipStmt stmt) {
             this.print("(");
-            StackExpr[] target = stmt.target();
+            LeafExpr.StackExpr[] target = stmt.target();
             if (target != null) {
                 for(int i = 0; i < target.length; ++i) {
                     target[i].visit(this);
@@ -3108,20 +3108,6 @@ public interface LeafExpr {
                     }
                 }
             }
-
-            String[] str = new String[]{"swap", "dup", "dup_x1", "dup_x2", "dup2", "dup2_x1", "dup2_x2"};
-            this.print(") := " + str[stmt.kind()] + "(");
-            StackExpr[] source = stmt.source();
-            if (source != null) {
-                for(int i = 0; i < source.length; ++i) {
-                    source[i].visit(this);
-                    if (i != source.length - 1) {
-                        this.print(", ");
-                    }
-                }
-            }
-
-            this.println(")");
         }
 
         public void visitPhiJoinStmt(PhiJoinStmt stmt) {

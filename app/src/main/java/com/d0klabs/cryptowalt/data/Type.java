@@ -594,7 +594,7 @@ public class Type {
 
     }
 }
-class LocalExpr extends VarExpr implements LeafExpr {
+public class LocalExpr extends VarExpr implements LeafExpr {
     boolean fromStack;
 
     public LocalExpr(int index, boolean fromStack, Type type) {

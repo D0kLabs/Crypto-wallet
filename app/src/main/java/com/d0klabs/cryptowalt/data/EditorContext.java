@@ -1168,7 +1168,7 @@ public interface EditorContext {
         }
     }
 }
-interface EditorVisitor {
+public interface EditorVisitor {
     void visitClassEditor(ClassEditor var1);
 
     void visitMethodEditor(MethodEditor var1);

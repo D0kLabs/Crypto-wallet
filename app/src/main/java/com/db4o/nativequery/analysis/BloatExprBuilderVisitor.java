@@ -15,7 +15,24 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.nativequery.analysis;
 
-import com.EDU.purdue.cs.bloat.cfg.FlowGraph;
+import com.d0klabs.cryptowalt.data.ArithExpr;
+import com.d0klabs.cryptowalt.data.ArrayRefExpr;
+import com.d0klabs.cryptowalt.data.Block;
+import com.d0klabs.cryptowalt.data.CallExpr;
+import com.d0klabs.cryptowalt.data.CallMethodExpr;
+import com.d0klabs.cryptowalt.data.CallStaticExpr;
+import com.d0klabs.cryptowalt.data.ClassEditor;
+import com.d0klabs.cryptowalt.data.ConstantExpr;
+import com.d0klabs.cryptowalt.data.ExprStmt;
+import com.d0klabs.cryptowalt.data.FieldExpr;
+import com.d0klabs.cryptowalt.data.FlowGraph;
+import com.d0klabs.cryptowalt.data.IfCmpStmt;
+import com.d0klabs.cryptowalt.data.LeafExpr;
+import com.d0klabs.cryptowalt.data.LocalExpr;
+import com.d0klabs.cryptowalt.data.MemberRef;
+import com.d0klabs.cryptowalt.data.ReturnExprStmt;
+import com.d0klabs.cryptowalt.data.StoreExpr;
+import com.d0klabs.cryptowalt.data.Type;
 import com.db4o.activation.ActivationPurpose;
 import com.db4o.instrumentation.api.CallingConvention;
 import com.db4o.instrumentation.api.FieldRef;
@@ -56,11 +73,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.EDU.purdue.cs.bloat.cfg.*;
-import com.EDU.purdue.cs.bloat.editor.*;
-import com.EDU.purdue.cs.bloat.tree.*;
-
-public class BloatExprBuilderVisitor extends TreeVisitor {
+public class BloatExprBuilderVisitor extends LeafExpr.TreeVisitor {
 
 	// TODO discuss: drop or make configurable
 	private final static int MAX_DEPTH = 10;
@@ -138,7 +151,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		return result[0];
 	}
 
-	public void visitIfZeroStmt(IfZeroStmt stmt) {
+	public void visitIfZeroStmt(LeafExpr.IfZeroStmt stmt) {
 		enterStatement();
 		ExpressionPart retval = descend(stmt.expr());
 		exitStatement();
@@ -162,7 +175,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		}
 		if (retval instanceof Expression) {
 			Expression expr = (Expression) retval;
-			if (stmt.comparison() == IfStmt.EQ && !cmpNull || stmt.comparison() == IfStmt.NE && cmpNull) {
+			if (stmt.comparison() == LeafExpr.IfStmt.EQ && !cmpNull || stmt.comparison() == LeafExpr.IfStmt.NE && cmpNull) {
 				expr = EXP_BUILDER.not(expr);
 			}
 			expression(buildComparison(stmt, expr));
@@ -178,27 +191,27 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 			comparison = ((Integer) OpSymmetryUtil.counterpart(comparison)).intValue();
 		}
 		switch (comparison) {
-		case IfStmt.EQ:
+		case LeafExpr.IfStmt.EQ:
 			expr = comparisonExpression(cmp.left(), cmp.right(),
 					ComparisonOperator.VALUE_EQUALITY);
 			break;
-		case IfStmt.NE:
+		case LeafExpr.IfStmt.NE:
 			expr = EXP_BUILDER.not(comparisonExpression(cmp.left(),
 					cmp.right(), ComparisonOperator.VALUE_EQUALITY));
 			break;
-		case IfStmt.LT:
+		case LeafExpr.IfStmt.LT:
 			expr = comparisonExpression(cmp.left(), cmp.right(),
 					ComparisonOperator.SMALLER);
 			break;
-		case IfStmt.GT:
+		case LeafExpr.IfStmt.GT:
 			expr = comparisonExpression(cmp.left(), cmp.right(),
 					ComparisonOperator.GREATER);
 			break;
-		case IfStmt.LE:
+		case LeafExpr.IfStmt.LE:
 			expr = EXP_BUILDER.not(comparisonExpression(cmp.left(),
 					cmp.right(), ComparisonOperator.GREATER));
 			break;
-		case IfStmt.GE:
+		case LeafExpr.IfStmt.GE:
 			expr = EXP_BUILDER.not(comparisonExpression(cmp.left(),
 					cmp.right(), ComparisonOperator.SMALLER));
 			break;
@@ -336,7 +349,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		if (NQDebug.LOG) {
 			System.out
 					.println("METHOD:" + flowGraph.method().nameAndType());
-			flowGraph.visit(new PrintVisitor());
+			flowGraph.visit(new LeafExpr.PrintVisitor());
 		}
 		BloatExprBuilderVisitor visitor = new BloatExprBuilderVisitor(_context, _methodStack, params);
 		flowGraph.visit(visitor);
@@ -361,7 +374,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		Type declaringClass = expr.method().declaringClass();
 		// Nice try, but doesn't help, since the receiver's type always seems to be reported as java.lang.Object.
 		if(expr instanceof CallMethodExpr) {
-			Expr receiverExpr=((CallMethodExpr)expr).receiver();
+			LeafExpr.Expr receiverExpr=((CallMethodExpr)expr).receiver();
 			Type receiverType=receiverExpr.type();
 			if(isSuperType(declaringClass,receiverType)) {
 				declaringClass=receiverType;
@@ -556,13 +569,13 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		return false;
 	}
 
-	private boolean isPrimitiveExpr(Expr expr) {
+	private boolean isPrimitiveExpr(LeafExpr.Expr expr) {
 		return expr.type().isPrimitive();
 	}
 
 	private void processEqualsCall(CallMethodExpr expr, ComparisonOperator op) {
-		Expr left = expr.receiver();
-		Expr right = expr.params()[0];
+		LeafExpr.Expr left = expr.receiver();
+		LeafExpr.Expr right = expr.params()[0];
 		if (!isComparableExprOperand(left) || !isComparableExprOperand(right)) {
 			throw new EarlyExitException();
 		}
@@ -587,8 +600,8 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		return ((op instanceof FieldValue) && ((FieldValue) op).root() == CandidateFieldRoot.INSTANCE);
 	}
 
-	private boolean isComparableExprOperand(Expr expr) {
-		return (expr instanceof FieldExpr) || (expr instanceof StaticFieldExpr)
+	private boolean isComparableExprOperand(LeafExpr.Expr expr) {
+		return (expr instanceof FieldExpr) || (expr instanceof LeafExpr.StaticFieldExpr)
 				|| (expr instanceof CallMethodExpr)
 				|| (expr instanceof CallStaticExpr)
 				|| (expr instanceof ConstantExpr)
@@ -603,7 +616,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		}
 	}
 
-	public void visitStaticFieldExpr(StaticFieldExpr expr) {
+	public void visitStaticFieldExpr(LeafExpr.StaticFieldExpr expr) {
 		MemberRef field = expr.field();
 		retval(fieldValue(new StaticFieldRoot(typeRef(field
 				.declaringClass())), fieldRef(field)));
@@ -764,7 +777,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		}
 	}
 
-	private Expression buildComparison(IfStmt stmt, Expression cmp) {
+	private Expression buildComparison(LeafExpr.IfStmt stmt, Expression cmp) {
 		stmt.trueTarget().visit(this);
 		ExpressionPart trueVal = purgeReturnValue();
 		stmt.falseTarget().visit(this);
@@ -798,7 +811,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 	}
 	
 	public void visitStoreExpr(StoreExpr expr) {
-		if(!(expr.target() instanceof StackExpr)) {
+		if(!(expr.target() instanceof LeafExpr.StackExpr)) {
 			throw new EarlyExitException();
 		}
 		super.visitStoreExpr(expr);
@@ -825,7 +838,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		return new FieldValue(parent, field);
 	}
 
-	private <T extends ExpressionPart> T descend(Node node) {
+	private <T extends ExpressionPart> T descend(LeafExpr.Node node) {
 		node.visit(this);
 		return (T)purgeReturnValue();
 	}

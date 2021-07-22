@@ -1554,77 +1554,8 @@ abstract class CondExpr extends Expr {
         super(operand.index(), type);
     }
 }
-class FieldExpr extends MemRefExpr {
-    Expr object;
-    MemberRef field;
 
-    public FieldExpr(Expr object, MemberRef field, Type type) {
-        super(type);
-        this.object = object;
-        this.field = field;
-        object.setParent(this);
-    }
-
-    public Expr object() {
-        return this.object;
-    }
-
-    public MemberRef field() {
-        return this.field;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        if (visitor.reverse()) {
-            this.object.visit(visitor);
-        } else {
-            this.object.visit(visitor);
-        }
-
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitFieldExpr(this);
-    }
-
-    public int exprHashCode() {
-        return 11 + this.object.exprHashCode() ^ this.type.simple().hashCode();
-    }
-
-    public boolean equalsExpr(Expr other) {
-        return other != null && other instanceof FieldExpr && ((FieldExpr)other).field.equals(this.field) && ((FieldExpr)other).object.equalsExpr(this.object);
-    }
-
-    public Object clone() {
-        return this.copyInto(new FieldExpr((Expr)this.object.clone(), this.field, this.type));
-    }
-}
-
-class ExprStmt extends Stmt {
-    Expr expr;
-
-    public ExprStmt(Expr expr) {
-        this.expr = expr;
-        expr.setParent(this);
-    }
-
-    public Expr expr() {
-        return this.expr;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        this.expr.visit(visitor);
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitExprStmt(this);
-    }
-
-    public Object clone() {
-        return this.copyInto(new ExprStmt((Expr)this.expr.clone()));
-    }
-}
-
-class StoreExpr extends Expr {
+public class StoreExpr extends Expr {
     MemExpr target;
     Expr expr;
 
@@ -1740,7 +1671,7 @@ class Type1DownVisitor extends DescendVisitor {
 
     }
 }
-class ConstantExpr extends Expr implements LeafExpr {
+public class ConstantExpr extends Expr implements LeafExpr {
     Object value;
 
     public ConstantExpr(Object value, Type type) {
@@ -1825,54 +1756,8 @@ class CastExpr extends Expr {
         return this.copyInto(new CastExpr((Expr)this.expr.clone(), this.castType, this.type));
     }
 }
-class CallStaticExpr extends CallExpr {
-    public CallStaticExpr(Expr[] params, MemberRef method, Type type) {
-        super(params, method, type);
-    }
 
-    public void visitForceChildren(TreeVisitor visitor) {
-        int i;
-        if (visitor.reverse()) {
-            for(i = this.params.length - 1; i >= 0; --i) {
-                this.params[i].visit(visitor);
-            }
-        } else {
-            for(i = 0; i < this.params.length; ++i) {
-                this.params[i].visit(visitor);
-            }
-        }
-
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitCallStaticExpr(this);
-    }
-
-    public int exprHashCode() {
-        int v = 6;
-
-        for(int i = 0; i < this.params.length; ++i) {
-            v ^= this.params[i].exprHashCode();
-        }
-
-        return v;
-    }
-
-    public boolean equalsExpr(Expr other) {
-        return false;
-    }
-
-    public Object clone() {
-        Expr[] p = new Expr[this.params.length];
-
-        for(int i = 0; i < this.params.length; ++i) {
-            p[i] = (Expr)this.params[i].clone();
-        }
-
-        return this.copyInto(new CallStaticExpr(p, this.method, this.type));
-    }
-}
-abstract class CallExpr extends Expr {
+public abstract class CallExpr extends Expr {
     Expr[] params;
     MemberRef method;
     public int voltaPos;
@@ -1896,127 +1781,7 @@ abstract class CallExpr extends Expr {
         return this.params;
     }
 }
-class CallMethodExpr extends CallExpr {
-    public static final int VIRTUAL = 0;
-    public static final int NONVIRTUAL = 1;
-    public static final int INTERFACE = 2;
-    Expr receiver;
-    int kind;
 
-    public CallMethodExpr(int kind, Expr receiver, Expr[] params, MemberRef method, Type type) {
-        super(params, method, type);
-        this.receiver = receiver;
-        this.kind = kind;
-        receiver.setParent(this);
-    }
-
-    public int kind() {
-        return this.kind;
-    }
-
-    public Expr receiver() {
-        return this.receiver;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        int i;
-        if (visitor.reverse()) {
-            for(i = this.params.length - 1; i >= 0; --i) {
-                this.params[i].visit(visitor);
-            }
-
-            this.receiver.visit(visitor);
-        } else {
-            this.receiver.visit(visitor);
-
-            for(i = 0; i < this.params.length; ++i) {
-                this.params[i].visit(visitor);
-            }
-        }
-
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitCallMethodExpr(this);
-    }
-
-    public int exprHashCode() {
-        int v = 5 + this.kind ^ this.receiver.exprHashCode();
-
-        for(int i = 0; i < this.params.length; ++i) {
-            v ^= this.params[i].exprHashCode();
-        }
-
-        return v;
-    }
-
-    public boolean equalsExpr(Expr other) {
-        return false;
-    }
-
-    public Object clone() {
-        Expr[] p = new Expr[this.params.length];
-
-        for(int i = 0; i < this.params.length; ++i) {
-            p[i] = (Expr)this.params[i].clone();
-        }
-
-        return this.copyInto(new CallMethodExpr(this.kind, (Expr)this.receiver.clone(), p, this.method, this.type));
-    }
-}
-class ArrayRefExpr extends MemRefExpr {
-    Expr array;
-    Expr index;
-    Type elementType;
-
-    public ArrayRefExpr(Expr array, Expr index, Type elementType, Type type) {
-        super(type);
-        this.array = array;
-        this.index = index;
-        this.elementType = elementType;
-        array.setParent(this);
-        index.setParent(this);
-    }
-
-    public Expr array() {
-        return this.array;
-    }
-
-    public Expr index() {
-        return this.index;
-    }
-
-    public Type elementType() {
-        return this.elementType;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        if (visitor.reverse()) {
-            this.index.visit(visitor);
-            this.array.visit(visitor);
-        } else {
-            this.array.visit(visitor);
-            this.index.visit(visitor);
-        }
-
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitArrayRefExpr(this);
-    }
-
-    public int exprHashCode() {
-        return 4 + this.array.exprHashCode() ^ this.index.exprHashCode();
-    }
-
-    public boolean equalsExpr(Expr other) {
-        return other != null && other instanceof ArrayRefExpr && ((ArrayRefExpr)other).array.equalsExpr(this.array) && ((ArrayRefExpr)other).index.equalsExpr(this.index);
-    }
-
-    public Object clone() {
-        return this.copyInto(new ArrayRefExpr((Expr)this.array.clone(), (Expr)this.index.clone(), this.elementType, this.type));
-    }
-}
 class ArrayLengthExpr extends Expr {
     Expr array;
 
@@ -2055,7 +1820,7 @@ class ArrayLengthExpr extends Expr {
         return this.copyInto(new ArrayLengthExpr((Expr)this.array.clone(), this.type));
     }
 }
-class ArithExpr extends Expr {
+public class ArithExpr extends Expr {
     char operation;
     Expr left;
     Expr right;
@@ -2372,30 +2137,7 @@ class ReturnStmt extends JumpStmt {
         return this.copyInto(new ReturnStmt());
     }
 }
-class ReturnExprStmt extends JumpStmt {
-    Expr expr;
 
-    public ReturnExprStmt(Expr expr) {
-        this.expr = expr;
-        expr.setParent(this);
-    }
-
-    public Expr expr() {
-        return this.expr;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        this.expr.visit(visitor);
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitReturnExprStmt(this);
-    }
-
-    public Object clone() {
-        return this.copyInto(new ReturnExprStmt((Expr)this.expr.clone()));
-    }
-}
 class RetStmt extends JumpStmt {
     Subroutine sub;
 
@@ -2579,8 +2321,8 @@ class PhiCatchStmt extends PhiStmt {
     }
 }
 class StackManipStmt extends Stmt {
-    StackExpr[] target;
-    StackExpr[] source;
+    LeafExpr.StackExpr[] target;
+    LeafExpr.StackExpr[] source;
     int kind;
     public static final int SWAP = 0;
     public static final int DUP = 1;
@@ -2590,7 +2332,7 @@ class StackManipStmt extends Stmt {
     public static final int DUP2_X1 = 5;
     public static final int DUP2_X2 = 6;
 
-    public StackManipStmt(StackExpr[] target, StackExpr[] source, int kind) {
+    public StackManipStmt(LeafExpr.StackExpr[] target, LeafExpr.StackExpr[] source, int kind) {
         this.kind = kind;
         this.target = target;
 
@@ -2604,18 +2346,17 @@ class StackManipStmt extends Stmt {
         for(i = 0; i < source.length; ++i) {
             this.source[i].setParent(this);
         }
-
     }
 
     public DefExpr[] defs() {
         return this.target;
     }
 
-    public StackExpr[] target() {
+    public LeafExpr.StackExpr[] target() {
         return this.target;
     }
 
-    public StackExpr[] source() {
+    public LeafExpr.StackExpr[] source() {
         return this.source;
     }
 
@@ -2650,16 +2391,16 @@ class StackManipStmt extends Stmt {
     }
 
     public Object clone() {
-        StackExpr[] t = new StackExpr[this.target.length];
+        LeafExpr.StackExpr[] t = new LeafExpr.StackExpr[this.target.length];
 
         for(int i = 0; i < this.target.length; ++i) {
-            t[i] = (StackExpr)this.target[i].clone();
+            t[i] = (LeafExpr.StackExpr) this.target[i].clone();
         }
 
-        StackExpr[] s = new StackExpr[this.source.length];
+        LeafExpr.StackExpr[] s = new LeafExpr.StackExpr[this.source.length];
 
         for(int i = 0; i < this.source.length; ++i) {
-            s[i] = (StackExpr)this.source[i].clone();
+            s[i] = (LeafExpr.StackExpr)this.source[i].clone();
         }
 
         return this.copyInto(new StackManipStmt(t, s, this.kind));
@@ -2727,45 +2468,7 @@ abstract class PhiStmt extends Stmt {
         throw new RuntimeException();
     }
 }
-class IfCmpStmt extends LeafExpr.IfStmt {
-    Expr left;
-    Expr right;
 
-    public IfCmpStmt(int comparison, Expr left, Expr right, Block trueTarget, Block falseTarget) {
-        super(comparison, trueTarget, falseTarget);
-        this.left = left;
-        this.right = right;
-        left.setParent(this);
-        right.setParent(this);
-    }
-
-    public Expr left() {
-        return this.left;
-    }
-
-    public Expr right() {
-        return this.right;
-    }
-
-    public void visitForceChildren(TreeVisitor visitor) {
-        if (visitor.reverse()) {
-            this.right.visit(visitor);
-            this.left.visit(visitor);
-        } else {
-            this.left.visit(visitor);
-            this.right.visit(visitor);
-        }
-
-    }
-
-    public void visit(TreeVisitor visitor) {
-        visitor.visitIfCmpStmt(this);
-    }
-
-    public Object clone() {
-        return this.copyInto(new IfCmpStmt(this.comparison, (Expr)this.left.clone(), (Expr)this.right.clone(), this.trueTarget, this.falseTarget));
-    }
-}
 class InitStmt extends Stmt {
     LocalExpr[] targets;
 

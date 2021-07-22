@@ -16,13 +16,13 @@ with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.ta.instrumentation;
 
 import com.d0klabs.cryptowalt.data.ClassEditor;
-import com.EDU.purdue.cs.bloat.editor.EditorVisitor;
-import com.EDU.purdue.cs.bloat.editor.FieldEditor;
-import com.EDU.purdue.cs.bloat.editor.Instruction;
-import com.EDU.purdue.cs.bloat.editor.Label;
-import com.EDU.purdue.cs.bloat.editor.MemberRef;
-import com.EDU.purdue.cs.bloat.editor.MethodEditor;
-import com.EDU.purdue.cs.bloat.editor.Type;
+import com.d0klabs.cryptowalt.data.EditorContext;
+import com.d0klabs.cryptowalt.data.EditorVisitor;
+import com.d0klabs.cryptowalt.data.InstructionVisitor;
+import com.d0klabs.cryptowalt.data.Label;
+import com.d0klabs.cryptowalt.data.MemberRef;
+import com.d0klabs.cryptowalt.data.MethodEditor;
+import com.d0klabs.cryptowalt.data.Type;
 import com.db4o.instrumentation.core.BloatClassEdit;
 import com.db4o.instrumentation.core.BloatLoaderContext;
 import com.db4o.instrumentation.core.InstrumentationStatus;
@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
+public abstract class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
 
 	final Map _replacements;
 	
@@ -79,7 +79,7 @@ public class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
 			_instrumented = true;
 		}
 
-		public void visitFieldEditor(FieldEditor editor) {
+		public void visitFieldEditor(EditorContext.FieldEditor editor) {
 		}
 
 		public void visitMethodEditor(MethodEditor editor) {
@@ -90,12 +90,12 @@ public class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
 				if(instructionOrLabel instanceof Label) {
 					continue;
 				}
-				if(!(instructionOrLabel instanceof Instruction)) {
+				if(!(instructionOrLabel instanceof InstructionVisitor.Instruction)) {
 					throw new IllegalStateException();
 				}
-				final Instruction instruction = (Instruction)instructionOrLabel;
+				final InstructionVisitor.Instruction instruction = (InstructionVisitor.Instruction)instructionOrLabel;
 				switch(instruction.origOpcode()) {
-					case Instruction.opc_new:
+					case InstructionVisitor.Instruction.opc_new:
 						Type newReplacementType = (Type) _replacements.get(instruction.operand());
 						if(newReplacementType == null) {
 							break;
@@ -103,7 +103,7 @@ public class ReplaceClassOnInstantiationEdit implements BloatClassEdit {
 						instruction.setOperand(newReplacementType);
 						break;
 					// invokespecial covers instance initializer, super class method and private method invocations
-					case Instruction.opc_invokespecial:
+					case InstructionVisitor.Instruction.opc_invokespecial:
 						MemberRef methodRef = (MemberRef) instruction.operand();
 						Type invokeReplacementType = (Type) _replacements.get(methodRef.declaringClass());
 						if(invokeReplacementType == null) {
