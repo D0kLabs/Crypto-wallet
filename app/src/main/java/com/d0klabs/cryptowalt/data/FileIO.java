@@ -22,7 +22,6 @@ public interface FileIO {
                 FILE_NAME.setReadOnly();
             }catch (FileNotFoundException e){
                 getLastData();
-
             }
         };
         public static String getLastData() throws IOException {
