@@ -2491,6 +2491,8 @@ public interface LeafExpr {
         }
 
         public void visitStackExpr(com.d0klabs.cryptowalt.data.StackExpr stackExpr) {this.visitVarExpr(stackExpr); }
+
+        public abstract void visitTree(com.d0klabs.cryptowalt.data.Tree tree);
     }
     public abstract class Expr extends Node implements Cloneable {
         protected Type type;
@@ -3592,6 +3594,22 @@ public interface LeafExpr {
 
         public void visitExpr(Expr expr) {
             this.print("EXPR");
+        }
+
+        @Override
+        public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+            final Iterator iter = tree.stmts().iterator();
+
+            while (iter.hasNext()) {
+                final Stmt stmt = (Stmt) iter.next();
+
+                if (stmt instanceof PhiStmt) {
+                    iter.remove();
+
+                } else {
+                    stmt.visit(this);
+                }
+            }
         }
 
         public void visitStmt(Stmt stmt) {
