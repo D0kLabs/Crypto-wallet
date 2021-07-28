@@ -1342,7 +1342,7 @@ class ZeroCheckExpr extends CheckExpr {
         return this.copyInto(new ZeroCheckExpr((Expr)this.expr.clone(), this.type));
     }
 }
-public class NewMultiArrayExpr extends Expr {
+class NewMultiArrayExpr extends Expr {
     Expr[] dimensions;
     Type elementType;
 
@@ -1570,7 +1570,7 @@ abstract class CondExpr extends Expr {
     }
 }
 
-public class StoreExpr extends Expr {
+class StoreExpr extends Expr {
     MemExpr target;
     Expr expr;
 
@@ -1696,7 +1696,7 @@ class Type1DownVisitor extends DescendVisitor {
 
     }
 }
-public class ConstantExpr extends Expr implements LeafExpr {
+class ConstantExpr extends Expr implements LeafExpr {
     Object value;
 
     public ConstantExpr(Object value, Type type) {
@@ -1782,7 +1782,7 @@ class CastExpr extends Expr {
     }
 }
 
-public abstract class CallExpr extends Expr {
+abstract class CallExpr extends Expr {
     Expr[] params;
     MemberRef method;
     public int voltaPos;
@@ -1845,7 +1845,7 @@ class ArrayLengthExpr extends Expr {
         return this.copyInto(new ArrayLengthExpr((Expr)this.array.clone(), this.type));
     }
 }
-public class ArithExpr extends Expr {
+class ArithExpr extends Expr {
     char operation;
     Expr left;
     Expr right;
@@ -2373,17 +2373,18 @@ class StackManipStmt extends Stmt {
         }
     }
 
+    public StackManipStmt(LeafExpr.StackExpr[] t, LeafExpr.StackExpr[] s, int kind) {
+    }
+
     public DefExpr[] defs() {
         return this.target;
     }
 
-    public LeafExpr.StackExpr[] target() {
+    public StackExpr[] target() {
         return this.target;
     }
 
-    public LeafExpr.StackExpr[] source() {
-        return this.source;
-    }
+    public StackExpr[] source() { return this.source;}
 
     public int kind() {
         return this.kind;

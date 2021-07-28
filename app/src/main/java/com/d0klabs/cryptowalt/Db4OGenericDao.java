@@ -4,18 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.d0klabs.cryptowalt.data.FileIO;
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.db4o.ObjectSet;
-import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.ext.DatabaseClosedException;
-import com.db4o.ext.DatabaseReadOnlyException;
-import com.db4o.query.Predicate;
-import com.db4o.query.Query;
-import com.db4o.query.QueryComparator;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public abstract class Db4OGenericDao<T> {
 

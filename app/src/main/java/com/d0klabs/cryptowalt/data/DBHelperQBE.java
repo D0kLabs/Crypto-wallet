@@ -1,11 +1,8 @@
 package com.d0klabs.cryptowalt.data;
 
-import android.bluetooth.BluetoothDevice;
-
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 
 public class DBHelperQBE {
+ /*
     ObjectContainer db;
     boolean openDb(String name) {
         if (name != null){
@@ -32,4 +29,5 @@ public class DBHelperQBE {
         }
         return result;
     }
+*/
 }

@@ -50,7 +50,7 @@ public interface EditorContext {
     void commit(FieldInfo var1);
 
     void commit();
-    public class ClassHierarchy {
+    class ClassHierarchy {
         public static final Type POS_SHORT = Type.getType("L+short!;");
         public static final Type POS_BYTE = Type.getType("L+byte!;");
         static final int MAX_INT = 8;
@@ -811,7 +811,7 @@ public interface EditorContext {
             }
         }
     }
-    public class FieldEditor {
+    class FieldEditor {
         private ClassEditor editor;
         private FieldInfo fieldInfo;
         private String name;
@@ -1168,14 +1168,8 @@ public interface EditorContext {
         }
     }
 }
-public interface EditorVisitor {
-    void visitClassEditor(ClassEditor var1);
 
-    void visitMethodEditor(MethodEditor var1);
-
-    void visitFieldEditor(EditorContext.FieldEditor var1);
-}
-public class ClassFormatException extends RuntimeException {
+class ClassFormatException extends RuntimeException {
     public ClassFormatException(String msg) {
         super(msg);
     }
