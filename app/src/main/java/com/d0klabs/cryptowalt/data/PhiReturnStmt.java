@@ -3,7 +3,7 @@ package com.d0klabs.cryptowalt.data;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PhiReturnStmt {
+public class PhiReturnStmt extends PhiStmt{
     Subroutine sub;
 
     LeafExpr.Expr operand;
@@ -18,6 +18,7 @@ public class PhiReturnStmt {
      *            The subroutine from which we are returning.
      */
     public PhiReturnStmt(final VarExpr target, final Subroutine sub) {
+        super(target);
         this.sub = sub;
         this.operand = (VarExpr) target.clone();
         operand.setParent(this);
@@ -30,9 +31,6 @@ public class PhiReturnStmt {
 
     public void visit(final LeafExpr.TreeVisitor visitor) {
         visitChildren(visitor);
-    }
-
-    private void visitChildren(LeafExpr.TreeVisitor visitor) {
     }
 
     /**
