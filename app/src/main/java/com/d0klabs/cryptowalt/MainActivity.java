@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +28,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.d0klabs.cryptowalt.data.DBHelperQBE;
 import com.d0klabs.cryptowalt.databinding.ActivityMainBinding;
 
 import java.io.IOException;
@@ -54,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
     public String passwd = null;
     public String readMessage = null;
-    DBHelperQBE CpWalDBHelper;
     private ActivityMainBinding binding;
     private AppBarConfiguration mAppBarConfiguration;
     private BtTransceiver.ChatController chatController;
@@ -139,40 +136,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        for (int i=0;i<100;i++){
-            new SaveObjectOnDb4o(currentContext).execute(null, null, null);
-        }
+
     }
-    public class SaveObjectOnDb4o extends AsyncTask<Void, Void, Void> {
-        public SaveObjectOnDb4o(Context mContext) {
 
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-                UserDao dao=new UserDao(currentContext);
-                dao.store(User.randomUser());
-
-                dao.close();
-                String str= "Storing object: success";
-                //mListStr.add(str);
-            }catch (Throwable e){
-                String str= "Storing objects: FAILED !!!!!!!!!!!";
-                //mListStr.add(str);
-                //mListStr.add(e.getMessage());
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void v) {
-            super.onPostExecute(v);
-            //mListAdapter.notifyDataSetChanged();
-        }
-    }
 
     private void connectToDevice(String deviceAddress) {
         bluetoothAdapter.cancelDiscovery();
