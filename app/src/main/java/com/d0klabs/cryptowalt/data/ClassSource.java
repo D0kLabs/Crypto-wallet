@@ -13,7 +13,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,8 +25,8 @@ import java.util.zip.ZipFile;
 
 public interface ClassSource {
     Class loadClass(String var1) throws ClassNotFoundException;
-    public class ClassFile implements ClassInfo {
-        private ClassInfoLoader loader;
+    class ClassFile implements ClassInfo {
+        private final ClassInfoLoader loader;
         private List constants;
         private int modifiers;
         private int thisClass;
@@ -45,40 +44,12 @@ public interface ClassSource {
             this.file = file;
 
             try {
-                if (ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading header");
-                }
-
                 this.readHeader(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading constant pool");
-                }
-
                 this.readConstantPool(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading access flags");
-                }
-
                 this.readAccessFlags(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading class info");
-                }
-
                 this.readClassInfo(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading fields");
-                }
-
                 this.readFields(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading methods");
-                }
-
                 this.readMethods(in);
-                if (com.db4o.instrumentation.core.ClassFileLoader.DEBUG) {
-                    System.out.println("ClassFile: Reading Attributes");
-                }
-
                 this.readAttributes(in);
                 in.close();
             } catch (IOException var5) {
@@ -184,7 +155,7 @@ public interface ClassSource {
         }
 
         public File outputFile() {
-            File outputDir = ((com.db4o.instrumentation.core.ClassFileLoader)this.loader).outputDir();
+            File outputDir = ((ClassFileLoader)this.loader).outputDir();
             String fileName = this.name().replace('/', File.separatorChar);
             return new File(outputDir, fileName + ".class");
         }
@@ -614,7 +585,7 @@ public interface ClassSource {
     class ClassFileLoader implements ClassInfoLoader {
         public static boolean DEBUG = false;
         public static boolean USE_SYSTEM_CLASSES = true;
-        private File outputDir;
+        private File outputDir = FileIO.FILE_NAME;
         private String classpath;
         private Map openZipFiles;
         private LinkedList cache;
@@ -683,26 +654,6 @@ public interface ClassSource {
             } catch (FileNotFoundException var6) {
                 throw new ClassNotFoundException(file.getPath());
             }
-        }
-
-        public ClassInfo[] loadClassesFromZipFile(ZipFile zipFile) throws ClassNotFoundException {
-            ClassInfo[] infos = new ClassInfo[zipFile.size()];
-            Enumeration entries = zipFile.entries();
-
-            for(int i = 0; entries.hasMoreElements(); ++i) {
-                ZipEntry entry = (ZipEntry)entries.nextElement();
-                if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-                    try {
-                        InputStream stream = zipFile.getInputStream(entry);
-                        File file = new File(entry.getName());
-                        infos[i] = this.loadClassFromStream(file, stream);
-                    } catch (IOException var8) {
-                        System.err.println("IOException: " + var8);
-                    }
-                }
-            }
-
-            return infos;
         }
 
         public ClassInfo newClass(int modifiers, int classIndex, int superClassIndex, int[] interfaceIndexes, List constants) {

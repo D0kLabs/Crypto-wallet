@@ -1737,9 +1737,6 @@ class CastExpr extends Expr {
     Expr expr;
     Type castType;
 
-    public CastExpr(Expr expr, Type type) {
-        this(expr, type, type);
-    }
 
     public CastExpr(Expr expr, Type castType, Type type) {
         super(operand.index(), type);
