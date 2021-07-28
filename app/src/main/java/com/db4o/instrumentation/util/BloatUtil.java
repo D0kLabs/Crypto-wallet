@@ -15,15 +15,14 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see http://www.gnu.org/licenses/. */
 package com.db4o.instrumentation.util;
 
-import java.io.*;
+import com.d0klabs.cryptowalt.data.ClassEditor;
+import com.d0klabs.cryptowalt.data.Opcode;
+import com.d0klabs.cryptowalt.data.Type;
+import com.db4o.instrumentation.core.BloatLoaderContext;
 
-import com.db4o.instrumentation.core.*;
+import java.io.File;
 
-import com.EDU.purdue.cs.bloat.editor.*;
 
-/**
- * @exclude
- */
 public class BloatUtil {
 
 	public static String normalizeClassName(Type type) {
@@ -60,14 +59,14 @@ public class BloatUtil {
 	public static LoadStoreInstructions loadStoreInstructionsFor(Type type) {
 		if (type.isPrimitive()) {
 			switch (type.typeCode()) {
-			case Type.DOUBLE_CODE:
-				return new LoadStoreInstructions(Opcode.opc_dload, Opcode.opc_dstore);
-			case Type.FLOAT_CODE:
-				return new LoadStoreInstructions(Opcode.opc_fload, Opcode.opc_fstore);
-			case Type.LONG_CODE:
-				return new LoadStoreInstructions(Opcode.opc_lload, Opcode.opc_lstore);
-			default:
-				return new LoadStoreInstructions(Opcode.opc_iload, Opcode.opc_istore);
+				case Type.DOUBLE_CODE:
+					return new LoadStoreInstructions(Opcode.opc_dload, Opcode.opc_dstore);
+				case Type.FLOAT_CODE:
+					return new LoadStoreInstructions(Opcode.opc_fload, Opcode.opc_fstore);
+				case Type.LONG_CODE:
+					return new LoadStoreInstructions(Opcode.opc_lload, Opcode.opc_lstore);
+				default:
+					return new LoadStoreInstructions(Opcode.opc_iload, Opcode.opc_istore);
 			}
 		}
 		return new LoadStoreInstructions(Opcode.opc_aload, Opcode.opc_astore);
@@ -76,6 +75,16 @@ public class BloatUtil {
 	public static boolean implementsInHierarchy(ClassEditor ce, Class markerInterface, BloatLoaderContext context) throws ClassNotFoundException {
 		while(ce != null) {
 			if(implementsDirectly(ce, markerInterface)) {
+				return true;
+			}
+			ce = context.classEditor(ce.superclass());
+		}
+		return false;
+	}
+
+	public static boolean extendsInHierarchy(ClassEditor ce, Class superClazz, BloatLoaderContext context) throws ClassNotFoundException {
+		while(ce != null) {
+			if(normalizeClassName(ce.name()).equals(superClazz.getName())) {
 				return true;
 			}
 			ce = context.classEditor(ce.superclass());
