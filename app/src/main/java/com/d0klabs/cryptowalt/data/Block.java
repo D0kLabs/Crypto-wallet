@@ -10,7 +10,6 @@ import com.d0klabs.cryptowalt.data.LeafExpr.StaticFieldExpr;
 import com.d0klabs.cryptowalt.data.LeafExpr.Stmt;
 import com.d0klabs.cryptowalt.data.LeafExpr.Tree;
 import com.d0klabs.cryptowalt.data.LeafExpr.TreeVisitor;
-import com.d0klabs.cryptowalt.data.PhiReturnStmt;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -391,6 +390,11 @@ class LEGatherer extends LeafExpr.TreeVisitor {
     public void visitLocalExpr(LocalExpr expr) {
         this.LEs.addElement(expr);
     }
+
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+    }
 }
 class DefInformation {
     int type1s = 0;
@@ -422,6 +426,11 @@ class Type0DownVisitor extends DescendVisitor {
 
             this.found = true;
         }
+
+    }
+
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
 
     }
 }
@@ -763,6 +772,11 @@ class Type0Visitor extends AscendVisitor {
             ++((UseInformation)this.useInfoMap.get(node)).type0s;
             this.found = true;
         }
+
+    }
+
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
 
     }
 }
@@ -1647,6 +1661,11 @@ class Type1UpVisitor extends AscendVisitor {
         }
 
     }
+
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+    }
 }
 class Type1DownVisitor extends DescendVisitor {
     public Type1DownVisitor(Hashtable useInfoMap, Hashtable defInfoMap) {
@@ -1669,6 +1688,11 @@ class Type1DownVisitor extends DescendVisitor {
             ++((DefInformation)this.defInfoMap.get(expr.def())).type1s;
             this.found = true;
         }
+
+    }
+
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
 
     }
 }
@@ -2322,8 +2346,8 @@ class PhiCatchStmt extends PhiStmt {
     }
 }
 class StackManipStmt extends Stmt {
-    LeafExpr.StackExpr[] target;
-    LeafExpr.StackExpr[] source;
+    StackExpr[] target;
+    StackExpr[] source;
     int kind;
     public static final int SWAP = 0;
     public static final int DUP = 1;
@@ -2333,7 +2357,7 @@ class StackManipStmt extends Stmt {
     public static final int DUP2_X1 = 5;
     public static final int DUP2_X2 = 6;
 
-    public StackManipStmt(LeafExpr.StackExpr[] target, LeafExpr.StackExpr[] source, int kind) {
+    public StackManipStmt(StackExpr[] target, StackExpr[] source, int kind) {
         this.kind = kind;
         this.target = target;
 

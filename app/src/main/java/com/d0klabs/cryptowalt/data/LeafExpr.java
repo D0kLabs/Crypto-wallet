@@ -2855,6 +2855,11 @@ public interface LeafExpr {
                     node.cleanupOnly();
                     node.visitChildren(this);
                 }
+
+                @Override
+                public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                }
             });
         }
 
@@ -4028,6 +4033,11 @@ public interface LeafExpr {
 
                     public void visitStmt(final Stmt stmt) {
                     }
+
+                    @Override
+                    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                    }
                 });
             }
 
@@ -4045,6 +4055,11 @@ public interface LeafExpr {
                         parent = node;
                         node.visitChildren(this);
                         parent = p;
+                    }
+
+                    @Override
+                    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
                     }
 
                     public void visitLocalExpr(final LocalExpr expr) {

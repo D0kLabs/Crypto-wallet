@@ -1210,18 +1210,6 @@ public class Tree extends LeafExpr.Node implements InstructionVisitor, Opcode {
         }
     }
 
-    /**
-     * When processing the <i>dup</i> instructions one of two situations can
-     * occur. If the <tt>USE_STACK</tt> flag is set, then a StackManipStmt is
-     * created to represent the transformation that the <i>dup</i> instruction
-     * performs on the stack. If the <tt>USE_STACK</tt> flag is not set, then
-     * the transformation is simulated by creating new local variables
-     * containing the appropriate element of the stack.
-     *
-     * @see LocalExpr
-     * @see StackExpr
-     * @see StackManipStmt
-     */
     public void visit_dup(final Instruction inst) {
         // 0 -> 0 0
 
@@ -1798,28 +1786,6 @@ public class Tree extends LeafExpr.Node implements InstructionVisitor, Opcode {
         }
     }
 
-    /**
-     * Produces a StackManipStmt that represents how the stack is changed as a
-     * result of a dup instruction. It should only be used when USE_STACK is
-     * true.
-     * <p>
-     * dup instructions change the top n elements of the JVM stack. This method
-     * takes the original top n elements of the stack, an integer array
-     * representing the transformation (for instance, if s[0] = 1, then the top
-     * element of the new stack should contain the second-from-the-top element
-     * of the old stack), and integer representing the dup instruction.
-     *
-     * @param source
-     *            The interesting part of the stack before the dup instruction
-     *            is executed.
-     * @param s
-     *            An integer array representing the new order of the stack.
-     * @param kind
-     *            The kind of stack manipulation taking place. (e.g.
-     *            StackManipStmt.DUP_X1)
-     *
-     * @see StackManipStmt
-     */
     private void manip(final StackExpr[] source, final int[] s, final int kind) {
         int height = 0; // Height of the stack
 
@@ -1830,12 +1796,6 @@ public class Tree extends LeafExpr.Node implements InstructionVisitor, Opcode {
             height += expr.type().stackHeight();
         }
 
-        // Create the new portion of the stack. Make new StackExpr
-        // representing the stack after the dup instruction. Push those
-        // new StackExprs onto the operand stack. Finally, create a
-        // StackManipStmt that represent the transformation of the old
-        // stack (before dup instruction) to the new stack (after dup
-        // instruction).
         final StackExpr[] target = new StackExpr[s.length];
 
         for (int i = 0; i < s.length; i++) {
