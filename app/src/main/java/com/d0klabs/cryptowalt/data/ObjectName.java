@@ -444,7 +444,7 @@ public class ObjectName implements Comparable<ObjectName> {
             if (sb.length() > 0)
                 sb.append(",");
             String key = entry.getKey();
-            String value;
+            String value = null;
             try {
                 value = entry.getValue();
             } catch (ClassCastException e) {
@@ -1076,9 +1076,14 @@ public class ObjectName implements Comparable<ObjectName> {
      *
      */
     public static ObjectName getInstance(ObjectName name) {
-        if (name.getClass().equals(ObjectName.class))
+        if (name.getClass().equals(ObjectName.class)) {
             return name;
-        return Util.newObjectName(name.getSerializedNameString());
+        }
+        return newObjectName(name.getSerializedNameString());
+    }
+
+    private static ObjectName newObjectName(String serializedNameString) {
+        return null;
     }
 
     /**
@@ -1669,7 +1674,7 @@ public class ObjectName implements Comparable<ObjectName> {
      *
      * @since 1.6
      */
-    public static final ObjectName WILDCARD = Util.newObjectName("*:*");
+    public static final ObjectName WILDCARD = newObjectName("*:*");
 
     // Category : Utilities <===================================
 
@@ -1711,9 +1716,13 @@ public class ObjectName implements Comparable<ObjectName> {
             // wildmatch domains
             // This ObjectName is the pattern
             // The other ObjectName is the string.
-            return Util.wildmatch(name.getDomain(),getDomain());
+            return wildmatch(name.getDomain(),getDomain());
         }
         return getDomain().equals(name.getDomain());
+    }
+
+    private boolean wildmatch(String domain, String domain1) {
+        return false;
     }
 
     private final boolean matchKeys(ObjectName name) {
@@ -1747,7 +1756,7 @@ public class ObjectName implements Comparable<ObjectName> {
                 if (isPropertyValuePattern() && (p instanceof PatternProperty)) {
                     // wildmatch key property values
                     // p is the property pattern, v is the string
-                    if (Util.wildmatch(v,p.getValueString(cn)))
+                    if (wildmatch(v,p.getValueString(cn)))
                         continue;
                     else
                         return false;

@@ -6417,6 +6417,16 @@ class RegisterAllocator {
                 }
             }
         }
+
+        @Override
+        public boolean contains(Block pred) {
+            return false;
+        }
+
+        @Override
+        public void retainAll(Collection nodes) {
+
+        }
     }
 }
 class Liveness {
@@ -7075,6 +7085,16 @@ class Liveness {
 
         public String toString() {
             return def.toString();
+        }
+
+        @Override
+        public boolean contains(Block pred) {
+            return false;
+        }
+
+        @Override
+        public void retainAll(Collection nodes) {
+
         }
     }
 

@@ -809,6 +809,16 @@ public interface EditorContext {
             public String toString() {
                 return "[" + this.type + "]";
             }
+
+            @Override
+            public boolean contains(Block pred) {
+                return false;
+            }
+
+            @Override
+            public void retainAll(Collection nodes) {
+
+            }
         }
     }
     class FieldEditor {

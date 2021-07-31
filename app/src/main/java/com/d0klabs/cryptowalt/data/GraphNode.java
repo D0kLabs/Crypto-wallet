@@ -2,6 +2,7 @@ package com.d0klabs.cryptowalt.data;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public abstract class GraphNode {
     protected HashSet succs = new HashSet();
@@ -39,4 +40,8 @@ public abstract class GraphNode {
     public abstract boolean contains(Block pred);
 
     public abstract void retainAll(Collection nodes);
+
+    public Iterator iterator() {
+        return null;
+    }
 }

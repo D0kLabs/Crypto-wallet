@@ -206,6 +206,16 @@ public class Block extends GraphNode {
     Collection pdomFrontier() {
         return this.pdomFrontier;
     }
+
+    @Override
+    public boolean contains(Block pred) {
+        return false;
+    }
+
+    @Override
+    public void retainAll(Collection nodes) {
+
+    }
 }
 
 class StackOptimizer {
