@@ -1,7 +1,7 @@
 package com.d0klabs.cryptowalt.data;
 
 public class ReturnExprStmt extends JumpStmt {
-
+    LeafExpr.Expr expr;
 
     public ReturnExprStmt(LeafExpr.Expr expr) {
         super(stmt.follow());
