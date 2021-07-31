@@ -39,4 +39,9 @@ public class Type1Visitor extends AscendVisitor {
 
         }
     }
+
+    @Override
+    public void visitTree(Tree tree) {
+
+    }
 }

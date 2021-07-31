@@ -2005,6 +2005,7 @@ class ThrowStmt extends JumpStmt {
     Expr expr;
 
     public ThrowStmt(Expr expr) {
+        super(stmt.follow());
         this.expr = expr;
         expr.setParent(this);
     }
@@ -2028,7 +2029,7 @@ class ThrowStmt extends JumpStmt {
 abstract class JumpStmt extends Stmt {
     Set catchTargets = new HashSet();
 
-    public JumpStmt() {
+    public JumpStmt(Block follow) {
     }
 
     public Collection catchTargets() {
@@ -2047,6 +2048,7 @@ class SwitchStmt extends JumpStmt {
     int[] values;
 
     public SwitchStmt(Expr index, Block defaultTarget, Block[] targets, int[] values) {
+        super(stmt.follow());
         this.index = index;
         this.defaultTarget = defaultTarget;
         this.targets = targets;
@@ -2095,6 +2097,7 @@ class JsrStmt extends JumpStmt {
     Block follow;
 
     public JsrStmt(Subroutine sub, Block follow) {
+        super(stmt.follow());
         this.sub = sub;
         this.follow = follow;
     }
@@ -2146,6 +2149,7 @@ class AddressStoreStmt extends Stmt {
 }
 class ReturnStmt extends JumpStmt {
     public ReturnStmt() {
+        super(stmt.follow());
     }
 
     public void visitForceChildren(TreeVisitor visitor) {
@@ -2164,6 +2168,7 @@ class RetStmt extends JumpStmt {
     Subroutine sub;
 
     public RetStmt(Subroutine sub) {
+        super(stmt.follow());
         this.sub = sub;
     }
 

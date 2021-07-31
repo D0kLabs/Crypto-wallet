@@ -35,4 +35,8 @@ public abstract class GraphNode {
     protected Collection preds() {
         return this.preds;
     }
+
+    public abstract boolean contains(Block pred);
+
+    public abstract void retainAll(Collection nodes);
 }

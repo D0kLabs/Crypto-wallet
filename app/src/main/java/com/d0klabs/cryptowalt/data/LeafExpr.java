@@ -3112,7 +3112,7 @@ public interface LeafExpr {
 
         public void visitStackManipStmt(StackManipStmt stmt) {
             this.print("(");
-            LeafExpr.StackExpr[] target = stmt.target();
+            com.d0klabs.cryptowalt.data.StackExpr[] target = stmt.target();
             if (target != null) {
                 for(int i = 0; i < target.length; ++i) {
                     target[i].visit(this);
@@ -4481,7 +4481,7 @@ public interface LeafExpr {
          * Represents a node in the interference graph. Connected nodes in the
          * interference graph interfere with each other. That is, their live regions
          */
-        class IGNode extends GraphNode {
+        static class IGNode extends GraphNode {
             LocalExpr def;
 
             /**
@@ -4496,6 +4496,21 @@ public interface LeafExpr {
 
             public String toString() {
                 return def.toString();
+            }
+
+            @Override
+            public boolean contains(Block pred) {
+                return false;
+            }
+
+            @Override
+            public void retainAll(Collection nodes) {
+
+            }
+
+            @Override
+            public Iterator iterator() {
+                return null;
             }
         }
 

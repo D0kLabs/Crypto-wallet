@@ -218,7 +218,6 @@ public class FlowGraph extends Graph {
             }
         }
 
-        FlowGraph.LoopNode loop;
         int level;
         for(iter = this.loopTree.postOrder().iterator(); iter.hasNext(); loop.level = level + 1) {
             loop = (FlowGraph.LoopNode)iter.next();
@@ -379,7 +378,6 @@ public class FlowGraph extends Graph {
                 LocalExpr tmp;
                 Object right;
                 Expr copy;
-                LocalExpr copy;
                 ExprStmt insert;
                 do {
                     do {
@@ -397,7 +395,7 @@ public class FlowGraph extends Graph {
                                     }
 
                                     if (last instanceof LeafExpr.IfZeroStmt) {
-                                        LeafExpr.IfZeroStmt stmt = (LeafExpr.IfZeroStmt)last;
+                                        stmt = (IfCmpStmt) last;
                                         target = null;
                                         if (stmt.trueTarget() != stmt.falseTarget()) {
                                             if (stmt.comparison() == 0) {
@@ -428,7 +426,7 @@ public class FlowGraph extends Graph {
                                                     if (left instanceof LocalExpr) {
                                                         copy = (LocalExpr)((LeafExpr.Expr)left).clone();
                                                         copy.setDef((LeafExpr.DefExpr)null);
-                                                        insert = new ExprStmt(new StoreExpr(copy, new ConstantExpr(value, type), ((LeafExpr.Expr)left).type()));
+                                                        insert = new ExprStmt(new StoreExpr((MemExpr) copy, new ConstantExpr(value, type), ((LeafExpr.Expr)left).type()));
                                                         target.tree().prependStmt(insert);
                                                     } else {
                                                     }
@@ -436,12 +434,12 @@ public class FlowGraph extends Graph {
                                             }
                                         }
                                     } else if (last instanceof SwitchStmt) {
-                                        SwitchStmt stmt = (SwitchStmt)last;
+                                        stmt = (IfCmpStmt) last;
                                         LeafExpr.Expr index = stmt.index();
                                         if (!(index instanceof LeafExpr)) {
                                             LocalVariable v = this.method.newLocal(((LeafExpr.Expr)index).type());
-                                            LocalExpr tmp = new LocalExpr(v.index(), ((LeafExpr.Expr)index).type());
-                                            Expr copy = (Expr)((Expr)index).clone();
+                                            tmp = new LocalExpr(v.index(), ((LeafExpr.Expr) index).type());
+                                            copy = (Expr)((Expr)index).clone();
                                             copy.setDef((DefExpr)null);
                                             ((Expr)index).replaceWith(new StoreExpr(tmp, copy, ((Expr)index).type()));
                                             index = tmp;
@@ -463,12 +461,12 @@ public class FlowGraph extends Graph {
                                             }
 
                                             for(i = 0; i < targets.length; ++i) {
-                                                Block target = targets[i];
+                                                target = targets[i];
                                                 if (!duplicate.contains(target)) {
                                                     this.splitEdge(block, targets[i]);
-                                                    LocalExpr copy = (LocalExpr)((Expr)index).clone();
+                                                    copy = (LocalExpr)((Expr)index).clone();
                                                     copy.setDef((DefExpr)null);
-                                                    Stmt insert = new ExprStmt(new StoreExpr(copy, new ConstantExpr(new Integer(values[i]), ((Expr)index).type()), ((Expr)index).type()));
+                                                    insert = new ExprStmt(new StoreExpr((MemExpr) copy, new ConstantExpr(new Integer(values[i]), ((Expr)index).type()), ((Expr)index).type()));
                                                     targets[i].tree().prependStmt(insert);
                                                 }
                                             }
@@ -492,13 +490,12 @@ public class FlowGraph extends Graph {
                 } while(((Expr)right).type().isReference());
 
                 LocalVariable v;
-                Expr copy;
                 if (!(left instanceof LeafExpr)) {
                     v = this.method.newLocal(((Expr)left).type());
                     copy = new LocalExpr(v.index(), ((Expr)left).type());
                     copy = (Expr)((Expr)left).clone();
                     copy.setDef((DefExpr)null);
-                    ((Expr)left).replaceWith(new StoreExpr(copy, copy, ((Expr)left).type()));
+                    ((Expr)left).replaceWith(new StoreExpr((MemExpr) copy, copy, ((Expr)left).type()));
                     left = copy;
                 }
 
@@ -507,7 +504,7 @@ public class FlowGraph extends Graph {
                     copy = new LocalExpr(v.index(), ((Expr)right).type());
                     copy = (Expr)((Expr)right).clone();
                     copy.setDef((DefExpr)null);
-                    ((Expr)right).replaceWith(new StoreExpr(copy, copy, ((Expr)right).type()));
+                    ((Expr)right).replaceWith(new StoreExpr((MemExpr) copy, copy, ((Expr)right).type()));
                     right = copy;
                 }
 
@@ -578,6 +575,11 @@ public class FlowGraph extends Graph {
                 }
 
             }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+            }
         });
         if (tryPreds.contains(block)) {
             for(int i = 0; i < defs.size(); ++i) {
@@ -586,12 +588,12 @@ public class FlowGraph extends Graph {
                     Stmt last = tree.lastStmt();
                     last.visitChildren(new TreeVisitor() {
                         public void visitExpr(Expr expr) {
-                            StackExpr var = tree.newStack(expr.type());
+                            LeafExpr.StackExpr var = tree.newStack(expr.type());
                             var.setValueNumber(expr.valueNumber());
                             Node p = expr.parent();
                             expr.setParent((Node)null);
                             p.visit(new ReplaceVisitor(expr, var));
-                            var = (StackExpr)var.clone();
+                            var = (LeafExpr.StackExpr) var.clone();
                             var.setDef((DefExpr)null);
                             StoreExpr store = new StoreExpr(var, expr, expr.type());
                             store.setValueNumber(expr.valueNumber());
@@ -601,6 +603,11 @@ public class FlowGraph extends Graph {
                         }
 
                         public void visitStackExpr(StackExpr expr) {
+                        }
+
+                        @Override
+                        public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
                         }
                     });
                     LocalExpr copy1 = (LocalExpr)expr.clone();
@@ -682,6 +689,11 @@ public class FlowGraph extends Graph {
             }
 
             public void visitStmt(Stmt stmt) {
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
             }
         });
     }
@@ -949,7 +961,7 @@ public class FlowGraph extends Graph {
                             }
                         }
 
-                        ImmutableIterator preds = new ImmutableIterator(this.preds(w));
+                        preds = new ImmutableIterator(this.preds(w));
 
                         while(preds.hasNext()) {
                             Block v = (Block)preds.next();
@@ -991,6 +1003,11 @@ public class FlowGraph extends Graph {
                 if (!hoistable.contains(node.block())) {
                     node.visitChildren(this);
                 }
+
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
 
             }
 
@@ -1041,7 +1058,7 @@ public class FlowGraph extends Graph {
 
         FlowGraph.LoopNode loop;
         for(int i = 0; i < loops.size(); ++i) {
-            FlowGraph.LoopNode loop = (FlowGraph.LoopNode)loops.get(i);
+            loop = (FlowGraph.LoopNode)loops.get(i);
             if (this.loopTree.preds(loop).size() > 0 && loop.header.blockType() != 1) {
                 headers.add(loop.header);
                 peel.add(new Integer(i));
@@ -1067,7 +1084,7 @@ public class FlowGraph extends Graph {
             Integer loopIndex = (Integer)peel.get(i);
             Integer outerLoopIndex = (Integer)outer.get(i);
             Block header = (Block)headers.get(i);
-            Collection loop = (Collection)loops.get(loopIndex);
+            loop = (LoopNode) loops.get(loopIndex);
             Collection outerLoop = (Collection)loops.get(outerLoopIndex);
             loop.retainAll(this.nodes());
             if (DEBUG) {
@@ -1113,8 +1130,8 @@ public class FlowGraph extends Graph {
             if (canPeel) {
                 Set exits = new HashSet();
                 exits.addAll(hoistable);
-                exits.retainAll(loop);
-                e = loop.iterator();
+                exits.retainAll((Collection<?>) loop);
+                e = ((Collection<?>) loop).iterator();
 
                 while(true) {
                     while(e.hasNext()) {
@@ -1156,7 +1173,7 @@ public class FlowGraph extends Graph {
             } else {
                 if (!canInvert) {
                     if (outerLoop != null) {
-                        outerLoop.addAll(loop);
+                        outerLoop.addAll((Collection) loop);
                     }
                     continue;
                 }
@@ -1303,7 +1320,7 @@ public class FlowGraph extends Graph {
 
             if (outerLoop != null) {
                 outerLoop.addAll(copies.values());
-                outerLoop.addAll(loop);
+                outerLoop.addAll((Collection) loop);
             }
         }
 
@@ -2196,6 +2213,16 @@ public class FlowGraph extends Graph {
         public String toString() {
             return "level=" + this.level + " depth=" + this.depth + " header=" + this.header + " " + this.elements;
         }
+
+        @Override
+        public boolean contains(Block pred) {
+            return false;
+        }
+
+        @Override
+        public void retainAll(Collection nodes) {
+
+        }
     }
 }
 class Subroutine {
@@ -2828,6 +2855,11 @@ class ReplaceVisitor extends TreeVisitor {
         expr.visitChildren(this);
     }
 
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+    }
+
     public void visitStaticFieldExpr(StaticFieldExpr expr) {
         expr.visitChildren(this);
     }
@@ -3391,6 +3423,11 @@ class ReplaceTarget extends TreeVisitor {
         }
     }
 
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+    }
+
     public void visitIfStmt(final LeafExpr.IfStmt stmt) {
         if (stmt.trueTarget() == oldDst) {
             stmt.setTrueTarget(newDst);
@@ -3486,6 +3523,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
 
                 public void visitStmt(final Stmt stmt) {
                 }
+
+                @Override
+                public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                }
             });
 
             // Generate the code for each block
@@ -3568,12 +3610,42 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                     if (exit != null) {
                         final JumpStmt oldJump = (JumpStmt) exit.tree()
                                 .lastStmt();
-                        final JumpStmt jump = new GotoStmt(stmt.follow());
+                        final JumpStmt jump = new JumpStmt(stmt.follow()) {
+                            @Override
+                            public void visitForceChildren(TreeVisitor var1) {
+
+                            }
+
+                            @Override
+                            public void visit(TreeVisitor var1) {
+
+                            }
+
+                            @Override
+                            public Object clone() {
+                                return null;
+                            }
+                        };
                         jump.catchTargets().addAll(oldJump.catchTargets());
                         oldJump.replaceWith(jump);
                     }
 
-                    final JumpStmt jump = new GotoStmt(sub.entry());
+                    final JumpStmt jump = new JumpStmt(sub.entry()) {
+                        @Override
+                        public void visitForceChildren(TreeVisitor var1) {
+
+                        }
+
+                        @Override
+                        public void visit(TreeVisitor var1) {
+
+                        }
+
+                        @Override
+                        public Object clone() {
+                            return null;
+                        }
+                    };
                     jump.catchTargets().addAll(stmt.catchTargets());
                     stmt.replaceWith(jump);
 
@@ -3600,11 +3672,21 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                                 }
                             }
                         }
+
+                        @Override
+                        public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                        }
                     });
                 }
             }
 
             public void visitStmt(final Stmt stmt) {
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
             }
         });
     }
@@ -3629,6 +3711,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                         e.remove();
                     }
                 }
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
             }
         });
     }
@@ -3710,6 +3797,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
 
                             public void visitNode(final Node node) {
                             }
+
+                            @Override
+                            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                            }
                         });
                     }
 
@@ -3754,6 +3846,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
             }
 
             public void visitStmt(final Stmt stmt) {
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
             }
         });
     }
@@ -3842,14 +3939,14 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                             // ...
 
                             public void visitExpr(final Expr expr) {
-                                StackExpr var = tree.newStack(expr.type());
+                                LeafExpr.StackExpr var = tree.newStack(expr.type());
                                 var.setValueNumber(expr.valueNumber());
 
                                 final Node p = expr.parent();
                                 expr.setParent(null);
                                 p.visit(new ReplaceVisitor(expr, var));
 
-                                var = (StackExpr) var.clone();
+                                var = (LeafExpr.StackExpr) var.clone();
                                 final StoreExpr store = new StoreExpr(var,
                                         expr, expr.type());
                                 store.setValueNumber(expr.valueNumber());
@@ -3861,6 +3958,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                             }
 
                             public void visitStackExpr(final StackExpr expr) {
+                            }
+
+                            @Override
+                            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
                             }
                         });
 
@@ -3876,6 +3978,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
                 }
 
                 public void visitStmt(final Stmt stmt) {
+                }
+
+                @Override
+                public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
                 }
             });
         }
@@ -3988,7 +4095,22 @@ class CodeGenerator extends TreeVisitor implements Opcode {
 
                             final JsrStmt stmt = (JsrStmt) predLast;
 
-                            final JumpStmt jump = new GotoStmt(stmt.follow());
+                            final JumpStmt jump = new JumpStmt(stmt.follow()) {
+                                @Override
+                                public void visitForceChildren(TreeVisitor var1) {
+
+                                }
+
+                                @Override
+                                public void visit(TreeVisitor var1) {
+
+                                }
+
+                                @Override
+                                public Object clone() {
+                                    return null;
+                                }
+                            };
                             jump.catchTargets().addAll(stmt.catchTargets());
                             stmt.replaceWith(jump);
 
@@ -5644,6 +5766,11 @@ class CodeGenerator extends TreeVisitor implements Opcode {
         genPostponed(expr);
     }
 
+    @Override
+    public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+    }
+
     public void visitStaticFieldExpr(final StaticFieldExpr expr) {
         expr.visitChildren(this);
         genPostponed(expr);
@@ -5882,6 +6009,11 @@ class RegisterAllocator {
                         }
                     }
                 }
+            }
+
+            @Override
+            public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
             }
 
             public void visitInitStmt(final InitStmt stmt) {
@@ -6487,6 +6619,11 @@ class Liveness {
 
                 public void visitStmt(final Stmt stmt) {
                 }
+
+                @Override
+                public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
+                }
             });
         }
 
@@ -6504,6 +6641,11 @@ class Liveness {
                     parent = node;
                     node.visitChildren(this);
                     parent = p;
+                }
+
+                @Override
+                public void visitTree(com.d0klabs.cryptowalt.data.Tree tree) {
+
                 }
 
                 public void visitLocalExpr(final LocalExpr expr) {

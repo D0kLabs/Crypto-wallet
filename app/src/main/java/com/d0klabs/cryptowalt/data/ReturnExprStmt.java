@@ -4,6 +4,7 @@ public class ReturnExprStmt extends JumpStmt {
     LeafExpr.Expr expr;
 
     public ReturnExprStmt(LeafExpr.Expr expr) {
+        super(stmt.follow());
         this.expr = expr;
         expr.setParent(this);
     }
