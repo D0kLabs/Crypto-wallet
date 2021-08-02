@@ -22,10 +22,7 @@ public class ObjectName implements Comparable<ObjectName> {
     private static final int DOMAIN_LENGTH_MASK = ~FLAG_MASK;
     //TODO: revrite Object params with all "if"
 
-    /**
-     * A structure recording property structure and
-     * proposing minimal services
-     */
+
     private static class Property {
 
         int _key_index;
@@ -65,13 +62,9 @@ public class ObjectName implements Comparable<ObjectName> {
         }
     }
 
-    /**
-     * Marker class for value pattern property.
-     */
+
     private static class PatternProperty extends Property {
-        /**
-         * Constructor.
-         */
+
         PatternProperty(int key_index, int key_length, int value_length) {
             super(key_index, key_length, value_length);
         }
@@ -115,48 +108,25 @@ public class ObjectName implements Comparable<ObjectName> {
             serialVersionUID = newSerialVersionUID;
         }
     }
-    /**
-     * a shared empty array for empty property lists
-     */
+
     static final private Property[] _Empty_property_array = new Property[0];
 
 
-    /**
-     * a String containing the canonical name
-     */
+
     private transient String _canonicalName;
 
 
-    /**
-     * An array of properties in the same seq order as time creation
-     */
+
     private transient Property[] _kp_array;
 
-    /**
-     * An array of properties in the same seq order as canonical order
-     */
+
     private transient Property[] _ca_array;
 
 
-    /**
-     * The propertyList of built object name. Initialized lazily.
-     * Table that contains all the pairs (key,value) for this ObjectName.
-     */
+
     private transient Map<String,String> _propertyList;
 
-    /**
-     * This field encodes _domain_pattern, _property_list_pattern and
-     * _property_value_pattern booleans and _domain_length integer.
-     * <p>
-     * The following masks can be used to extract the value:
-     * <ul>
-     * <li>{@linkplain ObjectName#DOMAIN_PATTERN}</li>
-     * <li>{@linkplain ObjectName#PROPLIST_PATTERN}</li>
-     * <li>{@linkplain ObjectName#PROPVAL_PATTERN}</li>
-     * <li>{@linkplain ObjectName#DOMAIN_LENGTH_MASK}</li>
-     * </ul>
-     * </p>.
-     */
+
     private transient int _compressed_storage = 0x0;
 
     private void construct(String name){
@@ -240,7 +210,7 @@ public class ObjectName implements Comparable<ObjectName> {
         boolean quoted_value;
         int property_index = 0;
         int in_index;
-        int key_index, key_length, value_index, value_length;
+        int key_index, key_length, value_index, value_length = 0;
 
         keys = new String[10];
         _kp_array = new Property[10];
@@ -963,118 +933,27 @@ public class ObjectName implements Comparable<ObjectName> {
             out.writeObject(getSerializedNameString());
         }
     }
-    /**
-     * <p>Return an instance of ObjectName that can be used anywhere
-     * an object obtained with {@link #ObjectName(String) new
-     * ObjectName(name)} can be used.  The returned object may be of
-     * a subclass of ObjectName.  Calling this method twice with the
-     * same parameters may return the same object or two equal but
-     * not identical objects.</p>
-     *
-     * @param name  A string representation of the object name.
-     *
-     * @return an ObjectName corresponding to the given String.
-     *
-     * @exception MalformedObjectNameException The string passed as a
-     * parameter does not have the right format.
-     * @exception NullPointerException The <code>name</code> parameter
-     * is null.
-     *
-     */
+
     public static ObjectName getInstance(String name){
            // throws MalformedObjectNameException, NullPointerException {
         return new ObjectName(name);
     }
 
-    /**
-     * <p>Return an instance of ObjectName that can be used anywhere
-     * an object obtained with {@link #ObjectName(String, String,
-     * String) new ObjectName(domain, key, value)} can be used.  The
-     * returned object may be of a subclass of ObjectName.  Calling
-     * this method twice with the same parameters may return the same
-     * object or two equal but not identical objects.</p>
-     *
-     * @param domain  The domain part of the object name.
-     * @param key  The attribute in the key property of the object name.
-     * @param value The value in the key property of the object name.
-     *
-     * @return an ObjectName corresponding to the given domain,
-     * key, and value.
-     *
-     * @exception MalformedObjectNameException The
-     * <code>domain</code>, <code>key</code>, or <code>value</code>
-     * contains an illegal character, or <code>value</code> does not
-     * follow the rules for quoting, or the domain's length exceeds
-     * the maximum allowed length.
-     * @exception NullPointerException One of the parameters is null.
-     *
-     */
+
     public static ObjectName getInstance(String domain, String key,
                                          String value){
             //throws MalformedObjectNameException {
         return new ObjectName(domain, key, value);
     }
 
-    /**
-     * <p>Return an instance of ObjectName that can be used anywhere
-     * an object obtained with {@link #ObjectName(String, Hashtable)
-     * new ObjectName(domain, table)} can be used.  The returned
-     * object may be of a subclass of ObjectName.  Calling this method
-     * twice with the same parameters may return the same object or
-     * two equal but not identical objects.</p>
-     *
-     * @param domain  The domain part of the object name.
-     * @param table A hash table containing one or more key
-     * properties.  The key of each entry in the table is the key of a
-     * key property in the object name.  The associated value in the
-     * table is the associated value in the object name.
-     *
-     * @return an ObjectName corresponding to the given domain and
-     * key mappings.
-     *
-     * @exception MalformedObjectNameException The <code>domain</code>
-     * contains an illegal character, or one of the keys or values in
-     * <code>table</code> contains an illegal character, or one of the
-     * values in <code>table</code> does not follow the rules for
-     * quoting, or the domain's length exceeds the maximum allowed length.
-     * @exception NullPointerException One of the parameters is null.
-     *
-     */
+
     public static ObjectName getInstance(String domain,
                                          Hashtable<String,String> table){
             //throws MalformedObjectNameException {
         return new ObjectName(domain, table);
     }
 
-    /**
-     * <p>Return an instance of ObjectName that can be used anywhere
-     * the given object can be used.  The returned object may be of a
-     * subclass of ObjectName.  If <code>name</code> is of a subclass
-     * of ObjectName, it is not guaranteed that the returned object
-     * will be of the same class.</p>
-     *
-     * <p>The returned value may or may not be identical to
-     * <code>name</code>.  Calling this method twice with the same
-     * parameters may return the same object or two equal but not
-     * identical objects.</p>
-     *
-     * <p>Since ObjectName is immutable, it is not usually useful to
-     * make a copy of an ObjectName.  The principal use of this method
-     * is to guard against a malicious caller who might pass an
-     * instance of a subclass with surprising behavior to sensitive
-     * code.  Such code can call this method to obtain an ObjectName
-     * that is known not to have surprising behavior.</p>
-     *
-     * @param name an instance of the ObjectName class or of a subclass
-     *
-     * @return an instance of ObjectName or a subclass that is known to
-     * have the same semantics.  If <code>name</code> respects the
-     * semantics of ObjectName, then the returned object is equal
-     * (though not necessarily identical) to <code>name</code>.
-     *
-     * @exception NullPointerException The <code>name</code> is null.
-     *
-     */
+
     public static ObjectName getInstance(ObjectName name) {
         if (name.getClass().equals(ObjectName.class)) {
             return name;
@@ -1086,35 +965,13 @@ public class ObjectName implements Comparable<ObjectName> {
         return null;
     }
 
-    /**
-     * Construct an object name from the given string.
-     *
-     * @param name  A string representation of the object name.
-     *
-     * @exception MalformedObjectNameException The string passed as a
-     * parameter does not have the right format.
-     * @exception NullPointerException The <code>name</code> parameter
-     * is null.
-     */
+
     public ObjectName(String name){
            // throws MalformedObjectNameException {
         construct(name);
     }
 
-    /**
-     * Construct an object name with exactly one key property.
-     *
-     * @param domain  The domain part of the object name.
-     * @param key  The attribute in the key property of the object name.
-     * @param value The value in the key property of the object name.
-     *
-     * @exception MalformedObjectNameException The
-     * <code>domain</code>, <code>key</code>, or <code>value</code>
-     * contains an illegal character, or <code>value</code> does not
-     * follow the rules for quoting, or the domain's length exceeds
-     * the maximum allowed length.
-     * @exception NullPointerException One of the parameters is null.
-     */
+
     public ObjectName(String domain, String key, String value){
            // throws MalformedObjectNameException {
         // If key or value are null a NullPointerException
@@ -1124,22 +981,7 @@ public class ObjectName implements Comparable<ObjectName> {
         construct(domain, table);
     }
 
-    /**
-     * Construct an object name with several key properties from a Hashtable.
-     *
-     * @param domain  The domain part of the object name.
-     * @param table A hash table containing one or more key
-     * properties.  The key of each entry in the table is the key of a
-     * key property in the object name.  The associated value in the
-     * table is the associated value in the object name.
-     *
-     * @exception MalformedObjectNameException The <code>domain</code>
-     * contains an illegal character, or one of the keys or values in
-     * <code>table</code> contains an illegal character, or one of the
-     * values in <code>table</code> does not follow the rules for
-     * quoting, or the domain's length exceeds the maximum allowed length.
-     * @exception NullPointerException One of the parameters is null.
-     */
+
     public ObjectName(String domain, Hashtable<String,String> table){
             //throws MalformedObjectNameException {
         construct(domain, table);

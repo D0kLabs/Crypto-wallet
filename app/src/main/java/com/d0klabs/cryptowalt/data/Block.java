@@ -217,7 +217,33 @@ public class Block extends GraphNode {
 
     }
 }
+class operand {
 
+    public static int index() {
+        return 0;
+    }
+}
+class stmt extends Stmt{
+
+    public static Block follow() {
+        return null;
+    }
+
+    @Override
+    public Object clone() {
+        return null;
+    }
+
+    @Override
+    public void visitForceChildren(TreeVisitor var1) {
+
+    }
+
+    @Override
+    public void visit(TreeVisitor var1) {
+
+    }
+}
 class StackOptimizer {
     static boolean DEBUG = false;
     Hashtable defInfoMap;
@@ -2445,6 +2471,7 @@ class StackManipStmt extends Stmt {
     }
 }
 class CatchExpr extends Expr {
+
     Type catchType;
 
     public CatchExpr(Type catchType, Type type) {
