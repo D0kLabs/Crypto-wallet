@@ -455,15 +455,15 @@ public class Graph {
 
         public void clear() {
             throw new UnsupportedOperationException();
-        }
+        } //TODO: remove all in list and check zero status
 
         public boolean add(Object a) {
             throw new UnsupportedOperationException();
-        }
+        } //TODO: wtf? and how to set new nodes?
 
         public boolean remove(Object a) {
             throw new UnsupportedOperationException();
-        }
+        } //TODO: nice))
 
         public int indexOf(Object a) {
             if (this.edgeModCount != Graph.this.edgeModCount) {
@@ -547,11 +547,11 @@ public class Graph {
 
         void removeNodeFromMap(Object key) {
             this.map.remove(key);
-        }
+        } //TODO: oh! value saved!
 
         void putNodeInMap(Object key, Object value) {
             this.map.put(key, value);
-        }
+        } //TODO:f@! #! Node by that where free from other connections. Where that prog? I would like to see his eyes)))
 
         public Object remove(Object key) {
             GraphNode v = (GraphNode)this.map.get(key);
@@ -560,13 +560,13 @@ public class Graph {
             }
 
             return v;
-        }
+        }//TODO: remove value and index, remove connections
 
         public Object put(Object key, Object value) {
             GraphNode v = (GraphNode)this.remove(key);
             Graph.this.addNode(key, (GraphNode)value);
             return v;
-        }
+        } //TODO: & return index of current v
 
         public void clear() {
             Iterator iter = this.entrySet().iterator();
