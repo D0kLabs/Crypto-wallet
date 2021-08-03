@@ -1,6 +1,5 @@
 package com.d0klabs.cryptowalt.data;
 
-import java.util.AbstractMap;
 import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +7,7 @@ import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +19,7 @@ public class Graph {
     private Graph.NodeList postOrder = null;
     private Collection roots = null;
     private Collection revRoots = null;
+    private transient Map.Entry header;
     protected int rootEdgeModCount = 0;
     protected int revRootEdgeModCount = 0;
     protected int nodeModCount = 0;
@@ -541,19 +542,20 @@ public class Graph {
         }
     }// TODO: add pre/post Order indexes, some privacy status if needed, what can recall it
 
-    class NodeMap extends AbstractMap {
-        HashMap map = new HashMap();
+    class NodeMap extends LinkedHashMap {
+        Map map = new LinkedHashMap(new HashMap());
 
-        NodeMap() {
-        }
+        NodeMap() {}
 
         void removeNodeFromMap(Object key) {
+            remove(key);
             this.map.remove(key);
-        } //TODO: oh! value saved!
+        }
 
         void putNodeInMap(Object key, Object value) {
+            put(key, value);
             this.map.put(key, value);
-        } //TODO:f@! #! Node by that where free from other connections. Where that prog? I would like to see his eyes)))
+        }
 
         public Object remove(Object key) {
             GraphNode v = (GraphNode)this.map.get(key);
@@ -562,13 +564,13 @@ public class Graph {
             }
 
             return v;
-        }//TODO: remove value and index, remove connections
+        }//TODO: need some object destructor
 
         public Object put(Object key, Object value) {
             GraphNode v = (GraphNode)this.remove(key);
             Graph.this.addNode(key, (GraphNode)value);
             return v;
-        } //TODO: & return index of current v
+        }
 
         public void clear() {
             Iterator iter = this.entrySet().iterator();
