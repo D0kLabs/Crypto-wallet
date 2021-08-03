@@ -105,7 +105,7 @@ public class Graph {
         }
 
         return node.preOrderIndex();
-    }
+    } //TODO: connect it with tree!
 
     public int postOrderIndex(GraphNode node) {
         if (this.postOrder == null || this.edgeModCount != this.postOrder.edgeModCount) {
@@ -113,7 +113,7 @@ public class Graph {
         }
 
         return node.postOrderIndex();
-    }
+    } //TODO: connect it with tree!
 
     public List preOrder() {
         if (this.preOrder == null || this.edgeModCount != this.preOrder.edgeModCount) {
@@ -121,7 +121,7 @@ public class Graph {
         }
 
         return this.preOrder;
-    }
+    } //TODO: connect it with tree!
 
     public List postOrder() {
         if (this.postOrder == null || this.edgeModCount != this.postOrder.edgeModCount) {
@@ -129,7 +129,7 @@ public class Graph {
         }
 
         return this.postOrder;
-    }
+    } //TODO: connect it with tree!
 
     private void buildLists() {
         Iterator iter = this.roots().iterator();
@@ -153,7 +153,7 @@ public class Graph {
             }
         }
 
-    }
+    } //TODO: connect it with tree! Use as some link builder
 
     public void removeUnreachable() {
         if (this.preOrder == null || this.edgeModCount != this.preOrder.edgeModCount) {
@@ -191,8 +191,8 @@ public class Graph {
 
     public void addNode(Object key, GraphNode node) {
         this.nodes.putNodeInMap(key, node);
-        this.preOrder = null;
-        this.postOrder = null;
+        this.preOrder = null; //TODO: rewrite! Need preOrder link from tree
+        this.postOrder = null; //TODO: rewrite! Need postOrder link from tree
         ++this.nodeModCount;
         ++this.edgeModCount;
     }
@@ -247,7 +247,7 @@ public class Graph {
         }
 
         return s;
-    } // TODO: rework!
+    } // TODO: maybe rework!
 
     public boolean hasNode(GraphNode v) {
         return this.nodes.containsValue(v);
@@ -259,7 +259,7 @@ public class Graph {
 
     public Collection nodes() {
         return this.nodes.values();
-    }
+    } // TODO: Use array of nodes for saving
 
     public int size() {
         return this.nodes.size();
@@ -537,7 +537,7 @@ public class Graph {
                 };
             }
         }
-    }
+    }// TODO: add pre/post Order indexes, some privacy status if needed, what can recall it
 
     class NodeMap extends AbstractMap {
         HashMap map = new HashMap();
