@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
+    public GraphNode node;
     private Graph.NodeMap nodes = new Graph.NodeMap();
     private Graph.NodeList preOrder = null;
     private Graph.NodeList postOrder = null;
@@ -53,26 +54,27 @@ public class Graph {
         ArrayList stack = new ArrayList();
         Iterator iter = this.nodes.values().iterator();
 
-        while(true) {
-            GraphNode node;
+        while(true) { // вже хуйовий початок циклу
+
             do {
-                if (!iter.hasNext()) {
+                if (!iter.hasNext()) { // коли ітератор закінчився
                     return;
                 }
 
-                node = (GraphNode)iter.next();
-            } while(visited.contains(node));
+                node = (GraphNode)iter.next(); // ітератор брати наступний, ... то піздец якийсь
+            } while(visited.contains(node)); // а як нода є а змінилися її обєкти чи хоть котрийсь параметр? то що пох?
 
             visited.add(node);
             stack.add(node);
 
-            while(!stack.isEmpty()) {
-                GraphNode v = (GraphNode)stack.remove(stack.size() - 1);
+            while(!stack.isEmpty()) { // поки в стаку щось є
+                GraphNode v = (GraphNode)stack.remove(stack.size() - 1); // забрати передостанній 1 з розміру стака... і нахуя якщо відбувається його заповнення?
                 boolean pushed = false;
                 Iterator preds = reverse ? v.succs.iterator() : v.preds.iterator();
 
                 while(preds.hasNext()) {
-                    GraphNode w = (GraphNode)preds.next();
+                    GraphNode w = (GraphNode)preds.next(); // а тут переливається з пустого в порожнє бо треба було контролювати
+                    // чи всі члени класу перераховані в стак замість оце щось видумувати
                     if (!visited.contains(w)) {
                         visited.add(w);
                         stack.add(w);
@@ -80,7 +82,7 @@ public class Graph {
                     }
                 }
 
-                if (!pushed) {
+                if (!pushed) { // що там в апачі курять. а простіше неззя?
                     c.add(v);
                 }
             }
