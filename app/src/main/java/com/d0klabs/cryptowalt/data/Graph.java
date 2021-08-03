@@ -199,7 +199,7 @@ public class Graph {
 
     public GraphNode getNode(Object key) {
         return (GraphNode)this.nodes.get(key);
-    }
+    } //TODO: it will return Graphnode with its index of tree
 
     public Set keySet() {
         return this.nodes.keySet();
@@ -219,12 +219,12 @@ public class Graph {
         this.postOrder = null;
         ++this.nodeModCount;
         ++this.edgeModCount;
-    }
+    } //TODO: remove Node with its connections
 
     public void addEdge(GraphNode v, GraphNode w) {
         this.succs(v).add(w);
         ++this.edgeModCount;
-    }
+    } // What is edge?
 
     public void removeEdge(GraphNode v, GraphNode w) {
         if (this.removingEdge == 0) {
@@ -247,7 +247,7 @@ public class Graph {
         }
 
         return s;
-    }
+    } // TODO: rework!
 
     public boolean hasNode(GraphNode v) {
         return this.nodes.containsValue(v);
